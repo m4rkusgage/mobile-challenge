@@ -13,6 +13,8 @@
 		8C0248EF1FBE207200117674 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C0248EE1FBE207200117674 /* Assets.xcassets */; };
 		8C0248F21FBE207200117674 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C0248F01FBE207200117674 /* LaunchScreen.storyboard */; };
 		8C0248F51FBE207200117674 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C0248F41FBE207200117674 /* main.m */; };
+		8C02490D1FBE2C8200117674 /* MGConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C02490C1FBE2C8200117674 /* MGConstants.m */; };
+		8C0249101FBE2EF500117674 /* MGApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C02490F1FBE2EF500117674 /* MGApiClient.m */; };
 		DB7492C76B350D873AAF070B /* libPods-500px-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 867B5813C26E5C64D14BBD12 /* libPods-500px-iOS.a */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +31,10 @@
 		8C0248F11FBE207200117674 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8C0248F31FBE207200117674 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C0248F41FBE207200117674 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8C02490B1FBE2C8200117674 /* MGConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGConstants.h; sourceTree = "<group>"; };
+		8C02490C1FBE2C8200117674 /* MGConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGConstants.m; sourceTree = "<group>"; };
+		8C02490E1FBE2EF500117674 /* MGApiClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGApiClient.h; sourceTree = "<group>"; };
+		8C02490F1FBE2EF500117674 /* MGApiClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGApiClient.m; sourceTree = "<group>"; };
 		C357CAE1D9DDEE871FBB1B66 /* Pods-500px-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-500px-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-500px-iOS/Pods-500px-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,6 +80,7 @@
 		8C0248E41FBE207100117674 /* 500pxChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				8C02490A1FBE293600117674 /* 500px-API */,
 				8C0248E51FBE207100117674 /* AppDelegate.h */,
 				8C0248E61FBE207100117674 /* AppDelegate.m */,
 				8C0248E81FBE207100117674 /* ViewController.h */,
@@ -85,6 +92,17 @@
 				8C0248F41FBE207200117674 /* main.m */,
 			);
 			path = 500pxChallenge;
+			sourceTree = "<group>";
+		};
+		8C02490A1FBE293600117674 /* 500px-API */ = {
+			isa = PBXGroup;
+			children = (
+				8C02490B1FBE2C8200117674 /* MGConstants.h */,
+				8C02490C1FBE2C8200117674 /* MGConstants.m */,
+				8C02490E1FBE2EF500117674 /* MGApiClient.h */,
+				8C02490F1FBE2EF500117674 /* MGApiClient.m */,
+			);
+			path = "500px-API";
 			sourceTree = "<group>";
 		};
 		92B99A99D973645100785BBA /* Frameworks */ = {
@@ -220,7 +238,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C0249101FBE2EF500117674 /* MGApiClient.m in Sources */,
 				8C0248EA1FBE207100117674 /* ViewController.m in Sources */,
+				8C02490D1FBE2C8200117674 /* MGConstants.m in Sources */,
 				8C0248F51FBE207200117674 /* main.m in Sources */,
 				8C0248E71FBE207100117674 /* AppDelegate.m in Sources */,
 			);
