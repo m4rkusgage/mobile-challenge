@@ -1,0 +1,21 @@
+PODS:
+  - OAuth (0.4.0)
+
+DEPENDENCIES:
+  - OAuth (from `https://github.com/m4rkusgage/OAuth.git`)
+
+EXTERNAL SOURCES:
+  OAuth:
+    :git: https://github.com/m4rkusgage/OAuth.git
+
+CHECKOUT OPTIONS:
+  OAuth:
+    :commit: 289db726917d8efcade09931d83668158c73f025
+    :git: https://github.com/m4rkusgage/OAuth.git
+
+SPEC CHECKSUMS:
+  OAuth: 7e4613322a0315a3d518d62ac732e11de625da87
+
+PODFILE CHECKSUM: 59a2d55279b6284ca412d5b45c40ef120854b988
+
+COCOAPODS: 1.3.1

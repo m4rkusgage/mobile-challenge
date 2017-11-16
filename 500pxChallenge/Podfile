@@ -1,0 +1,9 @@
+
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target '500px-iOS' do
+
+    pod 'OAuth', :git => 'https://github.com/m4rkusgage/OAuth.git'
+
+end
