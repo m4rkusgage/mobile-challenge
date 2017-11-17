@@ -7,16 +7,20 @@
 //
 
 #import "AppDelegate.h"
+#import "MGApiClient.h"
 
 @interface AppDelegate ()
-
+@property (strong, nonatomic) MGApiClient *apiClient;
 @end
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    self.apiClient = [MGApiClient sharedInstance];
+    [self.apiClient setUpAPIClient:^(BOOL isSuccessful, NSError *error) {}];
+    
     return YES;
 }
 
@@ -47,5 +51,23 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    
+    [self.apiClient verifyAuthorizationFromURL:url completion:^(BOOL isSuccessful, NSError *error) {
+        UIAlertController *alert = [[UIAlertController alloc] init];
+        alert.title = @"Authorization";
+        alert.message = isSuccessful ? @"Application Authorized" : @"Application Not Authorized";
+        
+        UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alert addAction:confirmAction];
+        
+        UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+        UIViewController *vc = [[navigationController viewControllers] lastObject];
+        [vc presentViewController:alert animated:YES completion:nil];
+    }];
+    
+    return YES;
+}
 @end
