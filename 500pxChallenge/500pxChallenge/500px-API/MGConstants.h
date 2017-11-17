@@ -39,6 +39,7 @@ extern NSString *const kMG500pxPhotoCategoryLandscape;
 extern NSString *const kMG500pxPhotoSortCreated;
 extern NSString *const kMG500pxPhotoSortRating;
 extern NSString *const kMG500pxPhotoSortTaken;
+extern NSString *const kMG500pxPhotoSortTimesViewed;
 
 extern NSString *const kMG500pxPhotoSortDirectionAsc;
 extern NSString *const kMG500pxPhotoSortDirectionDesc;

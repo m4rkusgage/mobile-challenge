@@ -77,10 +77,11 @@ static MGApiClient *_sharedInstance = nil;
         [parameters addEntriesFromDictionary:@{kMG500pxPhotoParameterExclude : categoriesString}];
     }
     
-    [parameters addEntriesFromDictionary:@{kMG500pxPhotoParameterSort : kMG500pxPhotoSortCreated,
-                                           kMG500pxPhotoParameterSortDirection : kMG500pxPhotoSortDirectionDesc,
+    [parameters addEntriesFromDictionary:@{kMG500pxPhotoParameterSortDirection : kMG500pxPhotoSortDirectionDesc,
                                            kMG500pxPhotoParameterImageSize : kMG500pxPhotoImageSize4,
-                                           kMG500pxPhotoParameterTags : @"1"}];
+                                           kMG500pxPhotoParameterTags : @"1",
+                                           @"rpp":@"100"
+                                           }];
     
     [self.authClient authorizedRequestPath:kMG500pxAPIPhotosPath forHTTPMethod:@"GET" extraParameters:[parameters copy] completion:^(id result, NSError *error) {
         NSMutableArray *photoArray = [[NSMutableArray alloc] init];
