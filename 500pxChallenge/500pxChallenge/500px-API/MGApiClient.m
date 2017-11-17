@@ -7,7 +7,6 @@
 //
 
 #import "MGApiClient.h"
-#import "MGConstants.h"
 #import <OAuth/OAuth.h>
 
 @interface MGApiClient()
@@ -60,6 +59,41 @@ static MGApiClient *_sharedInstance = nil;
     [self.authClient authorizationOpenFromURL:url completion:^(BOOL isSuccessful, NSError *error) {
         dispatch_sync(dispatch_get_main_queue(), ^{
             completion(isSuccessful, error);
+        });
+    }];
+}
+
+- (void)getListPhotosForFeature:(NSString *)feature includedCategories:(NSArray *)categories excludedCategories:(NSArray *)excludedCategories page:(NSInteger)page completion:(CompletionHandler)completion {
+    
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{kMG500pxPhotoParameterFeature : feature, kMG500pxPhotoParameterPage : [NSString stringWithFormat:@"%ld",(long)page]}];
+    
+    if ([categories count]) {
+        NSString *categoriesString = [categories componentsJoinedByString:@","];
+        [parameters addEntriesFromDictionary:@{kMG500pxPhotoParameterOnly : categoriesString}];
+    }
+    
+    if ([excludedCategories count]) {
+        NSString *categoriesString = [excludedCategories componentsJoinedByString:@","];
+        [parameters addEntriesFromDictionary:@{kMG500pxPhotoParameterExclude : categoriesString}];
+    }
+    
+    [parameters addEntriesFromDictionary:@{kMG500pxPhotoParameterSort : kMG500pxPhotoSortCreated,
+                                           kMG500pxPhotoParameterSortDirection : kMG500pxPhotoSortDirectionDesc,
+                                           kMG500pxPhotoParameterImageSize : kMG500pxPhotoImageSize4,
+                                           kMG500pxPhotoParameterTags : @"1"}];
+    
+    [self.authClient authorizedRequestPath:kMG500pxAPIPhotosPath forHTTPMethod:@"GET" extraParameters:[parameters copy] completion:^(id result, NSError *error) {
+        NSMutableArray *photoArray = [[NSMutableArray alloc] init];
+        
+        NSDictionary *responseDictionary = (NSDictionary *)result;
+        
+        for (NSDictionary *photoDictionary in responseDictionary[@"photos"]) {
+            MGPhoto *photo = [[MGPhoto alloc] initWithDictionary:photoDictionary];
+            [photoArray addObject:photo];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion([photoArray copy], nil);
         });
     }];
 }
