@@ -12,6 +12,7 @@
 #import "MGApiClient.h"
 
 @interface MGGridCollectionViewController ()<MGGridLayoutDelegate>
+@property (assign, nonatomic) NSInteger pageNumer;
 @property (strong, nonatomic) NSMutableArray *photoArray;
 @property (strong, nonatomic) MGApiClient *apiClient;
 @end
@@ -37,12 +38,14 @@ static NSString * const reuseIdentifier = @"GridCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.pageNumer = 1;
+    
     [self.collectionView registerNib:[UINib nibWithNibName:@"MGGridCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     
     [self.apiClient getListPhotosForFeature:kMG500pxPhotoFeaturePopular
-                         includedCategories:NULL
-                         excludedCategories:@[kMG500pxPhotoCategoryNude]
-                                       page:1
+                         includedCategories:@[]
+                         excludedCategories:@[]
+                                       page:self.pageNumer
                                  completion:^(NSArray *result, NSError *error) {
                                      self.photoArray = [result mutableCopy];
                                      [self.collectionView reloadData];
@@ -84,10 +87,25 @@ static NSString * const reuseIdentifier = @"GridCell";
     if (photo.photoImage) {
         cell.photoImageView.image = photo.photoImage;
     } else {
+        cell.photoImageView.image = nil;
         [self loadImageFor:photo forImageView:cell.photoImageView];
     }
     
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.item == [self.photoArray count] - 5) {
+        self.pageNumer+=1;
+        [self.apiClient getListPhotosForFeature:kMG500pxPhotoFeaturePopular
+                             includedCategories:@[]
+                             excludedCategories:@[]
+                                           page:self.pageNumer
+                                     completion:^(NSArray *result, NSError *error) {
+                                         [self.photoArray addObjectsFromArray:result];
+                                         [self.collectionView reloadData];
+                                     }];
+    }
 }
 
 #pragma mark <UICollectionViewDelegate>
