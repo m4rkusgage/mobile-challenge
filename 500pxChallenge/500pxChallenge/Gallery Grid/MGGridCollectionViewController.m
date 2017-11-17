@@ -96,7 +96,7 @@ static NSString * const reuseIdentifier = @"GridCell";
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.item == [self.photoArray count] - 5) {
-        self.pageNumer+=1;
+        self.pageNumer += 1;
         [self.apiClient getListPhotosForFeature:kMG500pxPhotoFeaturePopular
                              includedCategories:@[]
                              excludedCategories:@[]
@@ -140,8 +140,10 @@ static NSString * const reuseIdentifier = @"GridCell";
 */
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    MGGridLayout *gridLayout = (MGGridLayout *)collectionView.collectionViewLayout;
     MGPhoto *photo = self.photoArray[indexPath.item];
-    CGFloat ratio = photo.photoDimension.width / self.collectionView.bounds.size.width;
+    
+    CGFloat ratio = photo.photoDimension.height / gridLayout.preferredHeight;
     
     return CGSizeMake(photo.photoDimension.width/ratio, photo.photoDimension.height/ratio);
 }
@@ -163,4 +165,5 @@ static NSString * const reuseIdentifier = @"GridCell";
     
     [downloadTask resume];
 }
+
 @end
