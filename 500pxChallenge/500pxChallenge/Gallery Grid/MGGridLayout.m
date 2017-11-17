@@ -38,7 +38,7 @@
 }
 
 - (CGFloat)getWidth {
-    return self.collectionView.bounds.size.width;
+    return self.collectionView.bounds.size.width - (self.marginSize * 2);
 }
 
 - (CGSize)collectionViewContentSize {
@@ -48,10 +48,13 @@
 - (void)prepareLayout {
     [super prepareLayout];
     
-    NSMutableArray<NSNumber *> *xOffsets = [[NSMutableArray alloc] initWithObjects:@0, nil];
-    NSMutableArray<NSNumber *> *yOffsets = [[NSMutableArray alloc] initWithObjects:@0, nil];
+    NSMutableArray<NSNumber *> *xOffsets = [[NSMutableArray alloc] initWithObjects:@(self.marginSize), nil];
+    NSMutableArray<NSNumber *> *yOffsets = [[NSMutableArray alloc] initWithObjects:@(self.marginSize), nil];
     
-    for (int item = 0; item < [self.collectionView numberOfItemsInSection:0]; item++) {
+    NSMutableArray<NSArray *> *allRowsOfAttributes = [[NSMutableArray alloc] init];
+    NSMutableArray<UICollectionViewLayoutAttributes *> *currentRowOfAttributes = [[NSMutableArray alloc] init];
+    
+    for (int item = 0; item < [self.collectionView numberOfItemsInSection:0] - 1; item++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:0];
         CGSize itemSize = [self.gridDelegate collectionView:self.collectionView sizeForItemAtIndexPath:indexPath];
         
@@ -60,13 +63,34 @@
         UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
         attributes.frame = frame;
         
-        [self.attributeCache addObject:attributes];
-        self.contentHeight = MAX(self.contentHeight, CGRectGetMaxY(attributes.frame));
+        [currentRowOfAttributes addObject:attributes];
         
-        [xOffsets addObject:@0];
-        CGFloat yOffset = attributes.frame.origin.y + attributes.frame.size.height;
-        [yOffsets addObject:@(yOffset)];
+        NSIndexPath *nextIndexPath = [NSIndexPath indexPathForItem:item+1 inSection:0];
+        CGSize nextItemSize = [self.gridDelegate collectionView:self.collectionView sizeForItemAtIndexPath:nextIndexPath];
+        
+        CGFloat widthOfFrame = frame.origin.x + frame.size.width + nextItemSize.width + self.marginSize;
+        if (widthOfFrame < self.width) {
+            [yOffsets addObject:@(frame.origin.y)];
+            
+            CGFloat updatedXOffset = [xOffsets[item] floatValue] + attributes.frame.size.width + self.marginSize;
+            [xOffsets addObject:@(updatedXOffset)];
+        } else {
+            [allRowsOfAttributes addObject:[currentRowOfAttributes copy]];
+            [xOffsets addObject:@(self.marginSize)];
+            
+            CGFloat updatedYOffset = [yOffsets[item] floatValue] + attributes.frame.size.height + self.marginSize;
+            [yOffsets addObject:@(updatedYOffset)];
+            
+            [currentRowOfAttributes removeAllObjects];
+        }
     }
+    for (NSArray *row in allRowsOfAttributes) {
+        for (UICollectionViewLayoutAttributes *attributes in row) {
+            [self.attributeCache addObject:attributes];
+            self.contentHeight = MAX(self.contentHeight, CGRectGetMaxY(attributes.frame));
+        }
+    }
+    self.contentHeight += 1;
 }
 
 - (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
@@ -81,5 +105,19 @@
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
     return self.attributeCache[indexPath.item];
+}
+
+- (CGFloat)preferredHeight {
+    if (!_preferredHeight) {
+        _preferredHeight = 100;
+    }
+    return _preferredHeight;
+}
+
+- (CGFloat)marginSize {
+    if (!_marginSize) {
+        _marginSize = 0;
+    }
+    return _marginSize;
 }
 @end

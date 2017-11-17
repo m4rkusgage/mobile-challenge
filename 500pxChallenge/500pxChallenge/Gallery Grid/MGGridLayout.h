@@ -14,4 +14,6 @@
 
 @interface MGGridLayout : UICollectionViewLayout
 @property (weak, nonatomic) IBOutlet id<MGGridLayoutDelegate> gridDelegate;
+@property (assign, nonatomic) IBInspectable CGFloat preferredHeight;
+@property (assign, nonatomic) IBInspectable CGFloat marginSize;
 @end
