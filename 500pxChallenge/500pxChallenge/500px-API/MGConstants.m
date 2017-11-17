@@ -39,6 +39,7 @@ NSString *const kMG500pxPhotoCategoryLandscape = @"Landscape";
 NSString *const kMG500pxPhotoSortCreated = @"created_at";
 NSString *const kMG500pxPhotoSortRating = @"rating";
 NSString *const kMG500pxPhotoSortTaken = @"taken_at";
+NSString *const kMG500pxPhotoSortTimesViewed = @"times_viewed";
 
 NSString *const kMG500pxPhotoSortDirectionAsc = @"asc";
 NSString *const kMG500pxPhotoSortDirectionDesc = @"desc";
