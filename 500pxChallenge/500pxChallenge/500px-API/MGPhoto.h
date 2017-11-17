@@ -13,5 +13,5 @@
 @interface MGPhoto : NSObject<ModelProtocol>
 @property (assign, nonatomic, readonly) CGSize photoDimension;
 @property (strong, nonatomic, readonly) NSString *photoURL;
-@property (strong, nonatomic, readonly) UIImage *photoImage;
+@property (strong, nonatomic) UIImage *photoImage;
 @end
