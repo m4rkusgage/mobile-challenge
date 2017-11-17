@@ -75,7 +75,9 @@
             CGFloat updatedXOffset = [xOffsets[item] floatValue] + attributes.frame.size.width + self.marginSize;
             [xOffsets addObject:@(updatedXOffset)];
         } else {
-            [allRowsOfAttributes addObject:[currentRowOfAttributes copy]];
+            NSArray *updatedRowOfAttributes = [self updateRowAttribues:currentRowOfAttributes];
+            
+            [allRowsOfAttributes addObject:updatedRowOfAttributes];
             [xOffsets addObject:@(self.marginSize)];
             
             CGFloat updatedYOffset = [yOffsets[item] floatValue] + attributes.frame.size.height + self.marginSize;
@@ -119,5 +121,32 @@
         _marginSize = 0;
     }
     return _marginSize;
+}
+
+- (NSArray *)updateRowAttribues:(NSArray *)attributesArray {
+    CGFloat rowWidth = [self getWidthOfRow:attributesArray];
+    CGFloat ratio = rowWidth / self.width;
+    CGFloat xOffset = self.marginSize;
+    
+    for (UICollectionViewLayoutAttributes *attributes in attributesArray) {
+        CGRect frame = attributes.frame;
+        frame.origin.x = xOffset;
+        frame.size.width /= ratio;
+        frame.size.height /= ratio;
+        
+        attributes.frame = frame;
+        xOffset = frame.origin.x + frame.size.width + self.marginSize;
+    }
+    return [attributesArray copy];
+}
+
+- (CGFloat)getWidthOfRow:(NSArray *)rowOfAttributes {
+    CGFloat widthTotal = (self.marginSize * ([rowOfAttributes count] - 1));
+    
+    for (UICollectionViewLayoutAttributes *attributes in rowOfAttributes) {
+        widthTotal += (attributes.frame.size.width);
+    }
+    
+    return widthTotal;
 }
 @end
