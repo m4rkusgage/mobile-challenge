@@ -11,4 +11,6 @@
 @interface MGGridCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
 
+- (void)reset;
+- (void)setImage:(UIImage *)image;
 @end

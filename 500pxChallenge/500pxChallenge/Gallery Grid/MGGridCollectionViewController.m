@@ -43,7 +43,7 @@ static NSString * const reuseIdentifier = @"GridCell";
     [self.collectionView registerNib:[UINib nibWithNibName:@"MGGridCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     
     [self.apiClient getListPhotosForFeature:kMG500pxPhotoFeaturePopular
-                         includedCategories:@[]
+                         includedCategories:@[kMG500pxPhotoCategoryTravel]
                          excludedCategories:@[]
                                        page:self.pageNumer
                                  completion:^(NSArray *result, NSError *error) {
@@ -83,12 +83,12 @@ static NSString * const reuseIdentifier = @"GridCell";
     MGPhoto *photo = self.photoArray[indexPath.item];
     
     MGGridCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    [cell reset];
     
     if (photo.photoImage) {
-        cell.photoImageView.image = photo.photoImage;
+        [cell setImage:photo.photoImage];
     } else {
-        cell.photoImageView.image = nil;
-        [self loadImageFor:photo forImageView:cell.photoImageView];
+        [self loadImageFor:photo forCell:cell atIndexPath:indexPath withCollectionView:collectionView];
     }
     
     return cell;
@@ -98,7 +98,7 @@ static NSString * const reuseIdentifier = @"GridCell";
     if (indexPath.item == [self.photoArray count] - 5) {
         self.pageNumer += 1;
         [self.apiClient getListPhotosForFeature:kMG500pxPhotoFeaturePopular
-                             includedCategories:@[]
+                             includedCategories:@[kMG500pxPhotoCategoryTravel]
                              excludedCategories:@[]
                                            page:self.pageNumer
                                      completion:^(NSArray *result, NSError *error) {
@@ -139,6 +139,16 @@ static NSString * const reuseIdentifier = @"GridCell";
 }
 */
 
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self loadImagesForOnScreenItems];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (!decelerate) {
+        [self loadImagesForOnScreenItems];
+    }
+}
+
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     MGGridLayout *gridLayout = (MGGridLayout *)collectionView.collectionViewLayout;
     MGPhoto *photo = self.photoArray[indexPath.item];
@@ -148,7 +158,9 @@ static NSString * const reuseIdentifier = @"GridCell";
     return CGSizeMake(photo.photoDimension.width/ratio, photo.photoDimension.height/ratio);
 }
 
-- (void)loadImageFor:(MGPhoto *)photo forImageView:(UIImageView *)imageView {
+- (void)loadImageFor:(MGPhoto *)photo forCell:(MGGridCollectionViewCell *)gridCell atIndexPath:(NSIndexPath *)indexPath withCollectionView:(UICollectionView *)collectionView {
+    
+    gridCell.photoImageView.image = nil;
     NSURL *imageURL = [NSURL URLWithString:photo.photoURL];
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
@@ -159,11 +171,25 @@ static NSString * const reuseIdentifier = @"GridCell";
         photo.photoImage = img;
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            imageView.image = img;
+            if ([collectionView indexPathForCell:gridCell].item == indexPath.item) {
+                [gridCell setImage:img];
+            }
         });
     }];
     
     [downloadTask resume];
 }
 
+- (void)loadImagesForOnScreenItems {
+    if ([self.photoArray count]) {
+        NSArray *visiblePaths = [self.collectionView indexPathsForVisibleItems];
+        for (NSIndexPath *indexPath in visiblePaths) {
+            MGPhoto *photo = self.photoArray[indexPath.item];
+            MGGridCollectionViewCell *cell = (id)[self.collectionView cellForItemAtIndexPath:indexPath];
+            if (photo.photoImage) {
+                [cell setImage:photo.photoImage];
+            }
+        }
+    }
+}
 @end
