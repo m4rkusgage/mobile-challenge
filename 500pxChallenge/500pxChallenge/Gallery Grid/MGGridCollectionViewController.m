@@ -7,10 +7,11 @@
 //
 
 #import "MGGridCollectionViewController.h"
+#import "MGGridLayout.h"
 #import "MGGridCollectionViewCell.h"
 #import "MGApiClient.h"
 
-@interface MGGridCollectionViewController ()
+@interface MGGridCollectionViewController ()<MGGridLayoutDelegate>
 @property (strong, nonatomic) NSMutableArray *photoArray;
 @property (strong, nonatomic) MGApiClient *apiClient;
 @end
@@ -75,10 +76,16 @@ static NSString * const reuseIdentifier = @"GridCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    MGPhoto *photo = self.photoArray[indexPath.item];
+    
     MGGridCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    [cell setBackgroundColor:[UIColor greenColor]];
-    // Configure the cell
+    if (photo.photoImage) {
+        cell.photoImageView.image = photo.photoImage;
+    } else {
+        [self loadImageFor:photo forImageView:cell.photoImageView];
+    }
     
     return cell;
 }
@@ -114,4 +121,28 @@ static NSString * const reuseIdentifier = @"GridCell";
 }
 */
 
+- (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    MGPhoto *photo = self.photoArray[indexPath.item];
+    CGFloat ratio = photo.photoDimension.width / self.collectionView.bounds.size.width;
+    
+    return CGSizeMake(photo.photoDimension.width/ratio, photo.photoDimension.height/ratio);
+}
+
+- (void)loadImageFor:(MGPhoto *)photo forImageView:(UIImageView *)imageView {
+    NSURL *imageURL = [NSURL URLWithString:photo.photoURL];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    NSURLSessionTask *downloadTask = [session downloadTaskWithURL:imageURL completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        UIImage *img = [UIImage imageWithData:[NSData dataWithContentsOfURL:location]];
+        photo.photoImage = img;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            imageView.image = img;
+        });
+    }];
+    
+    [downloadTask resume];
+}
 @end

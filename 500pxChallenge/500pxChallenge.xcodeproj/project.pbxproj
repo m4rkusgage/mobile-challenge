@@ -20,6 +20,7 @@
 		8C02492A1FBE647900117674 /* MGGridCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C0249281FBE647900117674 /* MGGridCollectionViewCell.m */; };
 		8C02492B1FBE647900117674 /* MGGridCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C0249291FBE647900117674 /* MGGridCollectionViewCell.xib */; };
 		8C02492F1FBE653700117674 /* MGGridCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C02492D1FBE653700117674 /* MGGridCollectionViewController.m */; };
+		8C0249331FBE6C1D00117674 /* MGGridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C0249321FBE6C1C00117674 /* MGGridLayout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,8 @@
 		8C0249291FBE647900117674 /* MGGridCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MGGridCollectionViewCell.xib; sourceTree = "<group>"; };
 		8C02492C1FBE653700117674 /* MGGridCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGGridCollectionViewController.h; sourceTree = "<group>"; };
 		8C02492D1FBE653700117674 /* MGGridCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGGridCollectionViewController.m; sourceTree = "<group>"; };
+		8C0249311FBE6C1C00117674 /* MGGridLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGGridLayout.h; sourceTree = "<group>"; };
+		8C0249321FBE6C1C00117674 /* MGGridLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGGridLayout.m; sourceTree = "<group>"; };
 		C357CAE1D9DDEE871FBB1B66 /* Pods-500px-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-500px-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-500px-iOS/Pods-500px-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -129,6 +132,8 @@
 				8C0249291FBE647900117674 /* MGGridCollectionViewCell.xib */,
 				8C02492C1FBE653700117674 /* MGGridCollectionViewController.h */,
 				8C02492D1FBE653700117674 /* MGGridCollectionViewController.m */,
+				8C0249311FBE6C1C00117674 /* MGGridLayout.h */,
+				8C0249321FBE6C1C00117674 /* MGGridLayout.m */,
 			);
 			path = "Gallery Grid";
 			sourceTree = "<group>";
@@ -274,6 +279,7 @@
 				8C02490D1FBE2C8200117674 /* MGConstants.m in Sources */,
 				8C0248F51FBE207200117674 /* main.m in Sources */,
 				8C0248E71FBE207100117674 /* AppDelegate.m in Sources */,
+				8C0249331FBE6C1D00117674 /* MGGridLayout.m in Sources */,
 				8C02492A1FBE647900117674 /* MGGridCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -44,20 +44,19 @@
             </objects>
             <point key="canvasLocation" x="244" y="520.38980509745136"/>
         </scene>
-        <!--Grid Collection View Controller-->
+        <!--Grid Gallery-->
         <scene sceneID="m4W-Cm-Odb">
             <objects>
-                <collectionViewController id="fxn-v2-E8O" customClass="MGGridCollectionViewController" sceneMemberID="viewController">
+                <collectionViewController id="fxn-v2-E8O" userLabel="Grid Gallery" customClass="MGGridCollectionViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="atx-Kq-K71">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="0.11967075892857143" alpha="1" colorSpace="calibratedRGB"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dom-gW-5es">
-                            <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <collectionViewLayout key="collectionViewLayout" id="sMw-N7-BvW" customClass="MGGridLayout">
+                            <connections>
+                                <outlet property="gridDelegate" destination="fxn-v2-E8O" id="bir-cz-SNV"/>
+                            </connections>
+                        </collectionViewLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="1SG-vy-IFY">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
