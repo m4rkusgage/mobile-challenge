@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "MGApiClient.h"
+#import "MGGridCollectionViewController.h"
 
 @interface ViewController ()
 @property (strong, nonatomic) MGApiClient *apiClient;
@@ -44,6 +45,10 @@
 
 - (IBAction)getAuthorizeButtonPressed:(id)sender {
     [self.apiClient authorize];
+}
+- (IBAction)gridButtonPressed:(id)sender {
+    
+    [self.navigationController performSegueWithIdentifier:@"" sender:nil];
 }
 
 @end

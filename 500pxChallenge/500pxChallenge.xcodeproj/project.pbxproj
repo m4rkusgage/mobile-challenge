@@ -17,6 +17,9 @@
 		8C0249101FBE2EF500117674 /* MGApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C02490F1FBE2EF500117674 /* MGApiClient.m */; };
 		8C0249151FBE328600117674 /* libPods-500px-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 867B5813C26E5C64D14BBD12 /* libPods-500px-iOS.a */; };
 		8C0249181FBE501000117674 /* MGPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C0249171FBE501000117674 /* MGPhoto.m */; };
+		8C02492A1FBE647900117674 /* MGGridCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C0249281FBE647900117674 /* MGGridCollectionViewCell.m */; };
+		8C02492B1FBE647900117674 /* MGGridCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C0249291FBE647900117674 /* MGGridCollectionViewCell.xib */; };
+		8C02492F1FBE653700117674 /* MGGridCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C02492D1FBE653700117674 /* MGGridCollectionViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +42,11 @@
 		8C0249161FBE501000117674 /* MGPhoto.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGPhoto.h; sourceTree = "<group>"; };
 		8C0249171FBE501000117674 /* MGPhoto.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGPhoto.m; sourceTree = "<group>"; };
 		8C0249191FBE5C2200117674 /* ModelProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModelProtocol.h; sourceTree = "<group>"; };
+		8C0249271FBE647900117674 /* MGGridCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGGridCollectionViewCell.h; sourceTree = "<group>"; };
+		8C0249281FBE647900117674 /* MGGridCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGGridCollectionViewCell.m; sourceTree = "<group>"; };
+		8C0249291FBE647900117674 /* MGGridCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MGGridCollectionViewCell.xib; sourceTree = "<group>"; };
+		8C02492C1FBE653700117674 /* MGGridCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGGridCollectionViewController.h; sourceTree = "<group>"; };
+		8C02492D1FBE653700117674 /* MGGridCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGGridCollectionViewController.m; sourceTree = "<group>"; };
 		C357CAE1D9DDEE871FBB1B66 /* Pods-500px-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-500px-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-500px-iOS/Pods-500px-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,6 +92,7 @@
 		8C0248E41FBE207100117674 /* 500pxChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				8C0249261FBE643000117674 /* Gallery Grid */,
 				8C02490A1FBE293600117674 /* 500px-API */,
 				8C0248E51FBE207100117674 /* AppDelegate.h */,
 				8C0248E61FBE207100117674 /* AppDelegate.m */,
@@ -110,6 +119,18 @@
 				8C0249191FBE5C2200117674 /* ModelProtocol.h */,
 			);
 			path = "500px-API";
+			sourceTree = "<group>";
+		};
+		8C0249261FBE643000117674 /* Gallery Grid */ = {
+			isa = PBXGroup;
+			children = (
+				8C0249271FBE647900117674 /* MGGridCollectionViewCell.h */,
+				8C0249281FBE647900117674 /* MGGridCollectionViewCell.m */,
+				8C0249291FBE647900117674 /* MGGridCollectionViewCell.xib */,
+				8C02492C1FBE653700117674 /* MGGridCollectionViewController.h */,
+				8C02492D1FBE653700117674 /* MGGridCollectionViewController.m */,
+			);
+			path = "Gallery Grid";
 			sourceTree = "<group>";
 		};
 		92B99A99D973645100785BBA /* Frameworks */ = {
@@ -183,6 +204,7 @@
 			files = (
 				8C0248F21FBE207200117674 /* LaunchScreen.storyboard in Resources */,
 				8C0248EF1FBE207200117674 /* Assets.xcassets in Resources */,
+				8C02492B1FBE647900117674 /* MGGridCollectionViewCell.xib in Resources */,
 				8C0248ED1FBE207200117674 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -245,12 +267,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C02492F1FBE653700117674 /* MGGridCollectionViewController.m in Sources */,
 				8C0249101FBE2EF500117674 /* MGApiClient.m in Sources */,
 				8C0248EA1FBE207100117674 /* ViewController.m in Sources */,
 				8C0249181FBE501000117674 /* MGPhoto.m in Sources */,
 				8C02490D1FBE2C8200117674 /* MGConstants.m in Sources */,
 				8C0248F51FBE207200117674 /* main.m in Sources */,
 				8C0248E71FBE207100117674 /* AppDelegate.m in Sources */,
+				8C02492A1FBE647900117674 /* MGGridCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
