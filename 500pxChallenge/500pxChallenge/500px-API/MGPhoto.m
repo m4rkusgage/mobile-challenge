@@ -11,7 +11,6 @@
 @interface MGPhoto ()
 @property (assign, nonatomic) CGSize photoDimension;
 @property (strong, nonatomic) NSString *photoURL;
-@property (strong, nonatomic) UIImage *photoImage;
 @end
 
 @implementation MGPhoto
