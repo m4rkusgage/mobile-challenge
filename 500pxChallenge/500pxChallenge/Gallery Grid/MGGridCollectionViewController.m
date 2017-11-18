@@ -10,8 +10,9 @@
 #import "MGGridLayout.h"
 #import "MGGridCollectionViewCell.h"
 #import "MGApiClient.h"
+#import "MGGalleryFullscreenCollectionViewController.h"
 
-@interface MGGridCollectionViewController ()<MGGridLayoutDelegate>
+@interface MGGridCollectionViewController ()<MGGridLayoutDelegate, UINavigationControllerDelegate>
 @property (assign, nonatomic) NSInteger pageNumer;
 @property (strong, nonatomic) NSMutableArray *photoArray;
 @property (strong, nonatomic) MGApiClient *apiClient;
@@ -37,6 +38,7 @@ static NSString * const reuseIdentifier = @"GridCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationController setDelegate:self];
     
     self.pageNumer = 1;
     
@@ -111,7 +113,9 @@ static NSString * const reuseIdentifier = @"GridCell";
 }
 
 #pragma mark <UICollectionViewDelegate>
-
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"showFullscreen" sender:indexPath];
+}
 /*
 // Uncomment this method to specify if the specified item should be highlighted during tracking
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -194,6 +198,17 @@ static NSString * const reuseIdentifier = @"GridCell";
                 photo.wasShown = YES;
             }
         }
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"showFullscreen"]) {
+        NSIndexPath *indexPath = (NSIndexPath *)sender;
+        
+        MGGalleryFullscreenCollectionViewController *fullscreenController = (MGGalleryFullscreenCollectionViewController *)[segue destinationViewController];
+        
+        fullscreenController.currentIndexPath = indexPath;
+        fullscreenController.photoArray = self.photoArray;
     }
 }
 @end

@@ -10,4 +10,8 @@
 
 @interface MGGalleryFullscreenCollectionViewCell : UICollectionViewCell
 
+@property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
+- (void)setImage:(UIImage *)image;
 @end

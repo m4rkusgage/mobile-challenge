@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MGGalleryFullscreenCollectionViewController : UICollectionViewController
-
+@property (strong, nonatomic) NSMutableArray *photoArray;
+@property (strong, nonatomic) NSIndexPath *currentIndexPath;
 @end
