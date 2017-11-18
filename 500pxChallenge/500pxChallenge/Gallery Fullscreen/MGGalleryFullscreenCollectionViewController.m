@@ -10,7 +10,7 @@
 #import "MGGalleryFullscreenCollectionViewCell.h"
 #import "MGApiClient.h"
 
-@interface MGGalleryFullscreenCollectionViewController ()
+@interface MGGalleryFullscreenCollectionViewController ()<MGGalleryFullscreenCollectionViewCellDelegate>
 
 @end
 
@@ -24,9 +24,7 @@ static NSString * const reuseIdentifier = @"FullscreenCell";
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"MGGalleryFullscreenCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     
-    // Do any additional setup after loading the view.
-    
-    
+    // Do any additional setup after loading the view.    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,7 +57,7 @@ static NSString * const reuseIdentifier = @"FullscreenCell";
     MGPhoto *photo = self.photoArray[indexPath.item];
     
     MGGalleryFullscreenCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    cell.photoImageView.image = nil;
+    [cell setCellDelegate:self];
     
     if (photo.photoImage) {
         [cell setImage:photo.photoImage];
@@ -102,4 +100,11 @@ static NSString * const reuseIdentifier = @"FullscreenCell";
 }
 */
 
+- (void)fullscreenCell:(MGGalleryFullscreenCollectionViewCell *)cell inUse:(BOOL)isActive {
+    if (isActive) {
+        [self.collectionView setScrollEnabled:NO];
+    } else {
+        [self.collectionView setScrollEnabled:YES];
+    }
+}
 @end

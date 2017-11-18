@@ -33,6 +33,14 @@
     return self.photoImageView;
 }
 
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView {
+    if (scrollView.zoomScale > self.scrollView.minimumZoomScale) {
+        [self.cellDelegate fullscreenCell:self inUse:YES];
+    } else {
+        [self.cellDelegate fullscreenCell:self inUse:NO];
+    }
+}
+
 - (void)setImage:(UIImage *)image {
     self.photoImageView.image = image;
     self.scrollView.contentSize = self.photoImageView.frame.size;
