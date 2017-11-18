@@ -20,6 +20,7 @@ static NSString * const reuseIdentifier = @"FullscreenCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.collectionView setPagingEnabled:YES];
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"MGGalleryFullscreenCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     
@@ -58,6 +59,7 @@ static NSString * const reuseIdentifier = @"FullscreenCell";
     MGPhoto *photo = self.photoArray[indexPath.item];
     
     MGGalleryFullscreenCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    cell.photoImageView.image = nil;
     
     if (photo.photoImage) {
         [cell setImage:photo.photoImage];

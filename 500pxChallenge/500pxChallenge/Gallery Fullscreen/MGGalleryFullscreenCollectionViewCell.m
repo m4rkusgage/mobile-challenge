@@ -19,8 +19,14 @@
     
     [self.scrollView setDelegate:self];
     self.scrollView.minimumZoomScale = 1.0;
-    self.scrollView.maximumZoomScale = 6.0;
-    [self.scrollView setBouncesZoom:YES];
+    self.scrollView.maximumZoomScale = 3.0;
+    [self.scrollView setBouncesZoom:NO];
+}
+
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    
+    self.photoImageView.image = nil;
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
@@ -29,6 +35,7 @@
 
 - (void)setImage:(UIImage *)image {
     self.photoImageView.image = image;
+    self.scrollView.contentSize = self.photoImageView.frame.size;
 }
 
 @end
