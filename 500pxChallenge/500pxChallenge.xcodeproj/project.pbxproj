@@ -24,6 +24,7 @@
 		8C02492B1FBE647900117674 /* MGGridCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C0249291FBE647900117674 /* MGGridCollectionViewCell.xib */; };
 		8C02492F1FBE653700117674 /* MGGridCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C02492D1FBE653700117674 /* MGGridCollectionViewController.m */; };
 		8C0249331FBE6C1D00117674 /* MGGridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C0249321FBE6C1C00117674 /* MGGridLayout.m */; };
+		8C6DB3FD1FC0D3AD00C2F731 /* MGFullscreenLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6DB3FC1FC0D3AD00C2F731 /* MGFullscreenLayout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,8 @@
 		8C02492D1FBE653700117674 /* MGGridCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGGridCollectionViewController.m; sourceTree = "<group>"; };
 		8C0249311FBE6C1C00117674 /* MGGridLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGGridLayout.h; sourceTree = "<group>"; };
 		8C0249321FBE6C1C00117674 /* MGGridLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGGridLayout.m; sourceTree = "<group>"; };
+		8C6DB3FB1FC0D3AD00C2F731 /* MGFullscreenLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGFullscreenLayout.h; sourceTree = "<group>"; };
+		8C6DB3FC1FC0D3AD00C2F731 /* MGFullscreenLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGFullscreenLayout.m; sourceTree = "<group>"; };
 		C357CAE1D9DDEE871FBB1B66 /* Pods-500px-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-500px-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-500px-iOS/Pods-500px-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -141,6 +144,8 @@
 				8C0249211FBE63B400117674 /* MGGalleryFullscreenCollectionViewCell.h */,
 				8C0249221FBE63B400117674 /* MGGalleryFullscreenCollectionViewCell.m */,
 				8C0249231FBE63B400117674 /* MGGalleryFullscreenCollectionViewCell.xib */,
+				8C6DB3FB1FC0D3AD00C2F731 /* MGFullscreenLayout.h */,
+				8C6DB3FC1FC0D3AD00C2F731 /* MGFullscreenLayout.m */,
 			);
 			path = "Gallery Fullscreen";
 			sourceTree = "<group>";
@@ -298,6 +303,7 @@
 				8C0249241FBE63B400117674 /* MGGalleryFullscreenCollectionViewCell.m in Sources */,
 				8C0249101FBE2EF500117674 /* MGApiClient.m in Sources */,
 				8C0248EA1FBE207100117674 /* ViewController.m in Sources */,
+				8C6DB3FD1FC0D3AD00C2F731 /* MGFullscreenLayout.m in Sources */,
 				8C0249181FBE501000117674 /* MGPhoto.m in Sources */,
 				8C02490D1FBE2C8200117674 /* MGConstants.m in Sources */,
 				8C0248F51FBE207200117674 /* main.m in Sources */,
