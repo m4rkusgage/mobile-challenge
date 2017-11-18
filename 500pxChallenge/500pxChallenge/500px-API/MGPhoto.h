@@ -11,6 +11,7 @@
 #import "ModelProtocol.h"
 
 @interface MGPhoto : NSObject<ModelProtocol>
+@property (assign, nonatomic) BOOL wasShown;
 @property (assign, nonatomic, readonly) CGSize photoDimension;
 @property (strong, nonatomic, readonly) NSString *photoURL;
 @property (strong, nonatomic) UIImage *photoImage;

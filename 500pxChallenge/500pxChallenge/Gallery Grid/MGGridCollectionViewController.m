@@ -83,7 +83,9 @@ static NSString * const reuseIdentifier = @"GridCell";
     MGPhoto *photo = self.photoArray[indexPath.item];
     
     MGGridCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    [cell reset];
+    if (!photo.wasShown) {
+        [cell reset];
+    }
     
     if (photo.photoImage) {
         [cell setImage:photo.photoImage];
@@ -173,6 +175,7 @@ static NSString * const reuseIdentifier = @"GridCell";
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([collectionView indexPathForCell:gridCell].item == indexPath.item) {
                 [gridCell setImage:img];
+                photo.wasShown = YES;
             }
         });
     }];
@@ -188,6 +191,7 @@ static NSString * const reuseIdentifier = @"GridCell";
             MGGridCollectionViewCell *cell = (id)[self.collectionView cellForItemAtIndexPath:indexPath];
             if (photo.photoImage) {
                 [cell setImage:photo.photoImage];
+                photo.wasShown = YES;
             }
         }
     }
