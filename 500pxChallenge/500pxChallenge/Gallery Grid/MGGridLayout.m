@@ -149,4 +149,24 @@
     
     return widthTotal;
 }
+
+- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath
+{
+    return self.attributeCache[itemIndexPath.item];
+}
+
+- (UICollectionViewLayoutAttributes *)finalLayoutAttributesForDisappearingItemAtIndexPath:(NSIndexPath *)itemIndexPath
+{
+    return [self layoutAttributesForItemAtIndexPath:itemIndexPath];
+}
+
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
+    CGRect oldBounds = self.collectionView.bounds;
+    if (CGRectGetWidth(oldBounds) != CGRectGetWidth(newBounds)) {
+        [self.attributeCache removeAllObjects];
+        return YES;
+    }
+    return NO;
+}
+
 @end

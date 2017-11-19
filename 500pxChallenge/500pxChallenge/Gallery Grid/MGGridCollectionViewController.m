@@ -17,6 +17,7 @@
 @property (strong, nonatomic) NSMutableArray *photoArray;
 @property (strong, nonatomic) MGApiClient *apiClient;
 @property (strong, nonatomic) NSIndexPath *currentSelectedIndex;
+@property (strong, nonatomic) NSIndexPath *currentIndex;
 @end
 
 @implementation MGGridCollectionViewController
@@ -46,7 +47,7 @@ static NSString * const reuseIdentifier = @"GridCell";
     [self.collectionView registerNib:[UINib nibWithNibName:@"MGGridCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     
     [self.apiClient getListPhotosForFeature:kMG500pxPhotoFeaturePopular
-                         includedCategories:@[kMG500pxPhotoCategoryTravel]
+                         includedCategories:@[]
                          excludedCategories:@[]
                                        page:self.pageNumer
                                  completion:^(NSArray *result, NSError *error) {
@@ -86,7 +87,7 @@ static NSString * const reuseIdentifier = @"GridCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    self.currentIndex = indexPath;
     MGPhoto *photo = self.photoArray[indexPath.item];
     
     MGGridCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
@@ -107,7 +108,7 @@ static NSString * const reuseIdentifier = @"GridCell";
     if (indexPath.item == [self.photoArray count] - 5) {
         self.pageNumer += 1;
         [self.apiClient getListPhotosForFeature:kMG500pxPhotoFeaturePopular
-                             includedCategories:@[kMG500pxPhotoCategoryTravel]
+                             includedCategories:@[]
                              excludedCategories:@[]
                                            page:self.pageNumer
                                      completion:^(NSArray *result, NSError *error) {
@@ -226,5 +227,26 @@ static NSString * const reuseIdentifier = @"GridCell";
     
     CGRect rect = [self.collectionView layoutAttributesForItemAtIndexPath:self.currentSelectedIndex].frame;
     [self.collectionView scrollRectToVisible:rect animated:NO];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    NSArray *indexPaths = [self.collectionView indexPathsForVisibleItems];
+    
+    NSSortDescriptor *itemDescriptor = [[NSSortDescriptor alloc] initWithKey:@"item" ascending:YES];
+    indexPaths = [indexPaths sortedArrayUsingDescriptors:@[itemDescriptor]];
+    
+    NSIndexPath *firstIndexPath = [indexPaths firstObject];
+    
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        MGGridLayout *layout = (MGGridLayout *)self.collectionView.collectionViewLayout;
+        UICollectionViewLayoutAttributes *firstItemAttribute = [self.collectionView.collectionViewLayout layoutAttributesForItemAtIndexPath:firstIndexPath];
+        CGPoint offset = CGPointMake(0, firstItemAttribute.frame.origin.y - layout.marginSize);
+        
+        [self.collectionView setContentOffset:offset animated:NO];
+    }];
 }
 @end
