@@ -12,7 +12,7 @@
 #import "MGApiClient.h"
 #import "MGGalleryFullscreenCollectionViewController.h"
 
-@interface MGGridCollectionViewController ()<MGGridLayoutDelegate, UINavigationControllerDelegate>
+@interface MGGridCollectionViewController ()<MGGridLayoutDelegate, UINavigationControllerDelegate, MGGalleryFullscreenCollectionViewControllerDelegate>
 @property (assign, nonatomic) NSInteger pageNumer;
 @property (strong, nonatomic) NSMutableArray *photoArray;
 @property (strong, nonatomic) MGApiClient *apiClient;
@@ -53,6 +53,10 @@ static NSString * const reuseIdentifier = @"GridCell";
                                      self.photoArray = [result mutableCopy];
                                      [self.collectionView reloadData];
                                  }];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -207,9 +211,20 @@ static NSString * const reuseIdentifier = @"GridCell";
     if ([[segue identifier] isEqualToString:@"showFullscreen"]) {
         MGGalleryFullscreenCollectionViewController *fullscreenController = (MGGalleryFullscreenCollectionViewController *)[segue destinationViewController];
         
-        fullscreenController.currentIndexPath = self.currentSelectedIndex;
+       
+        fullscreenController.selectedIndexPath = self.currentSelectedIndex;
         fullscreenController.photoArray = self.photoArray;
         fullscreenController.pageNumer = self.pageNumer;
+        [fullscreenController setControllerDelegate:self];
     }
+}
+
+-(void)viewController:(MGGalleryFullscreenCollectionViewController *)viewController didUpdate:(NSMutableArray *)photoArray currentPage:(NSInteger)page onCurrentIndex:(NSIndexPath *)currentIndex {
+    self.photoArray = photoArray;
+    self.currentSelectedIndex = currentIndex;
+    self.pageNumer = page;
+    
+    CGRect rect = [self.collectionView layoutAttributesForItemAtIndexPath:self.currentSelectedIndex].frame;
+    [self.collectionView scrollRectToVisible:rect animated:NO];
 }
 @end

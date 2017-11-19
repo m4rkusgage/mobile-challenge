@@ -31,7 +31,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Grid"/>
                                 <connections>
-                                    <segue destination="fxn-v2-E8O" kind="show" id="ePj-2o-kk0"/>
+                                    <segue destination="fxn-v2-E8O" kind="show" identifier="showGrid" id="ePj-2o-kk0"/>
                                 </connections>
                             </button>
                         </subviews>

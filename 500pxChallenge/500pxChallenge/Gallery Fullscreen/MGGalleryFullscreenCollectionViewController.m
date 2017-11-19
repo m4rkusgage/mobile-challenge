@@ -11,7 +11,7 @@
 #import "MGApiClient.h"
 
 @interface MGGalleryFullscreenCollectionViewController ()<MGGalleryFullscreenCollectionViewCellDelegate>
-
+@property (strong, nonatomic) NSIndexPath *currentIndexPath;
 @end
 
 @implementation MGGalleryFullscreenCollectionViewController
@@ -30,15 +30,24 @@ static NSString * const reuseIdentifier = @"FullscreenCell";
     [self.collectionView setPagingEnabled:YES];
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"MGGalleryFullscreenCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
-    
-    // Do any additional setup after loading the view.
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    CGRect rect = [self.collectionView layoutAttributesForItemAtIndexPath:self.currentIndexPath].frame;
+    CGRect rect = [self.collectionView layoutAttributesForItemAtIndexPath:self.selectedIndexPath].frame;
     [self.collectionView scrollRectToVisible:rect animated:NO];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    if (![self.navigationController.viewControllers containsObject:self]) {
+        [self.controllerDelegate viewController:self
+                                      didUpdate:self.photoArray
+                                    currentPage:self.pageNumer
+                                 onCurrentIndex:self.currentIndexPath];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -68,6 +77,7 @@ static NSString * const reuseIdentifier = @"FullscreenCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    self.currentIndexPath = indexPath;
     MGPhoto *photo = self.photoArray[indexPath.item];
     
     MGGalleryFullscreenCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
