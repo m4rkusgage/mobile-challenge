@@ -11,6 +11,7 @@
 #import "MGApiClient.h"
 
 @interface MGGalleryFullscreenCollectionViewController ()<MGGalleryFullscreenCollectionViewCellDelegate>
+@property (assign, nonatomic) BOOL isFirstLoad;
 @property (strong, nonatomic) NSIndexPath *currentIndexPath;
 @end
 
@@ -27,10 +28,10 @@ static NSString * const reuseIdentifier = @"FullscreenCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.isFirstLoad = YES;
     [self.collectionView setPagingEnabled:YES];
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"MGGalleryFullscreenCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -38,6 +39,7 @@ static NSString * const reuseIdentifier = @"FullscreenCell";
     
     CGRect rect = [self.collectionView layoutAttributesForItemAtIndexPath:self.selectedIndexPath].frame;
     [self.collectionView scrollRectToVisible:rect animated:NO];
+    self.isFirstLoad = NO;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -88,11 +90,14 @@ static NSString * const reuseIdentifier = @"FullscreenCell";
         [cell reset];
     }
     
-    if (photo.photoImage) {
-        [cell setImage:photo.photoImage];
-    } else {
-        [self loadImageFor:photo forCell:cell atIndexPath:indexPath withCollectionView:collectionView];
+    if (!self.isFirstLoad) {
+        if (photo.photoImage) {
+            [cell setImage:photo.photoImage];
+        } else {
+            [self loadImageFor:photo forCell:cell atIndexPath:indexPath withCollectionView:collectionView];
+        }
     }
+    
     return cell;
 }
 
