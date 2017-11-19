@@ -16,6 +16,7 @@
 @property (assign, nonatomic) NSInteger pageNumer;
 @property (strong, nonatomic) NSMutableArray *photoArray;
 @property (strong, nonatomic) MGApiClient *apiClient;
+@property (strong, nonatomic) NSIndexPath *currentSelectedIndex;
 @end
 
 @implementation MGGridCollectionViewController
@@ -114,7 +115,8 @@ static NSString * const reuseIdentifier = @"GridCell";
 
 #pragma mark <UICollectionViewDelegate>
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"showFullscreen" sender:indexPath];
+    self.currentSelectedIndex = indexPath;
+    [self performSegueWithIdentifier:@"showFullscreen" sender:nil];
 }
 /*
 // Uncomment this method to specify if the specified item should be highlighted during tracking
@@ -203,11 +205,9 @@ static NSString * const reuseIdentifier = @"GridCell";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showFullscreen"]) {
-        NSIndexPath *indexPath = (NSIndexPath *)sender;
-        
         MGGalleryFullscreenCollectionViewController *fullscreenController = (MGGalleryFullscreenCollectionViewController *)[segue destinationViewController];
         
-        fullscreenController.currentIndexPath = indexPath;
+        fullscreenController.currentIndexPath = self.currentSelectedIndex;
         fullscreenController.photoArray = self.photoArray;
     }
 }

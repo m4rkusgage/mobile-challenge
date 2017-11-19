@@ -24,7 +24,14 @@ static NSString * const reuseIdentifier = @"FullscreenCell";
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"MGGalleryFullscreenCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     
-    // Do any additional setup after loading the view.    
+    // Do any additional setup after loading the view.
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    CGRect rect = [self.collectionView layoutAttributesForItemAtIndexPath:self.currentIndexPath].frame;
+    [self.collectionView scrollRectToVisible:rect animated:NO];
 }
 
 - (void)didReceiveMemoryWarning {
