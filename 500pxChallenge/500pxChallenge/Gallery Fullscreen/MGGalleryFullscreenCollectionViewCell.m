@@ -21,6 +21,7 @@
     self.scrollView.minimumZoomScale = 1.0;
     self.scrollView.maximumZoomScale = 3.0;
     [self.scrollView setBouncesZoom:NO];
+    
 }
 
 - (void)prepareForReuse {

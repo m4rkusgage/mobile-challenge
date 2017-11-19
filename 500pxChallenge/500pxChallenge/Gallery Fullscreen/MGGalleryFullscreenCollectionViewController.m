@@ -30,6 +30,7 @@ static NSString * const reuseIdentifier = @"FullscreenCell";
     [self.collectionView setPagingEnabled:YES];
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"MGGalleryFullscreenCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -99,7 +100,7 @@ static NSString * const reuseIdentifier = @"FullscreenCell";
     if (indexPath.item == [self.photoArray count] - 5) {
         self.pageNumer += 1;
         [self.apiClient getListPhotosForFeature:kMG500pxPhotoFeaturePopular
-                             includedCategories:@[kMG500pxPhotoCategoryTravel]
+                             includedCategories:@[]
                              excludedCategories:@[]
                                            page:self.pageNumer
                                      completion:^(NSArray *result, NSError *error) {
