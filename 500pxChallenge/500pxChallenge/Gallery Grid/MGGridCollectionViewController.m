@@ -41,6 +41,7 @@ static NSString * const reuseIdentifier = @"GridCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationController setDelegate:self];
+    [self.navigationController setNavigationBarHidden:YES];
     
     self.pageNumer = 1;
     
@@ -248,5 +249,9 @@ static NSString * const reuseIdentifier = @"GridCell";
         
         [self.collectionView setContentOffset:offset animated:NO];
     }];
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 @end

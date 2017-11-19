@@ -78,6 +78,7 @@
                             <outlet property="delegate" destination="fxn-v2-E8O" id="eAE-mk-7D7"/>
                         </connections>
                     </collectionView>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <segue destination="318-DY-spX" kind="show" identifier="showFullscreen" id="hBg-Xo-HkP"/>
                     </connections>
@@ -91,12 +92,12 @@
             <objects>
                 <collectionViewController id="318-DY-spX" userLabel="Fullscreen Gallery" customClass="MGGalleryFullscreenCollectionViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="W3c-uL-Irk">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewLayout key="collectionViewLayout" id="1Rz-MW-5mo" customClass="MGFullscreenLayout"/>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" id="sZI-4A-2DE">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="sZI-4A-2DE">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
