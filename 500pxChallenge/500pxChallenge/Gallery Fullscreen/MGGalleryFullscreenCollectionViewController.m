@@ -18,6 +18,13 @@
 
 static NSString * const reuseIdentifier = @"FullscreenCell";
 
+- (MGApiClient *)apiClient {
+    if (!_apiClient) {
+        _apiClient = [MGApiClient sharedInstance];
+    }
+    return _apiClient;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.collectionView setPagingEnabled:YES];
@@ -66,13 +73,40 @@ static NSString * const reuseIdentifier = @"FullscreenCell";
     MGGalleryFullscreenCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     [cell setCellDelegate:self];
     
+    if (!photo.wasShown) {
+        [cell reset];
+    }
+    
     if (photo.photoImage) {
         [cell setImage:photo.photoImage];
-       // cell.photoImageView.image = photo.photoImage;
+    } else {
+        [self loadImageFor:photo forCell:cell atIndexPath:indexPath withCollectionView:collectionView];
     }
-    // Configure the cell
-    
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.item == [self.photoArray count] - 5) {
+        self.pageNumer += 1;
+        [self.apiClient getListPhotosForFeature:kMG500pxPhotoFeaturePopular
+                             includedCategories:@[kMG500pxPhotoCategoryTravel]
+                             excludedCategories:@[]
+                                           page:self.pageNumer
+                                     completion:^(NSArray *result, NSError *error) {
+                                         [self.photoArray addObjectsFromArray:result];
+                                         [self.collectionView reloadData];
+                                     }];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self loadImagesForOnScreenItems];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (!decelerate) {
+        [self loadImagesForOnScreenItems];
+    }
 }
 
 
@@ -112,6 +146,43 @@ static NSString * const reuseIdentifier = @"FullscreenCell";
         [self.collectionView setScrollEnabled:NO];
     } else {
         [self.collectionView setScrollEnabled:YES];
+    }
+}
+
+- (void)loadImageFor:(MGPhoto *)photo forCell:(MGGalleryFullscreenCollectionViewCell *)fullscreenCell atIndexPath:(NSIndexPath *)indexPath withCollectionView:(UICollectionView *)collectionView {
+    
+    fullscreenCell.photoImageView.image = nil;
+    NSURL *imageURL = [NSURL URLWithString:photo.photoURL];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    NSURLSessionTask *downloadTask = [session downloadTaskWithURL:imageURL completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        UIImage *img = [UIImage imageWithData:[NSData dataWithContentsOfURL:location]];
+        photo.photoImage = img;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([collectionView indexPathForCell:fullscreenCell].item == indexPath.item) {
+                [fullscreenCell setImage:img];
+                photo.wasShown = YES;
+            }
+        });
+    }];
+    
+    [downloadTask resume];
+}
+
+- (void)loadImagesForOnScreenItems {
+    if ([self.photoArray count]) {
+        NSArray *visiblePaths = [self.collectionView indexPathsForVisibleItems];
+        for (NSIndexPath *indexPath in visiblePaths) {
+            MGPhoto *photo = self.photoArray[indexPath.item];
+            MGGalleryFullscreenCollectionViewCell *cell = (id)[self.collectionView cellForItemAtIndexPath:indexPath];
+            if (photo.photoImage) {
+                [cell setImage:photo.photoImage];
+                photo.wasShown = YES;
+            }
+        }
     }
 }
 @end

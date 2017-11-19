@@ -43,7 +43,13 @@
 
 - (void)setImage:(UIImage *)image {
     self.photoImageView.image = image;
-    self.scrollView.contentSize = self.photoImageView.frame.size;
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.photoImageView setAlpha:1];
+    }];
+  //  self.scrollView.contentSize = self.photoImageView.frame.size;
 }
 
+- (void)reset {
+    [self.photoImageView setAlpha:0];
+}
 @end

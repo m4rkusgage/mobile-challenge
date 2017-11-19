@@ -21,4 +21,5 @@
 @property (weak, nonatomic) id<MGGalleryFullscreenCollectionViewCellDelegate> cellDelegate;
 
 - (void)setImage:(UIImage *)image;
+- (void)reset;
 @end

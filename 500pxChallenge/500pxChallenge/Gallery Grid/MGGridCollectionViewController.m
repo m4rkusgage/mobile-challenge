@@ -209,6 +209,7 @@ static NSString * const reuseIdentifier = @"GridCell";
         
         fullscreenController.currentIndexPath = self.currentSelectedIndex;
         fullscreenController.photoArray = self.photoArray;
+        fullscreenController.pageNumer = self.pageNumer;
     }
 }
 @end
