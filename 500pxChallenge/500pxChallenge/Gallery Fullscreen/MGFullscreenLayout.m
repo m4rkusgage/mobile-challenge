@@ -43,6 +43,9 @@
 - (void)prepareLayout {
     [super prepareLayout];
     
+    UICollectionViewLayoutAttributes *headerAttribute = [self layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    self.attributeCache[0] = headerAttribute;
+    
     CGFloat xOffset = 0;
     CGFloat yOffset = 0;
     
@@ -61,12 +64,16 @@
         
         xOffset += itemSize.width;
     }
+    
 }
 
 - (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
     NSMutableArray *layoutAttributes = [[NSMutableArray alloc] init];
     for (UICollectionViewLayoutAttributes *attributes in self.attributeCache) {
-        if (CGRectIntersectsRect(attributes.frame, rect)) {
+        if ([[attributes representedElementKind] isEqualToString:UICollectionElementKindSectionHeader]) {
+            [self updateHeaderAttributes:attributes];
+            [layoutAttributes addObject:attributes];
+        } else if (CGRectIntersectsRect(attributes.frame, rect)) {
             [layoutAttributes addObject:attributes];
         }
     }
@@ -87,6 +94,18 @@
     return [self layoutAttributesForItemAtIndexPath:itemIndexPath];
 }
 
+- (UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
+    
+    UICollectionViewLayoutAttributes *attribute = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:indexPath];
+    
+    if ([elementKind isEqualToString:UICollectionElementKindSectionHeader]) {
+        [self updateHeaderAttributes:attribute];
+    }
+    
+   
+    return attribute;
+}
+
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
     CGRect oldBounds = self.collectionView.bounds;
     if (CGRectGetWidth(oldBounds) != CGRectGetWidth(newBounds)) {
@@ -96,4 +115,8 @@
     return NO;
 }
 
+- (void)updateHeaderAttributes:(UICollectionViewLayoutAttributes *)attribute {
+    attribute.frame = CGRectMake(self.collectionView.frame.origin.x + self.collectionView.contentOffset.x, 0, CGRectGetWidth(self.collectionView.bounds), 50);
+    attribute.zIndex = 1;
+}
 @end

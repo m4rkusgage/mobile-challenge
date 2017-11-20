@@ -25,6 +25,8 @@
 		8C02492F1FBE653700117674 /* MGGridCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C02492D1FBE653700117674 /* MGGridCollectionViewController.m */; };
 		8C0249331FBE6C1D00117674 /* MGGridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C0249321FBE6C1C00117674 /* MGGridLayout.m */; };
 		8C6DB3FD1FC0D3AD00C2F731 /* MGFullscreenLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6DB3FC1FC0D3AD00C2F731 /* MGFullscreenLayout.m */; };
+		8C6DB4011FC24A5500C2F731 /* MGHeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6DB3FF1FC24A5500C2F731 /* MGHeaderCollectionReusableView.m */; };
+		8C6DB4021FC24A5600C2F731 /* MGHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C6DB4001FC24A5500C2F731 /* MGHeaderCollectionReusableView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +63,9 @@
 		8C0249321FBE6C1C00117674 /* MGGridLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGGridLayout.m; sourceTree = "<group>"; };
 		8C6DB3FB1FC0D3AD00C2F731 /* MGFullscreenLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGFullscreenLayout.h; sourceTree = "<group>"; };
 		8C6DB3FC1FC0D3AD00C2F731 /* MGFullscreenLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGFullscreenLayout.m; sourceTree = "<group>"; };
+		8C6DB3FE1FC24A5500C2F731 /* MGHeaderCollectionReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGHeaderCollectionReusableView.h; sourceTree = "<group>"; };
+		8C6DB3FF1FC24A5500C2F731 /* MGHeaderCollectionReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGHeaderCollectionReusableView.m; sourceTree = "<group>"; };
+		8C6DB4001FC24A5500C2F731 /* MGHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MGHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		C357CAE1D9DDEE871FBB1B66 /* Pods-500px-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-500px-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-500px-iOS/Pods-500px-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -146,6 +151,9 @@
 				8C0249231FBE63B400117674 /* MGGalleryFullscreenCollectionViewCell.xib */,
 				8C6DB3FB1FC0D3AD00C2F731 /* MGFullscreenLayout.h */,
 				8C6DB3FC1FC0D3AD00C2F731 /* MGFullscreenLayout.m */,
+				8C6DB3FE1FC24A5500C2F731 /* MGHeaderCollectionReusableView.h */,
+				8C6DB3FF1FC24A5500C2F731 /* MGHeaderCollectionReusableView.m */,
+				8C6DB4001FC24A5500C2F731 /* MGHeaderCollectionReusableView.xib */,
 			);
 			path = "Gallery Fullscreen";
 			sourceTree = "<group>";
@@ -233,6 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C6DB4021FC24A5600C2F731 /* MGHeaderCollectionReusableView.xib in Resources */,
 				8C0248F21FBE207200117674 /* LaunchScreen.storyboard in Resources */,
 				8C0248EF1FBE207200117674 /* Assets.xcassets in Resources */,
 				8C02492B1FBE647900117674 /* MGGridCollectionViewCell.xib in Resources */,
@@ -299,6 +308,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C6DB4011FC24A5500C2F731 /* MGHeaderCollectionReusableView.m in Sources */,
 				8C02492F1FBE653700117674 /* MGGridCollectionViewController.m in Sources */,
 				8C0249241FBE63B400117674 /* MGGalleryFullscreenCollectionViewCell.m in Sources */,
 				8C0249101FBE2EF500117674 /* MGApiClient.m in Sources */,

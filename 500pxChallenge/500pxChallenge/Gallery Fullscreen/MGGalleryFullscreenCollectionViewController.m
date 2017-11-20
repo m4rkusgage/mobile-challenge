@@ -8,6 +8,7 @@
 
 #import "MGGalleryFullscreenCollectionViewController.h"
 #import "MGGalleryFullscreenCollectionViewCell.h"
+#import "MGHeaderCollectionReusableView.h"
 #import "MGApiClient.h"
 
 @interface MGGalleryFullscreenCollectionViewController ()<MGGalleryFullscreenCollectionViewCellDelegate>
@@ -18,6 +19,7 @@
 @implementation MGGalleryFullscreenCollectionViewController
 
 static NSString * const reuseIdentifier = @"FullscreenCell";
+static NSString * const reuseHeaderIdentifier = @"HeaderCell";
 
 - (MGApiClient *)apiClient {
     if (!_apiClient) {
@@ -32,13 +34,15 @@ static NSString * const reuseIdentifier = @"FullscreenCell";
     [self.collectionView setPagingEnabled:YES];
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"MGGalleryFullscreenCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
+    
+    [self.collectionView registerNib:[UINib nibWithNibName:@"MGHeaderCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseHeaderIdentifier];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    CGRect rect = [self.collectionView layoutAttributesForItemAtIndexPath:self.selectedIndexPath].frame;
-    [self.collectionView scrollRectToVisible:rect animated:NO];
+    [self.collectionView scrollToItemAtIndexPath:self.selectedIndexPath atScrollPosition:UICollectionViewScrollPositionRight animated:NO];
     self.isFirstLoad = NO;
 }
 
@@ -156,6 +160,13 @@ static NSString * const reuseIdentifier = @"FullscreenCell";
 	
 }
 */
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    
+    MGHeaderCollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseHeaderIdentifier forIndexPath:indexPath];
+    
+    return header;
+}
 
 - (void)fullscreenCell:(MGGalleryFullscreenCollectionViewCell *)cell inUse:(BOOL)isActive {
     if (isActive) {
