@@ -9,6 +9,7 @@
 #import "MGGalleryFullscreenCollectionViewController.h"
 #import "MGGalleryFullscreenCollectionViewCell.h"
 #import "MGHeaderCollectionReusableView.h"
+#import "MGFooterCollectionReusableView.h"
 #import "MGApiClient.h"
 
 @interface MGGalleryFullscreenCollectionViewController ()<MGGalleryFullscreenCollectionViewCellDelegate>
@@ -20,6 +21,7 @@
 
 static NSString * const reuseIdentifier = @"FullscreenCell";
 static NSString * const reuseHeaderIdentifier = @"HeaderCell";
+static NSString * const reuseFooterIdentifier = @"FooterCell";
 
 - (MGApiClient *)apiClient {
     if (!_apiClient) {
@@ -36,6 +38,8 @@ static NSString * const reuseHeaderIdentifier = @"HeaderCell";
     [self.collectionView registerNib:[UINib nibWithNibName:@"MGGalleryFullscreenCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"MGHeaderCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseHeaderIdentifier];
+    
+    [self.collectionView registerNib:[UINib nibWithNibName:@"MGFooterCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:reuseFooterIdentifier];
     
 }
 
@@ -162,10 +166,15 @@ static NSString * const reuseHeaderIdentifier = @"HeaderCell";
 */
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        MGHeaderCollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseHeaderIdentifier forIndexPath:indexPath];
+        return header;
+    } else {
+        MGFooterCollectionReusableView *footer = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:reuseFooterIdentifier forIndexPath:indexPath];
+        return footer;
+    }
     
-    MGHeaderCollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseHeaderIdentifier forIndexPath:indexPath];
-    
-    return header;
+    return [UICollectionReusableView new];
 }
 
 - (void)fullscreenCell:(MGGalleryFullscreenCollectionViewCell *)cell inUse:(BOOL)isActive {

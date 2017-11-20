@@ -11,6 +11,7 @@
 @interface MGFullscreenLayout ()
 @property (assign, nonatomic) CGFloat contentWidth;
 @property (strong, nonatomic) NSMutableArray<UICollectionViewLayoutAttributes *> *attributeCache;
+@property (strong, nonatomic) NSMutableArray<UICollectionViewLayoutAttributes *> *supplementaryCache;
 @end
 
 @implementation MGFullscreenLayout
@@ -34,6 +35,12 @@
 - (void)layoutSetup {
     self.contentWidth = 0;
     self.attributeCache = [[NSMutableArray alloc] init];
+    self.supplementaryCache = [[NSMutableArray alloc] init];
+}
+
+- (void)clearCache {
+    [self.attributeCache removeAllObjects];
+    [self.supplementaryCache removeAllObjects];
 }
 
 - (CGSize)collectionViewContentSize {
@@ -42,9 +49,15 @@
 
 - (void)prepareLayout {
     [super prepareLayout];
+    [self clearCache];
     
-    UICollectionViewLayoutAttributes *headerAttribute = [self layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    self.attributeCache[0] = headerAttribute;
+    UICollectionViewLayoutAttributes *headerAttribute = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    [self updateHeaderAttributes:headerAttribute];
+    [self.supplementaryCache addObject:headerAttribute];
+    
+    UICollectionViewLayoutAttributes *footerAttribute = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionFooter withIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    [self updateFooterAttributes:footerAttribute];
+    [self.supplementaryCache addObject:footerAttribute];
     
     CGFloat xOffset = 0;
     CGFloat yOffset = 0;
@@ -64,19 +77,26 @@
         
         xOffset += itemSize.width;
     }
-    
 }
 
 - (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
     NSMutableArray *layoutAttributes = [[NSMutableArray alloc] init];
+
+    for (UICollectionViewLayoutAttributes *supplementaryAttributes in self.supplementaryCache) {
+        if ([[supplementaryAttributes representedElementKind] isEqualToString:UICollectionElementKindSectionHeader]) {
+            [self updateHeaderAttributes:supplementaryAttributes];
+            [layoutAttributes addObject:supplementaryAttributes];
+        } else {
+            [self updateFooterAttributes:supplementaryAttributes];
+            [layoutAttributes addObject:supplementaryAttributes];
+        }
+    }
     for (UICollectionViewLayoutAttributes *attributes in self.attributeCache) {
-        if ([[attributes representedElementKind] isEqualToString:UICollectionElementKindSectionHeader]) {
-            [self updateHeaderAttributes:attributes];
-            [layoutAttributes addObject:attributes];
-        } else if (CGRectIntersectsRect(attributes.frame, rect)) {
+        if (CGRectIntersectsRect(attributes.frame, rect)) {
             [layoutAttributes addObject:attributes];
         }
     }
+    
     return layoutAttributes;
 }
 
@@ -84,39 +104,31 @@
     return self.attributeCache[indexPath.item];
 }
 
-- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath
-{
+- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
     return self.attributeCache[itemIndexPath.item];
 }
 
-- (UICollectionViewLayoutAttributes *)finalLayoutAttributesForDisappearingItemAtIndexPath:(NSIndexPath *)itemIndexPath
-{
+- (UICollectionViewLayoutAttributes *)finalLayoutAttributesForDisappearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
     return [self layoutAttributesForItemAtIndexPath:itemIndexPath];
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
-    
-    UICollectionViewLayoutAttributes *attribute = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:indexPath];
-    
-    if ([elementKind isEqualToString:UICollectionElementKindSectionHeader]) {
-        [self updateHeaderAttributes:attribute];
-    }
-    
-   
+    UICollectionViewLayoutAttributes *attribute = self.supplementaryCache[indexPath.item];
     return attribute;
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
-    CGRect oldBounds = self.collectionView.bounds;
-    if (CGRectGetWidth(oldBounds) != CGRectGetWidth(newBounds)) {
-        [self.attributeCache removeAllObjects];
-        return YES;
-    }
-    return NO;
+    [self clearCache];
+    return YES;
 }
 
 - (void)updateHeaderAttributes:(UICollectionViewLayoutAttributes *)attribute {
-    attribute.frame = CGRectMake(self.collectionView.frame.origin.x + self.collectionView.contentOffset.x, 0, CGRectGetWidth(self.collectionView.bounds), 50);
+    attribute.frame = CGRectMake(self.collectionView.contentOffset.x, 0, CGRectGetWidth(self.collectionView.bounds), 70);
+    attribute.zIndex = 1;
+}
+
+- (void)updateFooterAttributes:(UICollectionViewLayoutAttributes *)attribute {
+    attribute.frame = CGRectMake(self.collectionView.contentOffset.x, CGRectGetHeight(self.collectionView.bounds) - 125, CGRectGetWidth(self.collectionView.bounds), 125);
     attribute.zIndex = 1;
 }
 @end
