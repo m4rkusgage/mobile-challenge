@@ -27,6 +27,8 @@
 		8C6DB3FD1FC0D3AD00C2F731 /* MGFullscreenLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6DB3FC1FC0D3AD00C2F731 /* MGFullscreenLayout.m */; };
 		8C6DB4011FC24A5500C2F731 /* MGHeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6DB3FF1FC24A5500C2F731 /* MGHeaderCollectionReusableView.m */; };
 		8C6DB4021FC24A5600C2F731 /* MGHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C6DB4001FC24A5500C2F731 /* MGHeaderCollectionReusableView.xib */; };
+		8C6DB4061FC37D2A00C2F731 /* MGFooterCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6DB4041FC37D2A00C2F731 /* MGFooterCollectionReusableView.m */; };
+		8C6DB4071FC37D2B00C2F731 /* MGFooterCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C6DB4051FC37D2A00C2F731 /* MGFooterCollectionReusableView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +68,9 @@
 		8C6DB3FE1FC24A5500C2F731 /* MGHeaderCollectionReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGHeaderCollectionReusableView.h; sourceTree = "<group>"; };
 		8C6DB3FF1FC24A5500C2F731 /* MGHeaderCollectionReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGHeaderCollectionReusableView.m; sourceTree = "<group>"; };
 		8C6DB4001FC24A5500C2F731 /* MGHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MGHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
+		8C6DB4031FC37D2A00C2F731 /* MGFooterCollectionReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGFooterCollectionReusableView.h; sourceTree = "<group>"; };
+		8C6DB4041FC37D2A00C2F731 /* MGFooterCollectionReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGFooterCollectionReusableView.m; sourceTree = "<group>"; };
+		8C6DB4051FC37D2A00C2F731 /* MGFooterCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MGFooterCollectionReusableView.xib; sourceTree = "<group>"; };
 		C357CAE1D9DDEE871FBB1B66 /* Pods-500px-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-500px-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-500px-iOS/Pods-500px-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -154,6 +159,9 @@
 				8C6DB3FE1FC24A5500C2F731 /* MGHeaderCollectionReusableView.h */,
 				8C6DB3FF1FC24A5500C2F731 /* MGHeaderCollectionReusableView.m */,
 				8C6DB4001FC24A5500C2F731 /* MGHeaderCollectionReusableView.xib */,
+				8C6DB4031FC37D2A00C2F731 /* MGFooterCollectionReusableView.h */,
+				8C6DB4041FC37D2A00C2F731 /* MGFooterCollectionReusableView.m */,
+				8C6DB4051FC37D2A00C2F731 /* MGFooterCollectionReusableView.xib */,
 			);
 			path = "Gallery Fullscreen";
 			sourceTree = "<group>";
@@ -242,6 +250,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C6DB4021FC24A5600C2F731 /* MGHeaderCollectionReusableView.xib in Resources */,
+				8C6DB4071FC37D2B00C2F731 /* MGFooterCollectionReusableView.xib in Resources */,
 				8C0248F21FBE207200117674 /* LaunchScreen.storyboard in Resources */,
 				8C0248EF1FBE207200117674 /* Assets.xcassets in Resources */,
 				8C02492B1FBE647900117674 /* MGGridCollectionViewCell.xib in Resources */,
@@ -320,6 +329,7 @@
 				8C02491F1FBE638800117674 /* MGGalleryFullscreenCollectionViewController.m in Sources */,
 				8C0248E71FBE207100117674 /* AppDelegate.m in Sources */,
 				8C0249331FBE6C1D00117674 /* MGGridLayout.m in Sources */,
+				8C6DB4061FC37D2A00C2F731 /* MGFooterCollectionReusableView.m in Sources */,
 				8C02492A1FBE647900117674 /* MGGridCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
