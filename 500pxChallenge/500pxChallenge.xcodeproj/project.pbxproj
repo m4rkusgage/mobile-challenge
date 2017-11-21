@@ -71,6 +71,7 @@
 		8C6DB4031FC37D2A00C2F731 /* MGFooterCollectionReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGFooterCollectionReusableView.h; sourceTree = "<group>"; };
 		8C6DB4041FC37D2A00C2F731 /* MGFooterCollectionReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGFooterCollectionReusableView.m; sourceTree = "<group>"; };
 		8C6DB4051FC37D2A00C2F731 /* MGFooterCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MGFooterCollectionReusableView.xib; sourceTree = "<group>"; };
+		8C6DB4081FC398E700C2F731 /* MGReusableViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGReusableViewDelegate.h; sourceTree = "<group>"; };
 		C357CAE1D9DDEE871FBB1B66 /* Pods-500px-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-500px-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-500px-iOS/Pods-500px-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -162,6 +163,7 @@
 				8C6DB4031FC37D2A00C2F731 /* MGFooterCollectionReusableView.h */,
 				8C6DB4041FC37D2A00C2F731 /* MGFooterCollectionReusableView.m */,
 				8C6DB4051FC37D2A00C2F731 /* MGFooterCollectionReusableView.xib */,
+				8C6DB4081FC398E700C2F731 /* MGReusableViewDelegate.h */,
 			);
 			path = "Gallery Fullscreen";
 			sourceTree = "<group>";

@@ -12,7 +12,7 @@
 #import "MGFooterCollectionReusableView.h"
 #import "MGApiClient.h"
 
-@interface MGGalleryFullscreenCollectionViewController ()<MGGalleryFullscreenCollectionViewCellDelegate>
+@interface MGGalleryFullscreenCollectionViewController ()<MGGalleryFullscreenCollectionViewCellDelegate, MGReusableViewDelegate>
 @property (assign, nonatomic) BOOL isFirstLoad;
 @property (strong, nonatomic) NSIndexPath *currentIndexPath;
 @end
@@ -168,6 +168,7 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         MGHeaderCollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseHeaderIdentifier forIndexPath:indexPath];
+        [header setReusableViewDelegate:self];
         return header;
     } else {
         MGFooterCollectionReusableView *footer = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:reuseFooterIdentifier forIndexPath:indexPath];
@@ -220,5 +221,9 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
             }
         }
     }
+}
+
+- (void)reusableViewDidClose:(UICollectionReusableView *)reusableView {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 @end

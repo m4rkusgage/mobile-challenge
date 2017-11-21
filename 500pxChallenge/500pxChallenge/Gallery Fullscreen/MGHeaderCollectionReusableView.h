@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MGReusableViewDelegate.h"
 
 @interface MGHeaderCollectionReusableView : UICollectionReusableView
-
+@property (weak, nonatomic) id<MGReusableViewDelegate> reusableViewDelegate;
 @end
