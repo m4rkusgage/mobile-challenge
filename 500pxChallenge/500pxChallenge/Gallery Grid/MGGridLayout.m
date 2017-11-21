@@ -12,6 +12,7 @@
 @property (assign, nonatomic) CGFloat contentHeight;
 @property (assign, nonatomic, getter=getWidth) CGFloat width;
 @property (strong, nonatomic) NSMutableArray<UICollectionViewLayoutAttributes *> *attributeCache;
+@property (strong, nonatomic) NSMutableArray<UICollectionViewLayoutAttributes *> *previousAttributeCache;
 @end
 
 @implementation MGGridLayout
@@ -47,6 +48,8 @@
 
 - (void)prepareLayout {
     [super prepareLayout];
+    self.previousAttributeCache = [self.attributeCache mutableCopy];
+    [self.attributeCache removeAllObjects];
     
     NSMutableArray<NSNumber *> *xOffsets = [[NSMutableArray alloc] initWithObjects:@(self.marginSize), nil];
     NSMutableArray<NSNumber *> *yOffsets = [[NSMutableArray alloc] initWithObjects:@(self.marginSize), nil];
@@ -92,7 +95,7 @@
             self.contentHeight = MAX(self.contentHeight, CGRectGetMaxY(attributes.frame));
         }
     }
-    self.contentHeight += 1;
+    self.contentHeight += self.marginSize;
 }
 
 - (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
@@ -150,20 +153,17 @@
     return widthTotal;
 }
 
-- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath
-{
-    return self.attributeCache[itemIndexPath.item];
+- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
+    return self.previousAttributeCache[itemIndexPath.item];
 }
 
-- (UICollectionViewLayoutAttributes *)finalLayoutAttributesForDisappearingItemAtIndexPath:(NSIndexPath *)itemIndexPath
-{
+- (UICollectionViewLayoutAttributes *)finalLayoutAttributesForDisappearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
     return [self layoutAttributesForItemAtIndexPath:itemIndexPath];
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
     CGRect oldBounds = self.collectionView.bounds;
     if (CGRectGetWidth(oldBounds) != CGRectGetWidth(newBounds)) {
-        [self.attributeCache removeAllObjects];
         return YES;
     }
     return NO;
