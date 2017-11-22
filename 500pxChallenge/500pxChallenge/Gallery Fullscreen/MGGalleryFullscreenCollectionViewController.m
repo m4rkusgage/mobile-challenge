@@ -11,9 +11,12 @@
 #import "MGHeaderCollectionReusableView.h"
 #import "MGFooterCollectionReusableView.h"
 #import "MGApiClient.h"
+#import "MGFullscreenLayout.h"
 
-@interface MGGalleryFullscreenCollectionViewController ()<MGGalleryFullscreenCollectionViewCellDelegate, MGReusableViewDelegate>
+@interface MGGalleryFullscreenCollectionViewController ()<MGGalleryFullscreenCollectionViewCellDelegate, MGReusableViewDelegate, MGFullscreenLayoutDelegate>
 @property (assign, nonatomic) BOOL isFirstLoad;
+@property (assign, nonatomic) BOOL showingReusableViews;
+@property (assign, nonatomic) BOOL showingMoreInfo;
 @property (strong, nonatomic) NSIndexPath *currentIndexPath;
 @end
 
@@ -32,7 +35,11 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.isFirstLoad = YES;
+    self.showingReusableViews = YES;
+    if (self.selectedIndexPath.item > 1) {
+        self.isFirstLoad = YES;
+    }
+    
     [self.collectionView setPagingEnabled:YES];
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"MGGalleryFullscreenCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
@@ -48,6 +55,7 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
     
     [self.collectionView scrollToItemAtIndexPath:self.selectedIndexPath atScrollPosition:UICollectionViewScrollPositionRight animated:NO];
     self.isFirstLoad = NO;
+    [self updateFooterInfoWithPhoto:self.photoArray[self.selectedIndexPath.item]];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -143,12 +151,8 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
 }
 */
 
-/*
-// Uncomment this method to specify if the specified item should be selected
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-*/
+
+
 
 /*
 // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
@@ -172,6 +176,7 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
         return header;
     } else {
         MGFooterCollectionReusableView *footer = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:reuseFooterIdentifier forIndexPath:indexPath];
+        [footer setReusableViewDelegate:self];
         return footer;
     }
     
@@ -184,6 +189,74 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
     } else {
         [self.collectionView setScrollEnabled:YES];
     }
+}
+
+- (void)fullscreenCellWasTapped:(MGGalleryFullscreenCollectionViewCell *)cell {
+    MGHeaderCollectionReusableView *header = (MGHeaderCollectionReusableView *)[self.collectionView  supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    MGFooterCollectionReusableView *footer = (MGFooterCollectionReusableView *)[self.collectionView  supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    
+    if (self.showingReusableViews) {
+        self.showingReusableViews = NO;
+        [UIView animateWithDuration:0.5 animations:^{
+            header.alpha = 0;
+            footer.alpha = 0;
+        }];
+    } else {
+        self.showingReusableViews = YES;
+        [UIView animateWithDuration:0.5 animations:^{
+            header.alpha = 1;
+            footer.alpha = 1;
+        }];
+    }
+}
+
+- (CGFloat)collectionViewCurrentAlpha:(UICollectionView *)collectionView {
+    return self.showingReusableViews;
+}
+
+- (CGSize)collectionViewSizeOfFooterView:(UICollectionView *)collectionView {
+    return CGSizeMake(self.collectionView.bounds.size.width, 125);
+}
+
+- (void)updateFooterInfoWithPhoto:(MGPhoto *)photo {
+   MGFooterCollectionReusableView *footer = (MGFooterCollectionReusableView *)[self.collectionView  supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    
+    [footer.titleLabel setText:photo.photoTitle];
+    [footer.createdAtLabel setText:[self timeIntervalFrom:photo.createdAt]];
+    
+    [footer.likeCountLabel setText:photo.likedCount];
+    [footer.viewedCountLabel setText:photo.viewedCount];
+    [footer.commentCountLabel setText:photo.commentedCount];
+}
+
+- (NSString *)timeIntervalFrom:(NSString *)createdDate {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+        [dateFormatter setLocale:usLocale];
+        [dateFormatter setDateStyle:NSDateFormatterLongStyle];
+        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+        [dateFormatter setDateFormat: @"yyyy-MM-dd'T'HH:mm:ssZ"];
+        
+        NSDate *date = [dateFormatter dateFromString:createdDate];
+        NSDate *now = [NSDate date];
+        
+        NSTimeInterval seconds = [now timeIntervalSinceDate:date];
+        
+        if(seconds < 60) {
+            return [[NSString alloc] initWithFormat:@"%.0f seconds ago", seconds];
+        }
+        else if(seconds < 3600) {
+            return [[NSString alloc] initWithFormat:@"%.0f minutes ago", seconds/60];
+        }
+        else if(seconds < 3600 * 24) {
+            return [[NSString alloc] initWithFormat:@"%.0f hours ago", seconds/3600];
+        }
+        else if(seconds < 3600 * 24 * 365) {
+            return [[NSString alloc] initWithFormat:@"%.0f days ago", seconds/3600/24];
+        }
+        else {
+            return [[NSString alloc] initWithFormat:@"%.0f years ago", seconds/3600/24/365];
+        }
 }
 
 - (void)loadImageFor:(MGPhoto *)photo forCell:(MGGalleryFullscreenCollectionViewCell *)fullscreenCell atIndexPath:(NSIndexPath *)indexPath withCollectionView:(UICollectionView *)collectionView {
@@ -214,6 +287,7 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
         NSArray *visiblePaths = [self.collectionView indexPathsForVisibleItems];
         for (NSIndexPath *indexPath in visiblePaths) {
             MGPhoto *photo = self.photoArray[indexPath.item];
+            [self updateFooterInfoWithPhoto:photo];
             MGGalleryFullscreenCollectionViewCell *cell = (id)[self.collectionView cellForItemAtIndexPath:indexPath];
             if (photo.photoImage) {
                 [cell setImage:photo.photoImage];
@@ -223,7 +297,18 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
     }
 }
 
-- (void)reusableViewDidClose:(UICollectionReusableView *)reusableView {
-    [self.navigationController popViewControllerAnimated:YES];
+- (void)reusableView:(UICollectionReusableView *)reusableView buttonPressed:(ReusableViewButton)buttonType {
+    switch (buttonType) {
+        case ReusableViewButtonClose:
+            [self.navigationController popViewControllerAnimated:YES];
+            break;
+            
+        case ReusableViewButtonInfo:
+            break;
+            
+        default:
+            break;
+    }
 }
+
 @end
