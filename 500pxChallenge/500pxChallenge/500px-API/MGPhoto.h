@@ -14,5 +14,11 @@
 @property (assign, nonatomic) BOOL wasShown;
 @property (assign, nonatomic, readonly) CGSize photoDimension;
 @property (strong, nonatomic, readonly) NSString *photoURL;
+@property (strong, nonatomic, readonly) NSString *viewedCount;
+@property (strong, nonatomic, readonly) NSString *likedCount;
+@property (strong, nonatomic, readonly) NSString *commentedCount;
+@property (strong, nonatomic, readonly) NSString *createdAt;
+@property (strong, nonatomic, readonly) NSString *photoTitle;
+@property (strong, nonatomic, readonly) NSString *photoDescription;
 @property (strong, nonatomic) UIImage *photoImage;
 @end
