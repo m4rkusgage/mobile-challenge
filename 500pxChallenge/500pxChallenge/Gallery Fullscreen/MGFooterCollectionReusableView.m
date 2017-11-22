@@ -34,4 +34,9 @@
     
     self.gradientLayer.frame = self.bounds;
 }
+
+- (IBAction)moreInformationButtonPressed:(id)sender {
+    [self.reusableViewDelegate reusableView:self buttonPressed:ReusableViewButtonInfo];
+}
+
 @end

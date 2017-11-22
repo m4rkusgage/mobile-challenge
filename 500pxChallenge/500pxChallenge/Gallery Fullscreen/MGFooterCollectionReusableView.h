@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MGReusableViewDelegate.h"
 
 @interface MGFooterCollectionReusableView : UICollectionReusableView
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *createdAtLabel;
+@property (weak, nonatomic) IBOutlet UILabel *viewedCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *commentCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *likeCountLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
+@property (weak, nonatomic) id<MGReusableViewDelegate> reusableViewDelegate;
 @end

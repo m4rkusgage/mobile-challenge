@@ -36,7 +36,7 @@
 }
 
 - (IBAction)exitButtonPressed:(id)sender {
-    [self.reusableViewDelegate reusableViewDidClose:self];
+    [self.reusableViewDelegate reusableView:self buttonPressed:ReusableViewButtonClose];
 }
 
 @end

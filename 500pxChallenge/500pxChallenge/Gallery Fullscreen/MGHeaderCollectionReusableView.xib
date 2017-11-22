@@ -16,21 +16,14 @@
             <rect key="frame" x="0.0" y="0.0" width="350" height="70"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PS8-At-d43">
-                    <rect key="frame" x="290" y="10" width="50" height="50"/>
-                    <color key="backgroundColor" red="1" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i6V-Tn-hiH">
+                    <rect key="frame" x="15" y="15" width="25" height="25"/>
+                    <color key="backgroundColor" red="1" green="0.13333333333333333" blue="0.13333333333333333" alpha="0.0" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="50" id="59c-se-qVB"/>
-                        <constraint firstAttribute="width" constant="50" id="IGZ-Yg-pZX"/>
+                        <constraint firstAttribute="width" constant="25" id="9zz-bq-pI4"/>
+                        <constraint firstAttribute="height" constant="25" id="Nyo-Rh-IF8"/>
                     </constraints>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i6V-Tn-hiH">
-                    <rect key="frame" x="10" y="10" width="50" height="50"/>
-                    <color key="backgroundColor" red="1" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="50" id="9zz-bq-pI4"/>
-                        <constraint firstAttribute="height" constant="50" id="Nyo-Rh-IF8"/>
-                    </constraints>
+                    <state key="normal" image="cancel"/>
                     <connections>
                         <action selector="exitButtonPressed:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="GAG-Gh-Hy0"/>
                     </connections>
@@ -38,13 +31,14 @@
             </subviews>
             <color key="backgroundColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.92429315476190466" alpha="0.0" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="i6V-Tn-hiH" firstAttribute="top" secondItem="9Gg-ye-v9C" secondAttribute="top" constant="10" id="Eha-kk-TXs"/>
-                <constraint firstItem="9Gg-ye-v9C" firstAttribute="trailing" secondItem="PS8-At-d43" secondAttribute="trailing" constant="10" id="jzk-ED-PeK"/>
-                <constraint firstItem="PS8-At-d43" firstAttribute="top" secondItem="9Gg-ye-v9C" secondAttribute="top" constant="10" id="tDH-Nq-j4J"/>
-                <constraint firstItem="i6V-Tn-hiH" firstAttribute="leading" secondItem="9Gg-ye-v9C" secondAttribute="leading" constant="10" id="wRJ-j9-TBt"/>
+                <constraint firstItem="i6V-Tn-hiH" firstAttribute="top" secondItem="9Gg-ye-v9C" secondAttribute="top" constant="15" id="Eha-kk-TXs"/>
+                <constraint firstItem="i6V-Tn-hiH" firstAttribute="leading" secondItem="9Gg-ye-v9C" secondAttribute="leading" constant="15" id="wRJ-j9-TBt"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="9Gg-ye-v9C"/>
             <point key="canvasLocation" x="30" y="143"/>
         </collectionReusableView>
     </objects>
+    <resources>
+        <image name="cancel" width="64" height="64"/>
+    </resources>
 </document>

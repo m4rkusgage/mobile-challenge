@@ -7,7 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MGPhoto.h"
+
+typedef enum : NSUInteger {
+    ReusableViewButtonShare,
+    ReusableViewButtonInfo,
+    ReusableViewButtonLike,
+    ReusableViewButtonClose
+} ReusableViewButton;
 
 @protocol MGReusableViewDelegate <NSObject>
-- (void)reusableViewDidClose:(UICollectionReusableView *)reusableView;
+- (void)reusableView:(UICollectionReusableView *)reusableView buttonPressed:(ReusableViewButton)buttonType;
 @end
