@@ -22,6 +22,10 @@
     self.scrollView.maximumZoomScale = 3.0;
     [self.scrollView setBouncesZoom:NO];
     
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cellWasTapped)];
+    [tapGesture setNumberOfTapsRequired:1];
+    
+    [self setGestureRecognizers:@[tapGesture]];
 }
 
 - (void)prepareForReuse {
@@ -52,5 +56,9 @@
 
 - (void)reset {
     [self.photoImageView setAlpha:0];
+}
+
+- (void)cellWasTapped {
+    [self.cellDelegate fullscreenCellWasTapped:self];
 }
 @end

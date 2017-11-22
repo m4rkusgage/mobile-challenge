@@ -12,6 +12,7 @@
 
 @protocol MGGalleryFullscreenCollectionViewCellDelegate <NSObject>
 - (void)fullscreenCell:(MGGalleryFullscreenCollectionViewCell *)cell inUse:(BOOL)isActive;
+- (void)fullscreenCellWasTapped:(MGGalleryFullscreenCollectionViewCell *)cell;
 @end
 
 @interface MGGalleryFullscreenCollectionViewCell : UICollectionViewCell
