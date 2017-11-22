@@ -222,6 +222,7 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
    MGFooterCollectionReusableView *footer = (MGFooterCollectionReusableView *)[self.collectionView  supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     
     [footer.titleLabel setText:photo.photoTitle];
+    [footer.authorNameLabel setText:photo.user.userFullName];
     [footer.createdAtLabel setText:[self timeIntervalFrom:photo.createdAt]];
     
     [footer.likeCountLabel setText:photo.likedCount];

@@ -28,6 +28,8 @@
         self.photoDescription = dictionary[@"description"];
         self.createdAt = dictionary[@"created_at"];
         
+        self.user = [[MGUser alloc] initWithDictionary:dictionary[@"user"]];
+        
         CGFloat width = [(NSNumber*)dictionary[@"width"] floatValue];
         CGFloat height = [(NSNumber*)dictionary[@"height"] floatValue];
         
