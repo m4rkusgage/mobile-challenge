@@ -55,7 +55,7 @@
     [self updateHeaderAttributes:headerAttribute];
     [self.supplementaryCache addObject:headerAttribute];
     
-    UICollectionViewLayoutAttributes *footerAttribute = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionFooter withIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    UICollectionViewLayoutAttributes *footerAttribute = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionFooter withIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     [self updateFooterAttributes:footerAttribute];
     [self.supplementaryCache addObject:footerAttribute];
     
@@ -124,11 +124,15 @@
 
 - (void)updateHeaderAttributes:(UICollectionViewLayoutAttributes *)attribute {
     attribute.frame = CGRectMake(self.collectionView.contentOffset.x, 0, CGRectGetWidth(self.collectionView.bounds), 70);
+    attribute.alpha = [self.fullscreenDelegate collectionViewCurrentAlpha:self.collectionView];
     attribute.zIndex = 1;
 }
 
 - (void)updateFooterAttributes:(UICollectionViewLayoutAttributes *)attribute {
-    attribute.frame = CGRectMake(self.collectionView.contentOffset.x, CGRectGetHeight(self.collectionView.bounds) - 125, CGRectGetWidth(self.collectionView.bounds), 125);
+    CGSize footerSize = [self.fullscreenDelegate collectionViewSizeOfFooterView:self.collectionView];
+    
+    attribute.frame = CGRectMake(self.collectionView.contentOffset.x, CGRectGetHeight(self.collectionView.bounds) - footerSize.height, CGRectGetWidth(self.collectionView.bounds), footerSize.height);
+     attribute.alpha = [self.fullscreenDelegate collectionViewCurrentAlpha:self.collectionView];
     attribute.zIndex = 1;
 }
 @end
