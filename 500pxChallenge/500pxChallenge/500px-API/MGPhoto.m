@@ -24,8 +24,8 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     self = [super init];
     if (self) {
-        self.photoTitle = dictionary[@"name"];
-        self.photoDescription = dictionary[@"description"];
+        self.photoTitle = ![dictionary[@"name"] isKindOfClass:[NSNull class]] ? dictionary[@"name"] : @"";
+        self.photoDescription = ![dictionary[@"description"] isKindOfClass:[NSNull class]] ? dictionary[@"description"] : @"";
         self.createdAt = dictionary[@"created_at"];
         
         self.user = [[MGUser alloc] initWithDictionary:dictionary[@"user"]];
