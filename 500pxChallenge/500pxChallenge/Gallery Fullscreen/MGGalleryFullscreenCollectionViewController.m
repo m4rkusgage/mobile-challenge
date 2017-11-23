@@ -12,8 +12,9 @@
 #import "MGFooterCollectionReusableView.h"
 #import "MGApiClient.h"
 #import "MGFullscreenLayout.h"
+#import "MGDescriptionTableViewController.h"
 
-@interface MGGalleryFullscreenCollectionViewController ()<MGGalleryFullscreenCollectionViewCellDelegate, MGReusableViewDelegate, MGFullscreenLayoutDelegate>
+@interface MGGalleryFullscreenCollectionViewController ()<MGGalleryFullscreenCollectionViewCellDelegate, MGReusableViewDelegate, MGFullscreenLayoutDelegate, MGDescriptionViewControllerDelegate>
 @property (assign, nonatomic) BOOL isFirstLoad;
 @property (assign, nonatomic) BOOL showingReusableViews;
 @property (assign, nonatomic) BOOL showingMoreInfo;
@@ -96,7 +97,7 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    self.currentIndexPath = indexPath;
+    
     MGPhoto *photo = self.photoArray[indexPath.item];
     
     MGGalleryFullscreenCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
@@ -287,6 +288,7 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
     if ([self.photoArray count]) {
         NSArray *visiblePaths = [self.collectionView indexPathsForVisibleItems];
         for (NSIndexPath *indexPath in visiblePaths) {
+            self.currentIndexPath = indexPath;
             MGPhoto *photo = self.photoArray[indexPath.item];
             [self updateFooterInfoWithPhoto:photo];
             MGGalleryFullscreenCollectionViewCell *cell = (id)[self.collectionView cellForItemAtIndexPath:indexPath];
@@ -300,16 +302,32 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
 
 - (void)reusableView:(UICollectionReusableView *)reusableView buttonPressed:(ReusableViewButton)buttonType {
     switch (buttonType) {
-        case ReusableViewButtonClose:
+        case ReusableViewButtonClose:{
             [self.navigationController popViewControllerAnimated:YES];
             break;
+        }
             
-        case ReusableViewButtonInfo:
+        case ReusableViewButtonInfo:{
+            if (self.showingReusableViews) {
+                [self fullscreenCellWasTapped:nil];
+            }
+            [self performSegueWithIdentifier:@"showDescriptionInfo" sender:nil];
             break;
-            
+        }
         default:
             break;
     }
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"showDescriptionInfo"]) {
+        MGDescriptionTableViewController *descriptionController = (MGDescriptionTableViewController *)[segue destinationViewController];
+        descriptionController.photo = self.photoArray[self.currentIndexPath.item];
+        descriptionController.controllerDelegate = self;
+    }
+}
+
+- (void)viewControllerDidClose:(UIViewController *)viewController {
+     [self fullscreenCellWasTapped:nil];
+}
 @end
