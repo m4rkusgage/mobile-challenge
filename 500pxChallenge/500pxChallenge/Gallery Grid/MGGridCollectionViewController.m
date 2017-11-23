@@ -230,7 +230,6 @@ static NSString * const reuseIdentifier = @"GridCell";
 }
 
 - (void)viewController:(MGGalleryFullscreenCollectionViewController *)viewController updateCurrentIndex:(NSIndexPath *)currentIndex numberOfPages:(NSInteger)pages {
-    self.pageNumer = pages;
     self.currentIndex = currentIndex;
     [self.collectionView scrollToItemAtIndexPath:currentIndex atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
     [self.collectionView reloadItemsAtIndexPaths:@[currentIndex]];
