@@ -13,6 +13,7 @@
 
 @protocol MGGalleryFullscreenCollectionViewControllerDelegate <NSObject>
 - (void)viewController:(MGGalleryFullscreenCollectionViewController *)viewController didUpdate:(NSMutableArray *)photoArray currentPage:(NSInteger)page onCurrentIndex:(NSIndexPath *)currentIndex;
+- (void)viewController:(MGGalleryFullscreenCollectionViewController *)viewController updateCurrentIndex:(NSIndexPath *)currentIndex numberOfPages:(NSInteger)pages;
 @end
 
 @interface MGGalleryFullscreenCollectionViewController : UICollectionViewController

@@ -118,7 +118,6 @@
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
-    [self clearCache];
     return YES;
 }
 

@@ -213,7 +213,6 @@ static NSString * const reuseIdentifier = @"GridCell";
     if ([[segue identifier] isEqualToString:@"showFullscreen"]) {
         MGGalleryFullscreenCollectionViewController *fullscreenController = (MGGalleryFullscreenCollectionViewController *)[segue destinationViewController];
         
-       
         fullscreenController.selectedIndexPath = self.currentSelectedIndex;
         fullscreenController.photoArray = self.photoArray;
         fullscreenController.pageNumer = self.pageNumer;
@@ -230,25 +229,19 @@ static NSString * const reuseIdentifier = @"GridCell";
     [self.collectionView scrollRectToVisible:rect animated:NO];
 }
 
+- (void)viewController:(MGGalleryFullscreenCollectionViewController *)viewController updateCurrentIndex:(NSIndexPath *)currentIndex numberOfPages:(NSInteger)pages {
+    self.pageNumer = pages;
+    self.currentIndex = currentIndex;
+    [self.collectionView scrollToItemAtIndexPath:currentIndex atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+    [self.collectionView reloadItemsAtIndexPaths:@[currentIndex]];
+    
+}
+
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     
-    NSArray *indexPaths = [self.collectionView indexPathsForVisibleItems];
-    
-    NSSortDescriptor *itemDescriptor = [[NSSortDescriptor alloc] initWithKey:@"item" ascending:YES];
-    indexPaths = [indexPaths sortedArrayUsingDescriptors:@[itemDescriptor]];
-    
-    NSIndexPath *firstIndexPath = [indexPaths firstObject];
-    
-    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-        
-    } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-        MGGridLayout *layout = (MGGridLayout *)self.collectionView.collectionViewLayout;
-        UICollectionViewLayoutAttributes *firstItemAttribute = [self.collectionView.collectionViewLayout layoutAttributesForItemAtIndexPath:firstIndexPath];
-        CGPoint offset = CGPointMake(0, firstItemAttribute.frame.origin.y - layout.marginSize);
-        
-        [self.collectionView setContentOffset:offset animated:NO];
-    }];
+    [self.collectionView scrollToItemAtIndexPath:self.currentIndex atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+    [self.collectionView reloadItemsAtIndexPaths:@[self.currentIndex]];
 }
 
 - (BOOL)prefersStatusBarHidden {

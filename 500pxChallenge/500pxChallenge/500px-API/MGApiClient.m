@@ -80,7 +80,7 @@ static MGApiClient *_sharedInstance = nil;
     [parameters addEntriesFromDictionary:@{kMG500pxPhotoParameterSortDirection : kMG500pxPhotoSortDirectionDesc,
                                            kMG500pxPhotoParameterImageSize : kMG500pxPhotoImageSize4,
                                            kMG500pxPhotoParameterTags : @"1",
-                                           @"rpp":@"100"
+                                           @"rpp":@"20"
                                            }];
     
     [self.authClient authorizedRequestPath:kMG500pxAPIPhotosPath forHTTPMethod:@"GET" extraParameters:[parameters copy] completion:^(id result, NSError *error) {

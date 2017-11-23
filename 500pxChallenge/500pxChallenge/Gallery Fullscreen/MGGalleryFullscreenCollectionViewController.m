@@ -19,6 +19,7 @@
 @property (assign, nonatomic) BOOL showingReusableViews;
 @property (assign, nonatomic) BOOL showingMoreInfo;
 @property (strong, nonatomic) NSIndexPath *currentIndexPath;
+@property (assign, nonatomic) NSInteger currentNumberOfItems;
 @end
 
 @implementation MGGalleryFullscreenCollectionViewController
@@ -37,9 +38,6 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.showingReusableViews = YES;
-    if (self.selectedIndexPath.item > 1) {
-        self.isFirstLoad = YES;
-    }
     
     [self.collectionView setPagingEnabled:YES];
     
@@ -49,13 +47,13 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"MGFooterCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:reuseFooterIdentifier];
     
+    self.currentNumberOfItems = [self.photoArray count];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     [self.collectionView scrollToItemAtIndexPath:self.selectedIndexPath atScrollPosition:UICollectionViewScrollPositionRight animated:NO];
-    self.isFirstLoad = NO;
     [self updateFooterInfoWithPhoto:self.photoArray[self.selectedIndexPath.item]];
 }
 
@@ -63,10 +61,11 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
     [super viewDidDisappear:animated];
     
     if (![self.navigationController.viewControllers containsObject:self]) {
-        [self.controllerDelegate viewController:self
+        [self.controllerDelegate viewController:self updateCurrentIndex:self.currentIndexPath numberOfPages:self.pageNumer];
+       /* [self.controllerDelegate viewController:self
                                       didUpdate:self.photoArray
                                     currentPage:self.pageNumer
-                                 onCurrentIndex:self.currentIndexPath];
+                                 onCurrentIndex:self.currentIndexPath];*/
     }
 }
 
@@ -93,6 +92,10 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.currentNumberOfItems;
+}
+
+- (NSInteger)collectionViewNumberOfItems:(UICollectionView *)collectionView {
     return [self.photoArray count];
 }
 
@@ -107,28 +110,24 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
         [cell reset];
     }
     
-    if (!self.isFirstLoad) {
         if (photo.photoImage) {
             [cell setImage:photo.photoImage];
         } else {
             [self loadImageFor:photo forCell:cell atIndexPath:indexPath withCollectionView:collectionView];
         }
-    }
     
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.item == [self.photoArray count] - 5) {
-        self.pageNumer += 1;
-        [self.apiClient getListPhotosForFeature:kMG500pxPhotoFeaturePopular
-                             includedCategories:@[]
-                             excludedCategories:@[]
-                                           page:self.pageNumer
-                                     completion:^(NSArray *result, NSError *error) {
-                                         [self.photoArray addObjectsFromArray:result];
-                                         [self.collectionView reloadData];
-                                     }];
+    
+    if (indexPath.item == self.currentNumberOfItems - 2) {
+        dispatch_async(dispatch_get_global_queue(NSQualityOfServiceBackground, 0), ^{
+            self.currentNumberOfItems = [self.photoArray count];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.collectionView reloadData];
+            });
+        }); 
     }
 }
 
@@ -141,7 +140,6 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
         [self loadImagesForOnScreenItems];
     }
 }
-
 
 #pragma mark <UICollectionViewDelegate>
 
@@ -289,6 +287,7 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
         NSArray *visiblePaths = [self.collectionView indexPathsForVisibleItems];
         for (NSIndexPath *indexPath in visiblePaths) {
             self.currentIndexPath = indexPath;
+            [self.controllerDelegate viewController:self updateCurrentIndex:indexPath numberOfPages:self.pageNumer];
             MGPhoto *photo = self.photoArray[indexPath.item];
             [self updateFooterInfoWithPhoto:photo];
             MGGalleryFullscreenCollectionViewCell *cell = (id)[self.collectionView cellForItemAtIndexPath:indexPath];
