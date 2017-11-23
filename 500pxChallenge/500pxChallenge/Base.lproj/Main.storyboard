@@ -31,7 +31,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Grid"/>
                                 <connections>
-                                    <segue destination="fxn-v2-E8O" kind="show" id="ePj-2o-kk0"/>
+                                    <segue destination="fxn-v2-E8O" kind="show" identifier="showGrid" id="ePj-2o-kk0"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -62,26 +62,68 @@
                                 <outlet property="gridDelegate" destination="fxn-v2-E8O" id="bir-cz-SNV"/>
                             </connections>
                         </collectionViewLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="1SG-vy-IFY">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </view>
-                                <color key="backgroundColor" red="0.12941176470588234" green="0.12941176470588234" blue="0.12941176470588234" alpha="1" colorSpace="calibratedRGB"/>
-                            </collectionViewCell>
-                        </cells>
+                        <cells/>
                         <connections>
                             <outlet property="dataSource" destination="fxn-v2-E8O" id="2Sp-gc-Hhl"/>
                             <outlet property="delegate" destination="fxn-v2-E8O" id="eAE-mk-7D7"/>
                         </connections>
                     </collectionView>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <segue destination="318-DY-spX" kind="show" identifier="showFullscreen" id="hBg-Xo-HkP"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tXU-Av-UJ0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1482" y="415"/>
+        </scene>
+        <!--Fullscreen Gallery-->
+        <scene sceneID="5Yk-Kx-jGb">
+            <objects>
+                <collectionViewController id="318-DY-spX" userLabel="Fullscreen Gallery" customClass="MGGalleryFullscreenCollectionViewController" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="W3c-uL-Irk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <collectionViewLayout key="collectionViewLayout" id="1Rz-MW-5mo" customClass="MGFullscreenLayout">
+                            <connections>
+                                <outlet property="fullscreenDelegate" destination="318-DY-spX" id="cbE-af-i1J"/>
+                            </connections>
+                        </collectionViewLayout>
+                        <cells/>
+                        <connections>
+                            <outlet property="dataSource" destination="318-DY-spX" id="TKc-wu-B6a"/>
+                            <outlet property="delegate" destination="318-DY-spX" id="vu6-YW-jZ1"/>
+                        </connections>
+                    </collectionView>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <connections>
+                        <segue destination="agf-Dt-SeG" kind="presentation" identifier="showDescriptionInfo" modalPresentationStyle="overCurrentContext" modalTransitionStyle="coverVertical" id="ScD-Sm-yR1"/>
+                    </connections>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mjR-Lq-Gqg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2380" y="414"/>
+        </scene>
+        <!--Description Table View Controller-->
+        <scene sceneID="H7A-9o-O4j">
+            <objects>
+                <tableViewController id="agf-Dt-SeG" customClass="MGDescriptionTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="HYI-sb-HUu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.60322403169014094" colorSpace="calibratedRGB"/>
+                        <color key="separatorColor" red="0.81358816964285718" green="0.81358816964285718" blue="0.81358816964285718" alpha="0.74669894366197187" colorSpace="calibratedRGB"/>
+                        <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                        <connections>
+                            <outlet property="dataSource" destination="agf-Dt-SeG" id="9g3-nf-1GK"/>
+                            <outlet property="delegate" destination="agf-Dt-SeG" id="KTo-in-rig"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WcG-KA-80P" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3186.4000000000001" y="427.73613193403304"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LLz-ix-R5K">

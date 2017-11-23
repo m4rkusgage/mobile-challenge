@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FullscreenCell" id="gTV-IL-0wX" customClass="MGGalleryFullscreenCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="295" height="317"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="295" height="317"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aZX-GL-OBj">
+                        <rect key="frame" x="0.0" y="0.0" width="295" height="317"/>
+                        <subviews>
+                            <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gzC-i2-WAT">
+                                <rect key="frame" x="0.0" y="0.0" width="295" height="317"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="gzC-i2-WAT" secondAttribute="bottom" id="3mT-yQ-bDL"/>
+                            <constraint firstItem="gzC-i2-WAT" firstAttribute="leading" secondItem="aZX-GL-OBj" secondAttribute="leading" id="ADh-ow-JTl"/>
+                            <constraint firstAttribute="trailing" secondItem="gzC-i2-WAT" secondAttribute="trailing" id="RYU-Qg-VFD"/>
+                            <constraint firstItem="gzC-i2-WAT" firstAttribute="centerX" secondItem="aZX-GL-OBj" secondAttribute="centerX" id="Rld-s3-wkF"/>
+                            <constraint firstItem="gzC-i2-WAT" firstAttribute="centerY" secondItem="aZX-GL-OBj" secondAttribute="centerY" id="cgO-OB-H1F"/>
+                            <constraint firstItem="gzC-i2-WAT" firstAttribute="top" secondItem="aZX-GL-OBj" secondAttribute="top" id="uHl-pe-1av"/>
+                        </constraints>
+                    </scrollView>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="aZX-GL-OBj" firstAttribute="leading" secondItem="SEy-5g-ep8" secondAttribute="leading" id="Awd-k9-B6d"/>
+                <constraint firstItem="SEy-5g-ep8" firstAttribute="bottom" secondItem="aZX-GL-OBj" secondAttribute="bottom" id="Zqn-Ta-awl"/>
+                <constraint firstItem="SEy-5g-ep8" firstAttribute="trailing" secondItem="aZX-GL-OBj" secondAttribute="trailing" id="etD-8x-zjh"/>
+                <constraint firstItem="aZX-GL-OBj" firstAttribute="top" secondItem="SEy-5g-ep8" secondAttribute="top" id="o1D-O8-h4M"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
+            <size key="customSize" width="295" height="317"/>
+            <connections>
+                <outlet property="photoImageView" destination="gzC-i2-WAT" id="sN4-AW-18N"/>
+                <outlet property="scrollView" destination="aZX-GL-OBj" id="lw9-1P-AGa"/>
+            </connections>
+            <point key="canvasLocation" x="173.5" y="220.5"/>
+        </collectionViewCell>
+    </objects>
+</document>

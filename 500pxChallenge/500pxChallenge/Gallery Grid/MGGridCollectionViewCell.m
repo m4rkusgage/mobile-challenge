@@ -18,6 +18,12 @@
     [self reset];
 }
 
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    
+    self.photoImageView.image = nil;
+}
+
 - (void)reset {
     [self.photoImageView setAlpha:0];
     self.photoImageView.image = nil;

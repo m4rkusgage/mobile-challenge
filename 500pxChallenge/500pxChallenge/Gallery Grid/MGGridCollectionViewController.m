@@ -10,11 +10,14 @@
 #import "MGGridLayout.h"
 #import "MGGridCollectionViewCell.h"
 #import "MGApiClient.h"
+#import "MGGalleryFullscreenCollectionViewController.h"
 
-@interface MGGridCollectionViewController ()<MGGridLayoutDelegate>
+@interface MGGridCollectionViewController ()<MGGridLayoutDelegate, UINavigationControllerDelegate, MGGalleryFullscreenCollectionViewControllerDelegate>
 @property (assign, nonatomic) NSInteger pageNumer;
 @property (strong, nonatomic) NSMutableArray *photoArray;
 @property (strong, nonatomic) MGApiClient *apiClient;
+@property (strong, nonatomic) NSIndexPath *currentSelectedIndex;
+@property (strong, nonatomic) NSIndexPath *currentIndex;
 @end
 
 @implementation MGGridCollectionViewController
@@ -37,19 +40,25 @@ static NSString * const reuseIdentifier = @"GridCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationController setDelegate:self];
+    [self.navigationController setNavigationBarHidden:YES];
     
     self.pageNumer = 1;
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"MGGridCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     
     [self.apiClient getListPhotosForFeature:kMG500pxPhotoFeaturePopular
-                         includedCategories:@[kMG500pxPhotoCategoryTravel]
+                         includedCategories:@[]
                          excludedCategories:@[]
                                        page:self.pageNumer
                                  completion:^(NSArray *result, NSError *error) {
                                      self.photoArray = [result mutableCopy];
                                      [self.collectionView reloadData];
                                  }];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -79,11 +88,13 @@ static NSString * const reuseIdentifier = @"GridCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    self.currentIndex = indexPath;
     MGPhoto *photo = self.photoArray[indexPath.item];
     
     MGGridCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    [cell reset];
+    if (!photo.wasShown) {
+        [cell reset];
+    }
     
     if (photo.photoImage) {
         [cell setImage:photo.photoImage];
@@ -98,7 +109,7 @@ static NSString * const reuseIdentifier = @"GridCell";
     if (indexPath.item == [self.photoArray count] - 5) {
         self.pageNumer += 1;
         [self.apiClient getListPhotosForFeature:kMG500pxPhotoFeaturePopular
-                             includedCategories:@[kMG500pxPhotoCategoryTravel]
+                             includedCategories:@[]
                              excludedCategories:@[]
                                            page:self.pageNumer
                                      completion:^(NSArray *result, NSError *error) {
@@ -109,7 +120,10 @@ static NSString * const reuseIdentifier = @"GridCell";
 }
 
 #pragma mark <UICollectionViewDelegate>
-
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    self.currentSelectedIndex = indexPath;
+    [self performSegueWithIdentifier:@"showFullscreen" sender:nil];
+}
 /*
 // Uncomment this method to specify if the specified item should be highlighted during tracking
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -173,6 +187,7 @@ static NSString * const reuseIdentifier = @"GridCell";
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([collectionView indexPathForCell:gridCell].item == indexPath.item) {
                 [gridCell setImage:img];
+                photo.wasShown = YES;
             }
         });
     }];
@@ -188,8 +203,55 @@ static NSString * const reuseIdentifier = @"GridCell";
             MGGridCollectionViewCell *cell = (id)[self.collectionView cellForItemAtIndexPath:indexPath];
             if (photo.photoImage) {
                 [cell setImage:photo.photoImage];
+                photo.wasShown = YES;
             }
         }
     }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"showFullscreen"]) {
+        MGGalleryFullscreenCollectionViewController *fullscreenController = (MGGalleryFullscreenCollectionViewController *)[segue destinationViewController];
+        
+       
+        fullscreenController.selectedIndexPath = self.currentSelectedIndex;
+        fullscreenController.photoArray = self.photoArray;
+        fullscreenController.pageNumer = self.pageNumer;
+        [fullscreenController setControllerDelegate:self];
+    }
+}
+
+-(void)viewController:(MGGalleryFullscreenCollectionViewController *)viewController didUpdate:(NSMutableArray *)photoArray currentPage:(NSInteger)page onCurrentIndex:(NSIndexPath *)currentIndex {
+    self.photoArray = photoArray;
+    self.currentSelectedIndex = currentIndex;
+    self.pageNumer = page;
+    
+    CGRect rect = [self.collectionView layoutAttributesForItemAtIndexPath:self.currentSelectedIndex].frame;
+    [self.collectionView scrollRectToVisible:rect animated:NO];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    NSArray *indexPaths = [self.collectionView indexPathsForVisibleItems];
+    
+    NSSortDescriptor *itemDescriptor = [[NSSortDescriptor alloc] initWithKey:@"item" ascending:YES];
+    indexPaths = [indexPaths sortedArrayUsingDescriptors:@[itemDescriptor]];
+    
+    NSIndexPath *firstIndexPath = [indexPaths firstObject];
+    
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        MGGridLayout *layout = (MGGridLayout *)self.collectionView.collectionViewLayout;
+        UICollectionViewLayoutAttributes *firstItemAttribute = [self.collectionView.collectionViewLayout layoutAttributesForItemAtIndexPath:firstIndexPath];
+        CGPoint offset = CGPointMake(0, firstItemAttribute.frame.origin.y - layout.marginSize);
+        
+        [self.collectionView setContentOffset:offset animated:NO];
+    }];
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 @end
