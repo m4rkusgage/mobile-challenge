@@ -96,6 +96,8 @@
 		8C6DB4081FC398E700C2F731 /* MGReusableViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGReusableViewDelegate.h; sourceTree = "<group>"; };
 		8CA74B391FC87426004A16A4 /* MGTransitionAnimator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGTransitionAnimator.h; sourceTree = "<group>"; };
 		8CA74B3A1FC87426004A16A4 /* MGTransitionAnimator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGTransitionAnimator.m; sourceTree = "<group>"; };
+		8CA74B3F1FC90DAC004A16A4 /* MGViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGViewControllerDelegate.h; sourceTree = "<group>"; };
+		8CA74B401FC90DE7004A16A4 /* MGLayoutDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGLayoutDelegate.h; sourceTree = "<group>"; };
 		C357CAE1D9DDEE871FBB1B66 /* Pods-500px-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-500px-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-500px-iOS/Pods-500px-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -155,6 +157,8 @@
 				8C0248F41FBE207200117674 /* main.m */,
 				8CA74B391FC87426004A16A4 /* MGTransitionAnimator.h */,
 				8CA74B3A1FC87426004A16A4 /* MGTransitionAnimator.m */,
+				8CA74B3F1FC90DAC004A16A4 /* MGViewControllerDelegate.h */,
+				8CA74B401FC90DE7004A16A4 /* MGLayoutDelegate.h */,
 			);
 			path = 500pxChallenge;
 			sourceTree = "<group>";
