@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "ModelProtocol.h"
+#import "MGModelProtocol.h"
 
-@interface MGUser : NSObject<ModelProtocol>
+@interface MGUser : NSObject<MGModelProtocol>
 @property (strong, nonatomic, readonly) NSString *userFullName;
 @property (strong, nonatomic, readonly) NSString *userAvatarURL;
 @property (strong, nonatomic) UIImage *userAvatar;

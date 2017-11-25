@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "ModelProtocol.h"
+#import "MGModelProtocol.h"
 #import "MGUser.h"
 
-@interface MGPhoto : NSObject<ModelProtocol>
+@interface MGPhoto : NSObject<MGModelProtocol>
 @property (assign, nonatomic) BOOL wasShown;
 @property (assign, nonatomic, readonly) CGSize photoDimension;
 @property (strong, nonatomic, readonly) NSString *photoURL;

@@ -60,7 +60,6 @@
 		8C02490F1FBE2EF500117674 /* MGApiClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGApiClient.m; sourceTree = "<group>"; };
 		8C0249161FBE501000117674 /* MGPhoto.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGPhoto.h; sourceTree = "<group>"; };
 		8C0249171FBE501000117674 /* MGPhoto.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGPhoto.m; sourceTree = "<group>"; };
-		8C0249191FBE5C2200117674 /* ModelProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModelProtocol.h; sourceTree = "<group>"; };
 		8C02491C1FBE638800117674 /* MGGalleryFullscreenCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGGalleryFullscreenCollectionViewController.h; sourceTree = "<group>"; };
 		8C02491D1FBE638800117674 /* MGGalleryFullscreenCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGGalleryFullscreenCollectionViewController.m; sourceTree = "<group>"; };
 		8C0249211FBE63B400117674 /* MGGalleryFullscreenCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGGalleryFullscreenCollectionViewCell.h; sourceTree = "<group>"; };
@@ -101,6 +100,7 @@
 		8CA74B401FC90DE7004A16A4 /* MGLayoutDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGLayoutDelegate.h; sourceTree = "<group>"; };
 		8CA74B411FC93B99004A16A4 /* NSString+MGUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+MGUtilities.h"; sourceTree = "<group>"; };
 		8CA74B421FC93B99004A16A4 /* NSString+MGUtilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+MGUtilities.m"; sourceTree = "<group>"; };
+		8CA74B4D1FC94A16004A16A4 /* MGModelProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGModelProtocol.h; sourceTree = "<group>"; };
 		C357CAE1D9DDEE871FBB1B66 /* Pods-500px-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-500px-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-500px-iOS/Pods-500px-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -146,6 +146,7 @@
 		8C0248E41FBE207100117674 /* 500pxChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				8CA74B4E1FC94A30004A16A4 /* Models */,
 				8CA74B4C1FC9484A004A16A4 /* Layouts */,
 				8CA74B4A1FC9452C004A16A4 /* Protocols */,
 				8CA74B461FC94370004A16A4 /* Views */,
@@ -173,15 +174,10 @@
 		8C02490A1FBE293600117674 /* 500px-API */ = {
 			isa = PBXGroup;
 			children = (
-				8C4BEA461FC5D99B00FBB8E9 /* MGUser.h */,
-				8C4BEA471FC5D99B00FBB8E9 /* MGUser.m */,
 				8C02490B1FBE2C8200117674 /* MGConstants.h */,
 				8C02490C1FBE2C8200117674 /* MGConstants.m */,
 				8C02490E1FBE2EF500117674 /* MGApiClient.h */,
 				8C02490F1FBE2EF500117674 /* MGApiClient.m */,
-				8C0249161FBE501000117674 /* MGPhoto.h */,
-				8C0249171FBE501000117674 /* MGPhoto.m */,
-				8C0249191FBE5C2200117674 /* ModelProtocol.h */,
 			);
 			path = "500px-API";
 			sourceTree = "<group>";
@@ -270,6 +266,7 @@
 				8C6DB4081FC398E700C2F731 /* MGReusableViewDelegate.h */,
 				8CA74B3F1FC90DAC004A16A4 /* MGViewControllerDelegate.h */,
 				8CA74B401FC90DE7004A16A4 /* MGLayoutDelegate.h */,
+				8CA74B4D1FC94A16004A16A4 /* MGModelProtocol.h */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -292,6 +289,17 @@
 				8C0249321FBE6C1C00117674 /* MGGridLayout.m */,
 			);
 			path = Layouts;
+			sourceTree = "<group>";
+		};
+		8CA74B4E1FC94A30004A16A4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8C4BEA461FC5D99B00FBB8E9 /* MGUser.h */,
+				8C4BEA471FC5D99B00FBB8E9 /* MGUser.m */,
+				8C0249161FBE501000117674 /* MGPhoto.h */,
+				8C0249171FBE501000117674 /* MGPhoto.m */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		92B99A99D973645100785BBA /* Frameworks */ = {
