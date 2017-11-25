@@ -12,6 +12,7 @@
 #import "MGApiClient.h"
 #import "MGGalleryFullscreenCollectionViewController.h"
 
+
 @interface MGGridCollectionViewController ()<MGGridLayoutDelegate, UINavigationControllerDelegate, MGGalleryFullscreenCollectionViewControllerDelegate>
 @property (assign, nonatomic) NSInteger pageNumer;
 @property (strong, nonatomic) NSMutableArray *photoArray;
@@ -245,5 +246,10 @@ static NSString * const reuseIdentifier = @"GridCell";
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
+    
+    return [[MGTransitionAnimator alloc] initWithOperation:operation];
 }
 @end

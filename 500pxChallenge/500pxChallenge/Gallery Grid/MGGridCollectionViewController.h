@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MGTransitionAnimator.h"
 
-@interface MGGridCollectionViewController : UICollectionViewController
+@class MGTransitionAnimator;
+
+@interface MGGridCollectionViewController : UICollectionViewController<TransitionDelegate>
 
 @end

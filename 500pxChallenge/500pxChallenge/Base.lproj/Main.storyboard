@@ -98,7 +98,7 @@
                     </collectionView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
-                        <segue destination="agf-Dt-SeG" kind="presentation" identifier="showDescriptionInfo" modalPresentationStyle="overCurrentContext" modalTransitionStyle="coverVertical" id="ScD-Sm-yR1"/>
+                        <segue destination="agf-Dt-SeG" kind="presentation" identifier="showDescriptionInfo" modalPresentationStyle="overCurrentContext" id="ScD-Sm-yR1"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mjR-Lq-Gqg" userLabel="First Responder" sceneMemberID="firstResponder"/>

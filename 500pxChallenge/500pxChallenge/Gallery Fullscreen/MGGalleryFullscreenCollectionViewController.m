@@ -13,6 +13,7 @@
 #import "MGApiClient.h"
 #import "MGFullscreenLayout.h"
 #import "MGDescriptionTableViewController.h"
+#import "MGTransitionAnimator.h"
 
 @interface MGGalleryFullscreenCollectionViewController ()<MGGalleryFullscreenCollectionViewCellDelegate, MGReusableViewDelegate, MGFullscreenLayoutDelegate, MGDescriptionViewControllerDelegate>
 @property (assign, nonatomic) BOOL isFirstLoad;
@@ -37,6 +38,7 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.showingReusableViews = YES;
     
     [self.collectionView setPagingEnabled:YES];
@@ -48,12 +50,14 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
     [self.collectionView registerNib:[UINib nibWithNibName:@"MGFooterCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:reuseFooterIdentifier];
     
     self.currentNumberOfItems = [self.photoArray count];
+    self.currentIndexPath = self.selectedIndexPath;
+    
+    [self.collectionView scrollToItemAtIndexPath:self.selectedIndexPath atScrollPosition:UICollectionViewScrollPositionRight animated:NO];
+    [self updateFooterInfoWithPhoto:self.photoArray[self.selectedIndexPath.item]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    [self.collectionView scrollToItemAtIndexPath:self.selectedIndexPath atScrollPosition:UICollectionViewScrollPositionRight animated:NO];
     [self updateFooterInfoWithPhoto:self.photoArray[self.selectedIndexPath.item]];
 }
 
@@ -329,4 +333,5 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
 - (void)viewControllerDidClose:(UIViewController *)viewController {
      [self fullscreenCellWasTapped:nil];
 }
+
 @end
