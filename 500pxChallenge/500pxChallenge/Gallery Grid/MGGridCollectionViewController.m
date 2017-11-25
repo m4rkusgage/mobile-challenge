@@ -250,7 +250,6 @@ static NSString * const reuseIdentifier = @"GridCell";
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
-    
     return [[MGTransitionAnimator alloc] initWithOperation:operation];
 }
 @end

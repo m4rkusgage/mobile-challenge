@@ -7,12 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@protocol MGFullscreenLayoutDelegate <NSObject>
-- (CGFloat)collectionViewCurrentAlpha:(UICollectionView *)collectionView;
-- (CGSize)collectionViewSizeOfFooterView:(UICollectionView *)collectionView;
-@end
+#import "MGLayoutDelegate.h"
 
 @interface MGFullscreenLayout : UICollectionViewLayout
-@property (weak, nonatomic) IBOutlet id<MGFullscreenLayoutDelegate> fullscreenDelegate;
+@property (weak, nonatomic) IBOutlet id<MGLayoutDelegate> layoutDelegate;
 @end

@@ -15,7 +15,8 @@
 #import "MGDescriptionTableViewController.h"
 #import "MGTransitionAnimator.h"
 
-@interface MGGalleryFullscreenCollectionViewController ()<MGGalleryFullscreenCollectionViewCellDelegate, MGReusableViewDelegate, MGFullscreenLayoutDelegate, MGDescriptionViewControllerDelegate>
+
+@interface MGGalleryFullscreenCollectionViewController ()<MGGalleryFullscreenCollectionViewCellDelegate, MGReusableViewDelegate, MGLayoutDelegate, MGDescriptionViewControllerDelegate>
 @property (assign, nonatomic) BOOL isFirstLoad;
 @property (assign, nonatomic) BOOL showingReusableViews;
 @property (assign, nonatomic) BOOL showingMoreInfo;
@@ -200,25 +201,35 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
     
     if (self.showingReusableViews) {
         self.showingReusableViews = NO;
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:0.35 animations:^{
             header.alpha = 0;
             footer.alpha = 0;
         }];
     } else {
         self.showingReusableViews = YES;
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:0.35 animations:^{
             header.alpha = 1;
             footer.alpha = 1;
         }];
     }
 }
 
-- (CGFloat)collectionViewCurrentAlpha:(UICollectionView *)collectionView {
-    return self.showingReusableViews;
+#pragma mark - MGLayoutDelegate
+- (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return self.collectionView.bounds.size;
 }
 
-- (CGSize)collectionViewSizeOfFooterView:(UICollectionView *)collectionView {
-    return CGSizeMake(self.collectionView.bounds.size.width, 125);
+- (CGSize)collectionView:(UICollectionView *)collectionView sizeForSupplementaryElementKind:(NSString *)kind AtIndexPath:(NSIndexPath *)indexPath {
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        return CGSizeMake(CGRectGetWidth(self.collectionView.bounds), 70);
+    } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
+        return CGSizeMake(CGRectGetWidth(self.collectionView.bounds), 125);
+    }
+    return CGSizeZero;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView alphaForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return self.showingReusableViews;
 }
 
 - (void)updateFooterInfoWithPhoto:(MGPhoto *)photo {

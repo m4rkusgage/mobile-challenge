@@ -6,44 +6,9 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hmh-HL-3m4">
-                                <rect key="frame" x="140" y="318" width="125" height="97"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Authorize"/>
-                                <connections>
-                                    <action selector="getAuthorizeButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WhI-79-YHR"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ucY-iL-doG">
-                                <rect key="frame" x="115" y="138" width="168" height="101"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Grid"/>
-                                <connections>
-                                    <segue destination="fxn-v2-E8O" kind="show" identifier="showGrid" id="ePj-2o-kk0"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="l0H-LE-uTc"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="244" y="520.38980509745136"/>
-        </scene>
         <!--Grid Gallery-->
         <scene sceneID="m4W-Cm-Odb">
             <objects>
@@ -59,7 +24,7 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <outlet property="gridDelegate" destination="fxn-v2-E8O" id="bir-cz-SNV"/>
+                                <outlet property="layoutDelegate" destination="fxn-v2-E8O" id="ody-wk-vBt"/>
                             </connections>
                         </collectionViewLayout>
                         <cells/>
@@ -68,6 +33,7 @@
                             <outlet property="delegate" destination="fxn-v2-E8O" id="eAE-mk-7D7"/>
                         </connections>
                     </collectionView>
+                    <navigationItem key="navigationItem" id="fvU-ZQ-ev7"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <segue destination="318-DY-spX" kind="show" identifier="showFullscreen" id="hBg-Xo-HkP"/>
@@ -87,7 +53,7 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewLayout key="collectionViewLayout" id="1Rz-MW-5mo" customClass="MGFullscreenLayout">
                             <connections>
-                                <outlet property="fullscreenDelegate" destination="318-DY-spX" id="cbE-af-i1J"/>
+                                <outlet property="layoutDelegate" destination="318-DY-spX" id="G3Z-xa-CZ5"/>
                             </connections>
                         </collectionViewLayout>
                         <cells/>
@@ -134,12 +100,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="aq2-XT-VbN"/>
+                        <segue destination="fxn-v2-E8O" kind="relationship" relationship="rootViewController" id="NhV-Rt-bHf"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EuG-Le-0ib" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-584" y="522"/>
+            <point key="canvasLocation" x="497" y="414"/>
         </scene>
     </scenes>
 </document>

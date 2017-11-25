@@ -10,6 +10,7 @@
 
 @interface MGFullscreenLayout ()
 @property (assign, nonatomic) CGFloat contentWidth;
+@property (strong, nonatomic) NSMutableArray<UICollectionViewLayoutAttributes *> *previousAttributeCache;
 @property (strong, nonatomic) NSMutableArray<UICollectionViewLayoutAttributes *> *attributeCache;
 @property (strong, nonatomic) NSMutableArray<UICollectionViewLayoutAttributes *> *supplementaryCache;
 @end
@@ -44,19 +45,21 @@
 }
 
 - (CGSize)collectionViewContentSize {
-    return CGSizeMake(self.contentWidth, self.collectionView.bounds.size.height);
+    return CGSizeMake(self.contentWidth, CGRectGetHeight(self.collectionView.bounds));
 }
 
 - (void)prepareLayout {
     [super prepareLayout];
+    self.previousAttributeCache = [self.attributeCache mutableCopy];
     [self clearCache];
     
-    UICollectionViewLayoutAttributes *headerAttribute = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    [self updateHeaderAttributes:headerAttribute];
+    NSIndexPath *supplementaryViewIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    UICollectionViewLayoutAttributes *headerAttribute = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:supplementaryViewIndexPath];
+    [self updateHeaderAttributes:headerAttribute atIndexPath:supplementaryViewIndexPath];
     [self.supplementaryCache addObject:headerAttribute];
     
-    UICollectionViewLayoutAttributes *footerAttribute = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionFooter withIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    [self updateFooterAttributes:footerAttribute];
+    UICollectionViewLayoutAttributes *footerAttribute = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionFooter withIndexPath:supplementaryViewIndexPath];
+    [self updateFooterAttributes:footerAttribute atIndexPath:supplementaryViewIndexPath];
     [self.supplementaryCache addObject:footerAttribute];
     
     CGFloat xOffset = 0;
@@ -64,7 +67,7 @@
     
     for (int item = 0; item < [self.collectionView numberOfItemsInSection:0]; item++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:0];
-        CGSize itemSize = self.collectionView.bounds.size;
+        CGSize itemSize = [self.layoutDelegate collectionView:self.collectionView sizeForItemAtIndexPath:indexPath];
         
         CGRect frame = CGRectMake(xOffset, yOffset, itemSize.width, itemSize.height);
         
@@ -81,13 +84,13 @@
 
 - (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
     NSMutableArray *layoutAttributes = [[NSMutableArray alloc] init];
-
+    NSIndexPath *supplementaryViewIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     for (UICollectionViewLayoutAttributes *supplementaryAttributes in self.supplementaryCache) {
         if ([[supplementaryAttributes representedElementKind] isEqualToString:UICollectionElementKindSectionHeader]) {
-            [self updateHeaderAttributes:supplementaryAttributes];
+            [self updateHeaderAttributes:supplementaryAttributes atIndexPath:supplementaryViewIndexPath];
             [layoutAttributes addObject:supplementaryAttributes];
         } else {
-            [self updateFooterAttributes:supplementaryAttributes];
+            [self updateFooterAttributes:supplementaryAttributes atIndexPath:supplementaryViewIndexPath];
             [layoutAttributes addObject:supplementaryAttributes];
         }
     }
@@ -96,16 +99,15 @@
             [layoutAttributes addObject:attributes];
         }
     }
-    
     return layoutAttributes;
+}
+
+- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
+    return self.previousAttributeCache[itemIndexPath.item];
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
     return self.attributeCache[indexPath.item];
-}
-
-- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
-    return self.attributeCache[itemIndexPath.item];
 }
 
 - (UICollectionViewLayoutAttributes *)finalLayoutAttributesForDisappearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
@@ -121,17 +123,17 @@
     return YES;
 }
 
-- (void)updateHeaderAttributes:(UICollectionViewLayoutAttributes *)attribute {
-    attribute.frame = CGRectMake(self.collectionView.contentOffset.x, 0, CGRectGetWidth(self.collectionView.bounds), 70);
-    attribute.alpha = [self.fullscreenDelegate collectionViewCurrentAlpha:self.collectionView];
+- (void)updateHeaderAttributes:(UICollectionViewLayoutAttributes *)attribute atIndexPath:(NSIndexPath *)indexPath {
+    CGSize headerSize = [self.layoutDelegate collectionView:self.collectionView sizeForSupplementaryElementKind:UICollectionElementKindSectionHeader AtIndexPath:indexPath];
+    attribute.frame = CGRectMake(self.collectionView.contentOffset.x, 0, headerSize.width, headerSize.height);
+    attribute.alpha = [self.layoutDelegate collectionView:self.collectionView alphaForItemAtIndexPath:indexPath];
     attribute.zIndex = 1;
 }
 
-- (void)updateFooterAttributes:(UICollectionViewLayoutAttributes *)attribute {
-    CGSize footerSize = [self.fullscreenDelegate collectionViewSizeOfFooterView:self.collectionView];
-    
-    attribute.frame = CGRectMake(self.collectionView.contentOffset.x, CGRectGetHeight(self.collectionView.bounds) - footerSize.height, CGRectGetWidth(self.collectionView.bounds), footerSize.height);
-     attribute.alpha = [self.fullscreenDelegate collectionViewCurrentAlpha:self.collectionView];
+- (void)updateFooterAttributes:(UICollectionViewLayoutAttributes *)attribute atIndexPath:(NSIndexPath *)indexPath {
+    CGSize footerSize = [self.layoutDelegate collectionView:self.collectionView sizeForSupplementaryElementKind:UICollectionElementKindSectionFooter AtIndexPath:indexPath];
+    attribute.frame = CGRectMake(self.collectionView.contentOffset.x, CGRectGetHeight(self.collectionView.bounds) - footerSize.height, footerSize.width, footerSize.height);
+    attribute.alpha = [self.layoutDelegate collectionView:self.collectionView alphaForItemAtIndexPath:indexPath];
     attribute.zIndex = 1;
 }
 @end
