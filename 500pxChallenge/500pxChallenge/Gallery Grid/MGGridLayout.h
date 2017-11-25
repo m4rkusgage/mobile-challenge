@@ -7,13 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@protocol MGGridLayoutDelegate <NSObject>
-- (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
-@end
+#import "MGLayoutDelegate.h"
 
 @interface MGGridLayout : UICollectionViewLayout
-@property (weak, nonatomic) IBOutlet id<MGGridLayoutDelegate> gridDelegate;
+@property (weak, nonatomic) IBOutlet id<MGLayoutDelegate> layoutDelegate;
 @property (assign, nonatomic) IBInspectable CGFloat preferredHeight;
 @property (assign, nonatomic) IBInspectable CGFloat marginSize;
 @end

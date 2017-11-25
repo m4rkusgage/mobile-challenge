@@ -51,7 +51,7 @@
 
 - (CGFloat)preferredHeight {
     if (!_preferredHeight) {
-        _preferredHeight = 50;
+        _preferredHeight = 100;
     }
     return _preferredHeight;
 }
@@ -74,7 +74,7 @@
     
     for (int item = 0; item < [self.collectionView numberOfItemsInSection:0] - 1; item++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:0];
-        CGSize itemSize = [self.gridDelegate collectionView:self.collectionView sizeForItemAtIndexPath:indexPath];
+        CGSize itemSize = [self.layoutDelegate collectionView:self.collectionView sizeForItemAtIndexPath:indexPath];
         
         CGRect frame = CGRectMake([xOffsets[item] floatValue], [yOffsets[item] floatValue], itemSize.width, itemSize.height);
         
@@ -84,7 +84,7 @@
         [currentRowOfAttributes addObject:attributes];
         
         NSIndexPath *nextIndexPath = [NSIndexPath indexPathForItem:item+1 inSection:0];
-        CGSize nextItemSize = [self.gridDelegate collectionView:self.collectionView sizeForItemAtIndexPath:nextIndexPath];
+        CGSize nextItemSize = [self.layoutDelegate collectionView:self.collectionView sizeForItemAtIndexPath:nextIndexPath];
         
         CGFloat widthOfFrame = frame.origin.x + frame.size.width + nextItemSize.width + self.marginSize;
         if (widthOfFrame < self.width) {
@@ -123,22 +123,16 @@
     return layoutAttributes;
 }
 
+- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
+    return self.previousAttributeCache[itemIndexPath.item];
+}
+
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
     return self.attributeCache[indexPath.item];
 }
 
-- (CGFloat)preferredHeight {
-    if (!_preferredHeight) {
-        _preferredHeight = 100;
-    }
-    return _preferredHeight;
-}
-
-- (CGFloat)marginSize {
-    if (!_marginSize) {
-        _marginSize = 0;
-    }
-    return _marginSize;
+- (UICollectionViewLayoutAttributes *)finalLayoutAttributesForDisappearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
+    return [self layoutAttributesForItemAtIndexPath:itemIndexPath];
 }
 
 - (NSArray *)updateRowAttribues:(NSArray *)attributesArray {
@@ -166,14 +160,6 @@
     }
     
     return widthTotal;
-}
-
-- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
-    return self.previousAttributeCache[itemIndexPath.item];
-}
-
-- (UICollectionViewLayoutAttributes *)finalLayoutAttributesForDisappearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
-    return [self layoutAttributesForItemAtIndexPath:itemIndexPath];
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {

@@ -11,9 +11,9 @@
 #import "MGGridCollectionViewCell.h"
 #import "MGApiClient.h"
 #import "MGGalleryFullscreenCollectionViewController.h"
+#import "MGLayoutDelegate.h"
 
-
-@interface MGGridCollectionViewController ()<MGGridLayoutDelegate, UINavigationControllerDelegate, MGGalleryFullscreenCollectionViewControllerDelegate>
+@interface MGGridCollectionViewController ()<MGLayoutDelegate, UINavigationControllerDelegate, MGGalleryFullscreenCollectionViewControllerDelegate>
 @property (assign, nonatomic) NSInteger pageNumer;
 @property (strong, nonatomic) NSMutableArray *photoArray;
 @property (strong, nonatomic) MGApiClient *apiClient;
@@ -164,6 +164,7 @@ static NSString * const reuseIdentifier = @"GridCell";
     }
 }
 
+#pragma mark - MGLayoutDelegate
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     MGGridLayout *gridLayout = (MGGridLayout *)collectionView.collectionViewLayout;
     MGPhoto *photo = self.photoArray[indexPath.item];
