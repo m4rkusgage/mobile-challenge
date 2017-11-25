@@ -89,6 +89,7 @@
     return 70;
 }
 
+#pragma mark - MGReusableViewDelegate
 - (void)reusableView:(UICollectionReusableView *)reusableView buttonPressed:(ReusableViewButton)buttonType {
     if (buttonType == ReusableViewButtonClose) {
         [self dismissViewControllerAnimated:YES completion:^{

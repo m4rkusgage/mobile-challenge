@@ -239,6 +239,15 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
     }
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"showDescriptionInfo"]) {
+        MGDescriptionTableViewController *descriptionController = (MGDescriptionTableViewController *)[segue destinationViewController];
+        descriptionController.photo = self.photoArray[self.currentIndexPath.item];
+        descriptionController.controllerDelegate = self;
+    }
+}
+
+#pragma mark - MGReusableViewDelegate
 - (void)reusableView:(UICollectionReusableView *)reusableView buttonPressed:(ReusableViewButton)buttonType {
     switch (buttonType) {
         case ReusableViewButtonClose:{
@@ -255,14 +264,6 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
         }
         default:
             break;
-    }
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"showDescriptionInfo"]) {
-        MGDescriptionTableViewController *descriptionController = (MGDescriptionTableViewController *)[segue destinationViewController];
-        descriptionController.photo = self.photoArray[self.currentIndexPath.item];
-        descriptionController.controllerDelegate = self;
     }
 }
 
