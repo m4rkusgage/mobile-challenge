@@ -104,6 +104,7 @@
 		8CA74B4D1FC94A16004A16A4 /* MGModelProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGModelProtocol.h; sourceTree = "<group>"; };
 		8CD8FE6A1FC9DE6F006600F7 /* NSArray+MGUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+MGUtilities.h"; sourceTree = "<group>"; };
 		8CD8FE6B1FC9DE6F006600F7 /* NSArray+MGUtilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MGUtilities.m"; sourceTree = "<group>"; };
+		8CD8FE6E1FC9ECD3006600F7 /* MGCellDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGCellDelegate.h; sourceTree = "<group>"; };
 		C357CAE1D9DDEE871FBB1B66 /* Pods-500px-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-500px-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-500px-iOS/Pods-500px-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -187,8 +188,6 @@
 		8C02491B1FBE628100117674 /* Gallery Fullscreen */ = {
 			isa = PBXGroup;
 			children = (
-				8C02491C1FBE638800117674 /* MGGalleryFullscreenCollectionViewController.h */,
-				8C02491D1FBE638800117674 /* MGGalleryFullscreenCollectionViewController.m */,
 				8C0249211FBE63B400117674 /* MGGalleryFullscreenCollectionViewCell.h */,
 				8C0249221FBE63B400117674 /* MGGalleryFullscreenCollectionViewCell.m */,
 				8C0249231FBE63B400117674 /* MGGalleryFullscreenCollectionViewCell.xib */,
@@ -202,8 +201,6 @@
 				8C0249271FBE647900117674 /* MGGridCollectionViewCell.h */,
 				8C0249281FBE647900117674 /* MGGridCollectionViewCell.m */,
 				8C0249291FBE647900117674 /* MGGridCollectionViewCell.xib */,
-				8C02492C1FBE653700117674 /* MGGridCollectionViewController.h */,
-				8C02492D1FBE653700117674 /* MGGridCollectionViewController.m */,
 			);
 			path = "Gallery Grid";
 			sourceTree = "<group>";
@@ -211,6 +208,10 @@
 		8CA74B451FC9434B004A16A4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				8C02492C1FBE653700117674 /* MGGridCollectionViewController.h */,
+				8C02492D1FBE653700117674 /* MGGridCollectionViewController.m */,
+				8C02491C1FBE638800117674 /* MGGalleryFullscreenCollectionViewController.h */,
+				8C02491D1FBE638800117674 /* MGGalleryFullscreenCollectionViewController.m */,
 				8C4BEA4C1FC5E06100FBB8E9 /* MGDescriptionTableViewController.h */,
 				8C4BEA4D1FC5E06100FBB8E9 /* MGDescriptionTableViewController.m */,
 			);
@@ -269,6 +270,7 @@
 				8CA74B3F1FC90DAC004A16A4 /* MGViewControllerDelegate.h */,
 				8CA74B401FC90DE7004A16A4 /* MGLayoutDelegate.h */,
 				8CA74B4D1FC94A16004A16A4 /* MGModelProtocol.h */,
+				8CD8FE6E1FC9ECD3006600F7 /* MGCellDelegate.h */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";

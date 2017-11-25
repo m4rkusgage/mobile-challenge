@@ -15,22 +15,19 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
     
     [self.scrollView setDelegate:self];
     self.scrollView.minimumZoomScale = 1.0;
     self.scrollView.maximumZoomScale = 3.0;
     [self.scrollView setBouncesZoom:NO];
     
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cellWasTapped)];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cellWasSelected)];
     [tapGesture setNumberOfTapsRequired:1];
-    
     [self setGestureRecognizers:@[tapGesture]];
 }
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    
     self.photoImageView.image = nil;
 }
 
@@ -39,11 +36,8 @@
 }
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
-    if (scrollView.zoomScale > self.scrollView.minimumZoomScale) {
-        [self.cellDelegate fullscreenCell:self inUse:YES];
-    } else {
-        [self.cellDelegate fullscreenCell:self inUse:NO];
-    }
+    BOOL isInteractedWith = (scrollView.zoomScale > self.scrollView.minimumZoomScale) ? YES : NO;
+    [self.cellDelegate collectionViewCell:self isInteractedWith:isInteractedWith];
 }
 
 - (void)setImage:(UIImage *)image {
@@ -51,14 +45,14 @@
     [UIView animateWithDuration:0.5 animations:^{
         [self.photoImageView setAlpha:1];
     }];
-  //  self.scrollView.contentSize = self.photoImageView.frame.size;
 }
 
 - (void)reset {
     [self.photoImageView setAlpha:0];
 }
 
-- (void)cellWasTapped {
-    [self.cellDelegate fullscreenCellWasTapped:self];
+- (void)cellWasSelected {
+    [self setSelected:!self.selected];
+    [self.cellDelegate collectionViewCell:self isSelected:self.selected];
 }
 @end

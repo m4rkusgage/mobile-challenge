@@ -7,19 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@class MGGalleryFullscreenCollectionViewCell;
-
-@protocol MGGalleryFullscreenCollectionViewCellDelegate <NSObject>
-- (void)fullscreenCell:(MGGalleryFullscreenCollectionViewCell *)cell inUse:(BOOL)isActive;
-- (void)fullscreenCellWasTapped:(MGGalleryFullscreenCollectionViewCell *)cell;
-@end
+#import "MGCellDelegate.h"
 
 @interface MGGalleryFullscreenCollectionViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) id<MGGalleryFullscreenCollectionViewCellDelegate> cellDelegate;
+@property (weak, nonatomic) id<MGCellDelegate> cellDelegate;
 
 - (void)setImage:(UIImage *)image;
 - (void)reset;

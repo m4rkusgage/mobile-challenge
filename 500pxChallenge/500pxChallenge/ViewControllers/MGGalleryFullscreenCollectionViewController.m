@@ -7,20 +7,16 @@
 //
 
 #import "MGGalleryFullscreenCollectionViewController.h"
+#import "MGDescriptionTableViewController.h"
 #import "MGGalleryFullscreenCollectionViewCell.h"
 #import "MGHeaderCollectionReusableView.h"
 #import "MGFooterCollectionReusableView.h"
-#import "MGApiClient.h"
 #import "MGFullscreenLayout.h"
-#import "MGDescriptionTableViewController.h"
 #import "MGTransitionAnimator.h"
 #import "NSString+MGUtilities.h"
 
-@interface MGGalleryFullscreenCollectionViewController ()<MGGalleryFullscreenCollectionViewCellDelegate, MGReusableViewDelegate, MGLayoutDelegate, MGViewControllerDelegate>
-@property (assign, nonatomic) BOOL isFirstLoad;
+@interface MGGalleryFullscreenCollectionViewController ()<MGCellDelegate, MGReusableViewDelegate, MGLayoutDelegate, MGViewControllerDelegate>
 @property (assign, nonatomic) BOOL showingReusableViews;
-@property (assign, nonatomic) BOOL showingMoreInfo;
-@property (strong, nonatomic) NSIndexPath *currentIndexPath;
 @property (assign, nonatomic) NSInteger currentNumberOfItems;
 @end
 
@@ -30,63 +26,45 @@ static NSString * const reuseIdentifier = @"FullscreenCell";
 static NSString * const reuseHeaderIdentifier = @"HeaderCell";
 static NSString * const reuseFooterIdentifier = @"FooterCell";
 
-- (MGApiClient *)apiClient {
-    if (!_apiClient) {
-        _apiClient = [MGApiClient sharedInstance];
-    }
-    return _apiClient;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.showingReusableViews = YES;
-    
+   
     [self.collectionView setPagingEnabled:YES];
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"MGGalleryFullscreenCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
-    
     [self.collectionView registerNib:[UINib nibWithNibName:@"MGHeaderCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseHeaderIdentifier];
-    
     [self.collectionView registerNib:[UINib nibWithNibName:@"MGFooterCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:reuseFooterIdentifier];
     
+    self.showingReusableViews = YES;
     self.currentNumberOfItems = [self.photoArray count];
-    self.currentIndexPath = self.selectedIndexPath;
     
-    [self.collectionView scrollToItemAtIndexPath:self.selectedIndexPath atScrollPosition:UICollectionViewScrollPositionRight animated:NO];
-    [self updateFooterInfoWithPhoto:self.photoArray[self.selectedIndexPath.item]];
+    [self.collectionView scrollToItemAtIndexPath:self.currentIndexPath atScrollPosition:UICollectionViewScrollPositionRight animated:NO];
+    [self updateFooterInfoWithPhoto:self.photoArray[self.currentIndexPath.item]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self updateFooterInfoWithPhoto:self.photoArray[self.selectedIndexPath.item]];
+    [self updateFooterInfoWithPhoto:self.photoArray[self.currentIndexPath.item]];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
     if (![self.navigationController.viewControllers containsObject:self]) {
-        [self.controllerDelegate viewController:self didUpdateToIndexPath:self.currentIndexPath];
+        [self.controllerDelegate viewControllerDidClose:self];
     }
 }
 
-#pragma mark <UICollectionViewDataSource>
-
+#pragma mark - UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
-
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.currentNumberOfItems;
 }
 
-- (NSInteger)collectionViewNumberOfItems:(UICollectionView *)collectionView {
-    return [self.photoArray count];
-}
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
     MGPhoto *photo = self.photoArray[indexPath.item];
     
     MGGalleryFullscreenCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
@@ -104,30 +82,6 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.item == self.currentNumberOfItems - 2) {
-        dispatch_async(dispatch_get_global_queue(NSQualityOfServiceBackground, 0), ^{
-            self.currentNumberOfItems = [self.photoArray count];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.collectionView reloadData];
-            });
-        }); 
-    }
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [self loadImagesForOnScreenItems];
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    if (!decelerate) {
-        [self loadImagesForOnScreenItems];
-    }
-}
-
-#pragma mark <UICollectionViewDelegate>
-
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         MGHeaderCollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseHeaderIdentifier forIndexPath:indexPath];
@@ -138,35 +92,39 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
         [footer setReusableViewDelegate:self];
         return footer;
     }
-    
     return [UICollectionReusableView new];
 }
 
-- (void)fullscreenCell:(MGGalleryFullscreenCollectionViewCell *)cell inUse:(BOOL)isActive {
-    if (isActive) {
-        [self.collectionView setScrollEnabled:NO];
-    } else {
-        [self.collectionView setScrollEnabled:YES];
+#pragma mark - UICollectionViewDelegate
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.item == self.currentNumberOfItems - 2) {
+        dispatch_async(dispatch_get_global_queue(NSQualityOfServiceBackground, 0), ^{
+            self.currentNumberOfItems = [self.photoArray count];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.collectionView reloadData];
+            });
+        }); 
     }
 }
 
-- (void)fullscreenCellWasTapped:(MGGalleryFullscreenCollectionViewCell *)cell {
-    MGHeaderCollectionReusableView *header = (MGHeaderCollectionReusableView *)[self.collectionView  supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    MGFooterCollectionReusableView *footer = (MGFooterCollectionReusableView *)[self.collectionView  supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    
-    if (self.showingReusableViews) {
-        self.showingReusableViews = NO;
-        [UIView animateWithDuration:0.35 animations:^{
-            header.alpha = 0;
-            footer.alpha = 0;
-        }];
-    } else {
-        self.showingReusableViews = YES;
-        [UIView animateWithDuration:0.35 animations:^{
-            header.alpha = 1;
-            footer.alpha = 1;
-        }];
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self loadImagesForOnScreenItems];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (!decelerate) {
+        [self loadImagesForOnScreenItems];
     }
+}
+
+#pragma mark - MGCellDelegate
+- (void)collectionViewCell:(UICollectionViewCell *)cell isInteractedWith:(BOOL)interacted {
+    [self.collectionView setScrollEnabled:!interacted];
+}
+
+- (void)collectionViewCell:(UICollectionViewCell *)cell isSelected:(BOOL)selected {
+    [self displayReusableViews:selected];
 }
 
 #pragma mark - MGLayoutDelegate
@@ -185,6 +143,18 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView alphaForItemAtIndexPath:(NSIndexPath *)indexPath {
     return self.showingReusableViews;
+}
+
+#pragma mark - Helper Methods
+- (void)displayReusableViews:(BOOL)isDisplayed {
+    self.showingReusableViews = !isDisplayed;
+    MGHeaderCollectionReusableView *header = (MGHeaderCollectionReusableView *)[self.collectionView  supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    MGFooterCollectionReusableView *footer = (MGFooterCollectionReusableView *)[self.collectionView  supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        header.alpha = self.showingReusableViews;
+        footer.alpha = self.showingReusableViews;
+    }];
 }
 
 - (void)updateFooterInfoWithPhoto:(MGPhoto *)photo {
@@ -239,6 +209,7 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
     }
 }
 
+#pragma mark - Notifiers
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDescriptionInfo"]) {
         MGDescriptionTableViewController *descriptionController = (MGDescriptionTableViewController *)[segue destinationViewController];
@@ -256,9 +227,7 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
         }
             
         case ReusableViewButtonInfo:{
-            if (self.showingReusableViews) {
-                [self fullscreenCellWasTapped:nil];
-            }
+            [self displayReusableViews:self.showingReusableViews];
             [self performSegueWithIdentifier:@"showDescriptionInfo" sender:nil];
             break;
         }
@@ -269,7 +238,7 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
 
 #pragma mark - MGViewControllerDelegate
 - (void)viewControllerDidClose:(UIViewController *)viewController {
-     [self fullscreenCellWasTapped:nil];
+    [self displayReusableViews:self.showingReusableViews];
 }
 
 @end

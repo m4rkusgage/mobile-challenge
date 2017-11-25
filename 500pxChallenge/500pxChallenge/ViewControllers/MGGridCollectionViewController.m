@@ -137,9 +137,8 @@ static NSString * const reuseIdentifier = @"GridCell";
     if ([[segue identifier] isEqualToString:@"showFullscreen"]) {
         MGGalleryFullscreenCollectionViewController *fullscreenController = (MGGalleryFullscreenCollectionViewController *)[segue destinationViewController];
         
-        fullscreenController.selectedIndexPath = self.currentIndex;
+        fullscreenController.currentIndexPath = self.currentIndex;
         fullscreenController.photoArray = self.photoArray;
-        fullscreenController.pageNumer = self.pageNumer;
         [fullscreenController setControllerDelegate:self];
     }
 }
