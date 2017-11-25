@@ -14,6 +14,7 @@
 #import "MGFullscreenLayout.h"
 #import "MGDescriptionTableViewController.h"
 #import "MGTransitionAnimator.h"
+#import "NSString+MGUtilities.h"
 
 @interface MGGalleryFullscreenCollectionViewController ()<MGGalleryFullscreenCollectionViewCellDelegate, MGReusableViewDelegate, MGLayoutDelegate, MGViewControllerDelegate>
 @property (assign, nonatomic) BOOL isFirstLoad;
@@ -191,41 +192,11 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
     
     [footer.titleLabel setText:photo.photoTitle];
     [footer.authorNameLabel setText:photo.user.userFullName];
-    [footer.createdAtLabel setText:[self timeIntervalFrom:photo.createdAt]];
+    [footer.createdAtLabel setText:[NSString stringByTimeIntervalFromDateString:photo.createdAt]];
     
     [footer.likeCountLabel setText:photo.likedCount];
     [footer.viewedCountLabel setText:photo.viewedCount];
     [footer.commentCountLabel setText:photo.commentedCount];
-}
-
-- (NSString *)timeIntervalFrom:(NSString *)createdDate {
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-        [dateFormatter setLocale:usLocale];
-        [dateFormatter setDateStyle:NSDateFormatterLongStyle];
-        [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-        [dateFormatter setDateFormat: @"yyyy-MM-dd'T'HH:mm:ssZ"];
-        
-        NSDate *date = [dateFormatter dateFromString:createdDate];
-        NSDate *now = [NSDate date];
-        
-        NSTimeInterval seconds = [now timeIntervalSinceDate:date];
-        
-        if(seconds < 60) {
-            return [[NSString alloc] initWithFormat:@"%.0f seconds ago", seconds];
-        }
-        else if(seconds < 3600) {
-            return [[NSString alloc] initWithFormat:@"%.0f minutes ago", seconds/60];
-        }
-        else if(seconds < 3600 * 24) {
-            return [[NSString alloc] initWithFormat:@"%.0f hours ago", seconds/3600];
-        }
-        else if(seconds < 3600 * 24 * 365) {
-            return [[NSString alloc] initWithFormat:@"%.0f days ago", seconds/3600/24];
-        }
-        else {
-            return [[NSString alloc] initWithFormat:@"%.0f years ago", seconds/3600/24/365];
-        }
 }
 
 - (void)loadImageFor:(MGPhoto *)photo forCell:(MGGalleryFullscreenCollectionViewCell *)fullscreenCell atIndexPath:(NSIndexPath *)indexPath withCollectionView:(UICollectionView *)collectionView {

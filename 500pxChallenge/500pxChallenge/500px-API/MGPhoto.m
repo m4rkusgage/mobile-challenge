@@ -47,16 +47,4 @@
     return self;
 }
 
-- (NSString *)normalizeDateFormat:(NSString *)date {
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-    [dateFormatter setLocale:usLocale];
-    [dateFormatter setDateFormat: @"yyyy-MM-dd'T'HH:mm:ssZ"];
-    NSDate *dates = [dateFormatter dateFromString:date];
-    
-    [dateFormatter setDateFormat:@"MMM d, yyyy"];
-    NSString *newDate = [dateFormatter stringFromDate:dates];
-    return newDate;
-}
 @end

@@ -38,6 +38,7 @@
 		8C6DB4061FC37D2A00C2F731 /* MGFooterCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6DB4041FC37D2A00C2F731 /* MGFooterCollectionReusableView.m */; };
 		8C6DB4071FC37D2B00C2F731 /* MGFooterCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C6DB4051FC37D2A00C2F731 /* MGFooterCollectionReusableView.xib */; };
 		8CA74B3B1FC87426004A16A4 /* MGTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA74B3A1FC87426004A16A4 /* MGTransitionAnimator.m */; };
+		8CA74B431FC93B99004A16A4 /* NSString+MGUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA74B421FC93B99004A16A4 /* NSString+MGUtilities.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +99,8 @@
 		8CA74B3A1FC87426004A16A4 /* MGTransitionAnimator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGTransitionAnimator.m; sourceTree = "<group>"; };
 		8CA74B3F1FC90DAC004A16A4 /* MGViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGViewControllerDelegate.h; sourceTree = "<group>"; };
 		8CA74B401FC90DE7004A16A4 /* MGLayoutDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGLayoutDelegate.h; sourceTree = "<group>"; };
+		8CA74B411FC93B99004A16A4 /* NSString+MGUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+MGUtilities.h"; sourceTree = "<group>"; };
+		8CA74B421FC93B99004A16A4 /* NSString+MGUtilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+MGUtilities.m"; sourceTree = "<group>"; };
 		C357CAE1D9DDEE871FBB1B66 /* Pods-500px-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-500px-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-500px-iOS/Pods-500px-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -159,6 +162,8 @@
 				8CA74B3A1FC87426004A16A4 /* MGTransitionAnimator.m */,
 				8CA74B3F1FC90DAC004A16A4 /* MGViewControllerDelegate.h */,
 				8CA74B401FC90DE7004A16A4 /* MGLayoutDelegate.h */,
+				8CA74B411FC93B99004A16A4 /* NSString+MGUtilities.h */,
+				8CA74B421FC93B99004A16A4 /* NSString+MGUtilities.m */,
 			);
 			path = 500pxChallenge;
 			sourceTree = "<group>";
@@ -371,6 +376,7 @@
 				8C0249101FBE2EF500117674 /* MGApiClient.m in Sources */,
 				8C4BEA481FC5D99B00FBB8E9 /* MGUser.m in Sources */,
 				8C0248EA1FBE207100117674 /* ViewController.m in Sources */,
+				8CA74B431FC93B99004A16A4 /* NSString+MGUtilities.m in Sources */,
 				8CA74B3B1FC87426004A16A4 /* MGTransitionAnimator.m in Sources */,
 				8C4BEA621FC624D900FBB8E9 /* MGTitleTableViewCell.m in Sources */,
 				8C6DB3FD1FC0D3AD00C2F731 /* MGFullscreenLayout.m in Sources */,
