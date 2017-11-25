@@ -2,10 +2,10 @@
 
 This is a coding challenge for prospective mobile developer applicants applying through https://about.500px.com/jobs/ 
 
-## Portrait
+#### Screenshot (Portrait)
 ![portrait](https://user-images.githubusercontent.com/2266716/33234591-d90ff0be-d1f7-11e7-974f-d064fba783ca.png)
 
-## Landscape
+#### Screenshot (Landscape)
 ![landscape](https://user-images.githubusercontent.com/2266716/33234593-db852058-d1f7-11e7-8a9f-7fac3c1e9efe.png)
 
 
