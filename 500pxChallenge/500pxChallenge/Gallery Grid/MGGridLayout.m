@@ -39,7 +39,21 @@
 }
 
 - (CGFloat)getWidth {
-    return self.collectionView.bounds.size.width - (self.marginSize * 2);
+    return CGRectGetWidth(self.collectionView.bounds) - (self.marginSize * 2);
+}
+
+- (CGFloat)marginSize {
+    if (!_marginSize) {
+        _marginSize = 0;
+    }
+    return _marginSize;
+}
+
+- (CGFloat)preferredHeight {
+    if (!_preferredHeight) {
+        _preferredHeight = 50;
+    }
+    return _preferredHeight;
 }
 
 - (CGSize)collectionViewContentSize {
@@ -48,6 +62,7 @@
 
 - (void)prepareLayout {
     [super prepareLayout];
+    
     self.previousAttributeCache = [self.attributeCache mutableCopy];
     [self.attributeCache removeAllObjects];
     
