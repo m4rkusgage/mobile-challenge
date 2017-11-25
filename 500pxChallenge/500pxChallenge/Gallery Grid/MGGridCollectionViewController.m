@@ -12,8 +12,10 @@
 #import "MGApiClient.h"
 #import "MGGalleryFullscreenCollectionViewController.h"
 #import "MGLayoutDelegate.h"
+#import "MGViewControllerDelegate.h"
+#import "MGTransitionAnimator.h"
 
-@interface MGGridCollectionViewController ()<MGLayoutDelegate, UINavigationControllerDelegate, MGGalleryFullscreenCollectionViewControllerDelegate>
+@interface MGGridCollectionViewController ()<MGLayoutDelegate, UINavigationControllerDelegate, MGViewControllerDelegate>
 @property (assign, nonatomic) NSInteger pageNumer;
 @property (strong, nonatomic) NSMutableArray *photoArray;
 @property (strong, nonatomic) MGApiClient *apiClient;
@@ -57,25 +59,6 @@ static NSString * const reuseIdentifier = @"GridCell";
                                      [self.collectionView reloadData];
                                  }];
 }
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark <UICollectionViewDataSource>
 
@@ -125,34 +108,6 @@ static NSString * const reuseIdentifier = @"GridCell";
     self.currentSelectedIndex = indexPath;
     [self performSegueWithIdentifier:@"showFullscreen" sender:nil];
 }
-/*
-// Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
-}
-*/
-
-/*
-// Uncomment this method to specify if the specified item should be selected
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-*/
-
-/*
-// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
-}
-
-- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
-}
-*/
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     [self loadImagesForOnScreenItems];
@@ -222,20 +177,11 @@ static NSString * const reuseIdentifier = @"GridCell";
     }
 }
 
--(void)viewController:(MGGalleryFullscreenCollectionViewController *)viewController didUpdate:(NSMutableArray *)photoArray currentPage:(NSInteger)page onCurrentIndex:(NSIndexPath *)currentIndex {
-    self.photoArray = photoArray;
-    self.currentSelectedIndex = currentIndex;
-    self.pageNumer = page;
-    
-    CGRect rect = [self.collectionView layoutAttributesForItemAtIndexPath:self.currentSelectedIndex].frame;
-    [self.collectionView scrollRectToVisible:rect animated:NO];
-}
-
-- (void)viewController:(MGGalleryFullscreenCollectionViewController *)viewController updateCurrentIndex:(NSIndexPath *)currentIndex numberOfPages:(NSInteger)pages {
-    self.currentIndex = currentIndex;
-    [self.collectionView scrollToItemAtIndexPath:currentIndex atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
-    [self.collectionView reloadItemsAtIndexPaths:@[currentIndex]];
-    
+#pragma mark - MGViewControllerDelegate
+- (void)viewController:(UIViewController *)viewController didUpdateToIndexPath:(NSIndexPath *)indexPath {
+    self.currentIndex = indexPath;
+    [self.collectionView scrollToItemAtIndexPath:self.currentIndex atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+    [self.collectionView reloadItemsAtIndexPaths:@[self.currentIndex]];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {

@@ -10,15 +10,8 @@
 #import "MGApiClient.h"
 #import "MGViewControllerDelegate.h"
 
-@class MGGalleryFullscreenCollectionViewController;
-
-@protocol MGGalleryFullscreenCollectionViewControllerDelegate <NSObject>
-- (void)viewController:(MGGalleryFullscreenCollectionViewController *)viewController didUpdate:(NSMutableArray *)photoArray currentPage:(NSInteger)page onCurrentIndex:(NSIndexPath *)currentIndex;
-- (void)viewController:(MGGalleryFullscreenCollectionViewController *)viewController updateCurrentIndex:(NSIndexPath *)currentIndex numberOfPages:(NSInteger)pages;
-@end
-
 @interface MGGalleryFullscreenCollectionViewController : UICollectionViewController
-@property (weak, nonatomic) id<MGGalleryFullscreenCollectionViewControllerDelegate> controllerDelegate;
+@property (weak, nonatomic) id<MGViewControllerDelegate> controllerDelegate;
 @property (assign, nonatomic) NSInteger pageNumer;
 @property (strong, nonatomic) NSMutableArray *photoArray;
 @property (strong, nonatomic) NSIndexPath *selectedIndexPath;

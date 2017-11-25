@@ -9,8 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol MGViewControllerDelegate <NSObject>
-- (void)viewControllerDidClose:(UIViewController *)viewController;
-
 @optional
+- (void)viewControllerDidClose:(UIViewController *)viewController;
 - (void)viewController:(UIViewController *)viewController didUpdateToIndexPath:(NSIndexPath *)indexPath;
 @end
