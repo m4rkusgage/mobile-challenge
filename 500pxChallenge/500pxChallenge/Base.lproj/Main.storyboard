@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="k92-OY-bUm">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Grid Gallery-->
+        <scene sceneID="m4W-Cm-Odb">
+            <objects>
+                <collectionViewController id="fxn-v2-E8O" userLabel="Grid Gallery" customClass="MGGridCollectionViewController" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="atx-Kq-K71">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        <collectionViewLayout key="collectionViewLayout" id="sMw-N7-BvW" customClass="MGGridLayout">
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="marginSize">
+                                    <real key="value" value="3"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <outlet property="layoutDelegate" destination="fxn-v2-E8O" id="ody-wk-vBt"/>
+                            </connections>
+                        </collectionViewLayout>
+                        <cells/>
+                        <connections>
+                            <outlet property="dataSource" destination="fxn-v2-E8O" id="2Sp-gc-Hhl"/>
+                            <outlet property="delegate" destination="fxn-v2-E8O" id="eAE-mk-7D7"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="fvU-ZQ-ev7"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <segue destination="318-DY-spX" kind="show" identifier="showFullscreen" id="hBg-Xo-HkP"/>
+                    </connections>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tXU-Av-UJ0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1482" y="415"/>
+        </scene>
+        <!--Fullscreen Gallery-->
+        <scene sceneID="5Yk-Kx-jGb">
+            <objects>
+                <collectionViewController id="318-DY-spX" userLabel="Fullscreen Gallery" customClass="MGGalleryFullscreenCollectionViewController" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="W3c-uL-Irk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <collectionViewLayout key="collectionViewLayout" id="1Rz-MW-5mo" customClass="MGFullscreenLayout">
+                            <connections>
+                                <outlet property="layoutDelegate" destination="318-DY-spX" id="G3Z-xa-CZ5"/>
+                            </connections>
+                        </collectionViewLayout>
+                        <cells/>
+                        <connections>
+                            <outlet property="dataSource" destination="318-DY-spX" id="TKc-wu-B6a"/>
+                            <outlet property="delegate" destination="318-DY-spX" id="vu6-YW-jZ1"/>
+                        </connections>
+                    </collectionView>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <connections>
+                        <segue destination="agf-Dt-SeG" kind="presentation" identifier="showDescriptionInfo" modalPresentationStyle="overCurrentContext" id="ScD-Sm-yR1"/>
+                    </connections>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mjR-Lq-Gqg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2380" y="414"/>
+        </scene>
+        <!--Description Table View Controller-->
+        <scene sceneID="H7A-9o-O4j">
+            <objects>
+                <tableViewController id="agf-Dt-SeG" customClass="MGDescriptionTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="HYI-sb-HUu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.60322403169014094" colorSpace="calibratedRGB"/>
+                        <color key="separatorColor" red="0.81358816964285718" green="0.81358816964285718" blue="0.81358816964285718" alpha="0.74669894366197187" colorSpace="calibratedRGB"/>
+                        <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                        <connections>
+                            <outlet property="dataSource" destination="agf-Dt-SeG" id="9g3-nf-1GK"/>
+                            <outlet property="delegate" destination="agf-Dt-SeG" id="KTo-in-rig"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WcG-KA-80P" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3186.4000000000001" y="427.73613193403304"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="LLz-ix-R5K">
+            <objects>
+                <navigationController id="k92-OY-bUm" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bMZ-vQ-FGb">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="fxn-v2-E8O" kind="relationship" relationship="rootViewController" id="NhV-Rt-bHf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EuG-Le-0ib" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="497" y="414"/>
+        </scene>
+    </scenes>
+</document>
