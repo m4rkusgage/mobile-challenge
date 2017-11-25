@@ -146,6 +146,10 @@
 		8C0248E41FBE207100117674 /* 500pxChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				8CA74B4C1FC9484A004A16A4 /* Layouts */,
+				8CA74B4A1FC9452C004A16A4 /* Protocols */,
+				8CA74B461FC94370004A16A4 /* Views */,
+				8CA74B451FC9434B004A16A4 /* ViewControllers */,
 				8C0249261FBE643000117674 /* Gallery Grid */,
 				8C02491B1FBE628100117674 /* Gallery Fullscreen */,
 				8C02490A1FBE293600117674 /* 500px-API */,
@@ -160,8 +164,6 @@
 				8C0248F41FBE207200117674 /* main.m */,
 				8CA74B391FC87426004A16A4 /* MGTransitionAnimator.h */,
 				8CA74B3A1FC87426004A16A4 /* MGTransitionAnimator.m */,
-				8CA74B3F1FC90DAC004A16A4 /* MGViewControllerDelegate.h */,
-				8CA74B401FC90DE7004A16A4 /* MGLayoutDelegate.h */,
 				8CA74B411FC93B99004A16A4 /* NSString+MGUtilities.h */,
 				8CA74B421FC93B99004A16A4 /* NSString+MGUtilities.m */,
 			);
@@ -187,31 +189,11 @@
 		8C02491B1FBE628100117674 /* Gallery Fullscreen */ = {
 			isa = PBXGroup;
 			children = (
-				8C4BEA4C1FC5E06100FBB8E9 /* MGDescriptionTableViewController.h */,
-				8C4BEA4D1FC5E06100FBB8E9 /* MGDescriptionTableViewController.m */,
 				8C02491C1FBE638800117674 /* MGGalleryFullscreenCollectionViewController.h */,
 				8C02491D1FBE638800117674 /* MGGalleryFullscreenCollectionViewController.m */,
 				8C0249211FBE63B400117674 /* MGGalleryFullscreenCollectionViewCell.h */,
 				8C0249221FBE63B400117674 /* MGGalleryFullscreenCollectionViewCell.m */,
 				8C0249231FBE63B400117674 /* MGGalleryFullscreenCollectionViewCell.xib */,
-				8C6DB3FB1FC0D3AD00C2F731 /* MGFullscreenLayout.h */,
-				8C6DB3FC1FC0D3AD00C2F731 /* MGFullscreenLayout.m */,
-				8C6DB3FE1FC24A5500C2F731 /* MGHeaderCollectionReusableView.h */,
-				8C6DB3FF1FC24A5500C2F731 /* MGHeaderCollectionReusableView.m */,
-				8C6DB4001FC24A5500C2F731 /* MGHeaderCollectionReusableView.xib */,
-				8C6DB4031FC37D2A00C2F731 /* MGFooterCollectionReusableView.h */,
-				8C6DB4041FC37D2A00C2F731 /* MGFooterCollectionReusableView.m */,
-				8C6DB4051FC37D2A00C2F731 /* MGFooterCollectionReusableView.xib */,
-				8C6DB4081FC398E700C2F731 /* MGReusableViewDelegate.h */,
-				8C4BEA5F1FC624D900FBB8E9 /* MGTitleTableViewCell.h */,
-				8C4BEA601FC624D900FBB8E9 /* MGTitleTableViewCell.m */,
-				8C4BEA611FC624D900FBB8E9 /* MGTitleTableViewCell.xib */,
-				8C4BEA5A1FC61DA300FBB8E9 /* MGDescriptionTableViewCell.h */,
-				8C4BEA5B1FC61DA300FBB8E9 /* MGDescriptionTableViewCell.m */,
-				8C4BEA5C1FC61DA300FBB8E9 /* MGDescriptionTableViewCell.xib */,
-				8C4BEA641FC6404F00FBB8E9 /* MGCreatedAtTableViewCell.h */,
-				8C4BEA651FC6404F00FBB8E9 /* MGCreatedAtTableViewCell.m */,
-				8C4BEA661FC6404F00FBB8E9 /* MGCreatedAtTableViewCell.xib */,
 			);
 			path = "Gallery Fullscreen";
 			sourceTree = "<group>";
@@ -224,10 +206,92 @@
 				8C0249291FBE647900117674 /* MGGridCollectionViewCell.xib */,
 				8C02492C1FBE653700117674 /* MGGridCollectionViewController.h */,
 				8C02492D1FBE653700117674 /* MGGridCollectionViewController.m */,
+			);
+			path = "Gallery Grid";
+			sourceTree = "<group>";
+		};
+		8CA74B451FC9434B004A16A4 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				8C4BEA4C1FC5E06100FBB8E9 /* MGDescriptionTableViewController.h */,
+				8C4BEA4D1FC5E06100FBB8E9 /* MGDescriptionTableViewController.m */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		8CA74B461FC94370004A16A4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8CA74B491FC9448F004A16A4 /* Cells */,
+				8CA74B481FC94486004A16A4 /* Views */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8CA74B471FC9439B004A16A4 /* Nibs */ = {
+			isa = PBXGroup;
+			children = (
+				8C4BEA611FC624D900FBB8E9 /* MGTitleTableViewCell.xib */,
+				8C4BEA5C1FC61DA300FBB8E9 /* MGDescriptionTableViewCell.xib */,
+				8C4BEA661FC6404F00FBB8E9 /* MGCreatedAtTableViewCell.xib */,
+			);
+			path = Nibs;
+			sourceTree = "<group>";
+		};
+		8CA74B481FC94486004A16A4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8CA74B4B1FC9462E004A16A4 /* Nibs */,
+				8C6DB3FE1FC24A5500C2F731 /* MGHeaderCollectionReusableView.h */,
+				8C6DB3FF1FC24A5500C2F731 /* MGHeaderCollectionReusableView.m */,
+				8C6DB4031FC37D2A00C2F731 /* MGFooterCollectionReusableView.h */,
+				8C6DB4041FC37D2A00C2F731 /* MGFooterCollectionReusableView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8CA74B491FC9448F004A16A4 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				8CA74B471FC9439B004A16A4 /* Nibs */,
+				8C4BEA5F1FC624D900FBB8E9 /* MGTitleTableViewCell.h */,
+				8C4BEA601FC624D900FBB8E9 /* MGTitleTableViewCell.m */,
+				8C4BEA5A1FC61DA300FBB8E9 /* MGDescriptionTableViewCell.h */,
+				8C4BEA5B1FC61DA300FBB8E9 /* MGDescriptionTableViewCell.m */,
+				8C4BEA641FC6404F00FBB8E9 /* MGCreatedAtTableViewCell.h */,
+				8C4BEA651FC6404F00FBB8E9 /* MGCreatedAtTableViewCell.m */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		8CA74B4A1FC9452C004A16A4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				8C6DB4081FC398E700C2F731 /* MGReusableViewDelegate.h */,
+				8CA74B3F1FC90DAC004A16A4 /* MGViewControllerDelegate.h */,
+				8CA74B401FC90DE7004A16A4 /* MGLayoutDelegate.h */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		8CA74B4B1FC9462E004A16A4 /* Nibs */ = {
+			isa = PBXGroup;
+			children = (
+				8C6DB4001FC24A5500C2F731 /* MGHeaderCollectionReusableView.xib */,
+				8C6DB4051FC37D2A00C2F731 /* MGFooterCollectionReusableView.xib */,
+			);
+			path = Nibs;
+			sourceTree = "<group>";
+		};
+		8CA74B4C1FC9484A004A16A4 /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				8C6DB3FB1FC0D3AD00C2F731 /* MGFullscreenLayout.h */,
+				8C6DB3FC1FC0D3AD00C2F731 /* MGFullscreenLayout.m */,
 				8C0249311FBE6C1C00117674 /* MGGridLayout.h */,
 				8C0249321FBE6C1C00117674 /* MGGridLayout.m */,
 			);
-			path = "Gallery Grid";
+			path = Layouts;
 			sourceTree = "<group>";
 		};
 		92B99A99D973645100785BBA /* Frameworks */ = {

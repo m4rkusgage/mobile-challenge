@@ -10,5 +10,4 @@
 
 @interface MGDescriptionTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
-
 @end

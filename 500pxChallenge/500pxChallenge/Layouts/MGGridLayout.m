@@ -38,6 +38,7 @@
     self.attributeCache = [[NSMutableArray alloc] init];
 }
 
+#pragma mark - Getter Methods
 - (CGFloat)getWidth {
     return CGRectGetWidth(self.collectionView.bounds) - (self.marginSize * 2);
 }
@@ -56,6 +57,7 @@
     return _preferredHeight;
 }
 
+#pragma mark - UICollectionViewLayout Methods
 - (CGSize)collectionViewContentSize {
     return CGSizeMake(self.width, self.contentHeight);
 }
@@ -135,6 +137,15 @@
     return [self layoutAttributesForItemAtIndexPath:itemIndexPath];
 }
 
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
+    CGRect oldBounds = self.collectionView.bounds;
+    if (CGRectGetWidth(oldBounds) != CGRectGetWidth(newBounds)) {
+        return YES;
+    }
+    return NO;
+}
+
+#pragma mark - Helper Methods
 - (NSArray *)updateRowAttribues:(NSArray *)attributesArray {
     CGFloat rowWidth = [self getWidthOfRow:attributesArray];
     CGFloat ratio = rowWidth / self.width;
@@ -154,20 +165,12 @@
 
 - (CGFloat)getWidthOfRow:(NSArray *)rowOfAttributes {
     CGFloat widthTotal = (self.marginSize * ([rowOfAttributes count] - 1));
-    
     for (UICollectionViewLayoutAttributes *attributes in rowOfAttributes) {
         widthTotal += (attributes.frame.size.width);
     }
-    
     return widthTotal;
 }
 
-- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
-    CGRect oldBounds = self.collectionView.bounds;
-    if (CGRectGetWidth(oldBounds) != CGRectGetWidth(newBounds)) {
-        return YES;
-    }
-    return NO;
-}
+
 
 @end

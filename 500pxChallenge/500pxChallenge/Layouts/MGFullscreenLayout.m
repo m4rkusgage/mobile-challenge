@@ -44,6 +44,7 @@
     [self.supplementaryCache removeAllObjects];
 }
 
+#pragma mark - UICollectionViewLayout Methods
 - (CGSize)collectionViewContentSize {
     return CGSizeMake(self.contentWidth, CGRectGetHeight(self.collectionView.bounds));
 }
@@ -115,14 +116,14 @@
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewLayoutAttributes *attribute = self.supplementaryCache[indexPath.item];
-    return attribute;
+    return self.supplementaryCache[indexPath.item];
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
     return YES;
 }
 
+#pragma mark - Helper Methods
 - (void)updateHeaderAttributes:(UICollectionViewLayoutAttributes *)attribute atIndexPath:(NSIndexPath *)indexPath {
     CGSize headerSize = [self.layoutDelegate collectionView:self.collectionView sizeForSupplementaryElementKind:UICollectionElementKindSectionHeader AtIndexPath:indexPath];
     attribute.frame = CGRectMake(self.collectionView.contentOffset.x, 0, headerSize.width, headerSize.height);
@@ -136,4 +137,5 @@
     attribute.alpha = [self.layoutDelegate collectionView:self.collectionView alphaForItemAtIndexPath:indexPath];
     attribute.zIndex = 1;
 }
+
 @end

@@ -10,5 +10,4 @@
 
 @interface MGCreatedAtTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *uploadedOnLabel;
-
 @end
