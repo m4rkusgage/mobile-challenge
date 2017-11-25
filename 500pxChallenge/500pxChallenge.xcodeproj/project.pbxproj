@@ -39,6 +39,7 @@
 		8C6DB4071FC37D2B00C2F731 /* MGFooterCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C6DB4051FC37D2A00C2F731 /* MGFooterCollectionReusableView.xib */; };
 		8CA74B3B1FC87426004A16A4 /* MGTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA74B3A1FC87426004A16A4 /* MGTransitionAnimator.m */; };
 		8CA74B431FC93B99004A16A4 /* NSString+MGUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA74B421FC93B99004A16A4 /* NSString+MGUtilities.m */; };
+		8CD8FE6C1FC9DE6F006600F7 /* NSArray+MGUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD8FE6B1FC9DE6F006600F7 /* NSArray+MGUtilities.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,6 +102,8 @@
 		8CA74B411FC93B99004A16A4 /* NSString+MGUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+MGUtilities.h"; sourceTree = "<group>"; };
 		8CA74B421FC93B99004A16A4 /* NSString+MGUtilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+MGUtilities.m"; sourceTree = "<group>"; };
 		8CA74B4D1FC94A16004A16A4 /* MGModelProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGModelProtocol.h; sourceTree = "<group>"; };
+		8CD8FE6A1FC9DE6F006600F7 /* NSArray+MGUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+MGUtilities.h"; sourceTree = "<group>"; };
+		8CD8FE6B1FC9DE6F006600F7 /* NSArray+MGUtilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MGUtilities.m"; sourceTree = "<group>"; };
 		C357CAE1D9DDEE871FBB1B66 /* Pods-500px-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-500px-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-500px-iOS/Pods-500px-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -146,6 +149,7 @@
 		8C0248E41FBE207100117674 /* 500pxChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				8CD8FE6D1FC9DFD7006600F7 /* Categories */,
 				8CA74B4E1FC94A30004A16A4 /* Models */,
 				8CA74B4C1FC9484A004A16A4 /* Layouts */,
 				8CA74B4A1FC9452C004A16A4 /* Protocols */,
@@ -165,8 +169,6 @@
 				8C0248F41FBE207200117674 /* main.m */,
 				8CA74B391FC87426004A16A4 /* MGTransitionAnimator.h */,
 				8CA74B3A1FC87426004A16A4 /* MGTransitionAnimator.m */,
-				8CA74B411FC93B99004A16A4 /* NSString+MGUtilities.h */,
-				8CA74B421FC93B99004A16A4 /* NSString+MGUtilities.m */,
 			);
 			path = 500pxChallenge;
 			sourceTree = "<group>";
@@ -300,6 +302,17 @@
 				8C0249171FBE501000117674 /* MGPhoto.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		8CD8FE6D1FC9DFD7006600F7 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				8CA74B411FC93B99004A16A4 /* NSString+MGUtilities.h */,
+				8CA74B421FC93B99004A16A4 /* NSString+MGUtilities.m */,
+				8CD8FE6A1FC9DE6F006600F7 /* NSArray+MGUtilities.h */,
+				8CD8FE6B1FC9DE6F006600F7 /* NSArray+MGUtilities.m */,
+			);
+			path = Categories;
 			sourceTree = "<group>";
 		};
 		92B99A99D973645100785BBA /* Frameworks */ = {
@@ -457,6 +470,7 @@
 				8C0248F51FBE207200117674 /* main.m in Sources */,
 				8C4BEA5D1FC61DA300FBB8E9 /* MGDescriptionTableViewCell.m in Sources */,
 				8C02491F1FBE638800117674 /* MGGalleryFullscreenCollectionViewController.m in Sources */,
+				8CD8FE6C1FC9DE6F006600F7 /* NSArray+MGUtilities.m in Sources */,
 				8C0248E71FBE207100117674 /* AppDelegate.m in Sources */,
 				8C4BEA4E1FC5E06100FBB8E9 /* MGDescriptionTableViewController.m in Sources */,
 				8C0249331FBE6C1D00117674 /* MGGridLayout.m in Sources */,
