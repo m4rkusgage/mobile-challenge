@@ -19,7 +19,7 @@
     [self.scrollView setDelegate:self];
     self.scrollView.minimumZoomScale = 1.0;
     self.scrollView.maximumZoomScale = 3.0;
-    [self.scrollView setBouncesZoom:NO];
+    [self.scrollView setBouncesZoom:YES];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cellWasSelected)];
     [tapGesture setNumberOfTapsRequired:1];
@@ -42,7 +42,7 @@
 
 - (void)setImage:(UIImage *)image {
     self.photoImageView.image = image;
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.35 animations:^{
         [self.photoImageView setAlpha:1];
     }];
 }

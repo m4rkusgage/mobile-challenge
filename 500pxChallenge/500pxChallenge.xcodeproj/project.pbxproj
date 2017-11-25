@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8C0248E71FBE207100117674 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C0248E61FBE207100117674 /* AppDelegate.m */; };
-		8C0248EA1FBE207100117674 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C0248E91FBE207100117674 /* ViewController.m */; };
 		8C0248ED1FBE207200117674 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C0248EB1FBE207200117674 /* Main.storyboard */; };
 		8C0248EF1FBE207200117674 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C0248EE1FBE207200117674 /* Assets.xcassets */; };
 		8C0248F21FBE207200117674 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C0248F01FBE207200117674 /* LaunchScreen.storyboard */; };
@@ -48,8 +47,6 @@
 		8C0248E21FBE207100117674 /* 500px-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "500px-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C0248E51FBE207100117674 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8C0248E61FBE207100117674 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		8C0248E81FBE207100117674 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		8C0248E91FBE207100117674 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		8C0248EC1FBE207200117674 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8C0248EE1FBE207200117674 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8C0248F11FBE207200117674 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -156,20 +153,15 @@
 				8CA74B4A1FC9452C004A16A4 /* Protocols */,
 				8CA74B461FC94370004A16A4 /* Views */,
 				8CA74B451FC9434B004A16A4 /* ViewControllers */,
-				8C0249261FBE643000117674 /* Gallery Grid */,
-				8C02491B1FBE628100117674 /* Gallery Fullscreen */,
+				8CD8FE6F1FC9F707006600F7 /* Transitions */,
 				8C02490A1FBE293600117674 /* 500px-API */,
 				8C0248E51FBE207100117674 /* AppDelegate.h */,
 				8C0248E61FBE207100117674 /* AppDelegate.m */,
-				8C0248E81FBE207100117674 /* ViewController.h */,
-				8C0248E91FBE207100117674 /* ViewController.m */,
 				8C0248EB1FBE207200117674 /* Main.storyboard */,
 				8C0248EE1FBE207200117674 /* Assets.xcassets */,
 				8C0248F01FBE207200117674 /* LaunchScreen.storyboard */,
 				8C0248F31FBE207200117674 /* Info.plist */,
 				8C0248F41FBE207200117674 /* main.m */,
-				8CA74B391FC87426004A16A4 /* MGTransitionAnimator.h */,
-				8CA74B3A1FC87426004A16A4 /* MGTransitionAnimator.m */,
 			);
 			path = 500pxChallenge;
 			sourceTree = "<group>";
@@ -183,26 +175,6 @@
 				8C02490F1FBE2EF500117674 /* MGApiClient.m */,
 			);
 			path = "500px-API";
-			sourceTree = "<group>";
-		};
-		8C02491B1FBE628100117674 /* Gallery Fullscreen */ = {
-			isa = PBXGroup;
-			children = (
-				8C0249211FBE63B400117674 /* MGGalleryFullscreenCollectionViewCell.h */,
-				8C0249221FBE63B400117674 /* MGGalleryFullscreenCollectionViewCell.m */,
-				8C0249231FBE63B400117674 /* MGGalleryFullscreenCollectionViewCell.xib */,
-			);
-			path = "Gallery Fullscreen";
-			sourceTree = "<group>";
-		};
-		8C0249261FBE643000117674 /* Gallery Grid */ = {
-			isa = PBXGroup;
-			children = (
-				8C0249271FBE647900117674 /* MGGridCollectionViewCell.h */,
-				8C0249281FBE647900117674 /* MGGridCollectionViewCell.m */,
-				8C0249291FBE647900117674 /* MGGridCollectionViewCell.xib */,
-			);
-			path = "Gallery Grid";
 			sourceTree = "<group>";
 		};
 		8CA74B451FC9434B004A16A4 /* ViewControllers */ = {
@@ -230,9 +202,11 @@
 		8CA74B471FC9439B004A16A4 /* Nibs */ = {
 			isa = PBXGroup;
 			children = (
+				8C0249291FBE647900117674 /* MGGridCollectionViewCell.xib */,
 				8C4BEA611FC624D900FBB8E9 /* MGTitleTableViewCell.xib */,
 				8C4BEA5C1FC61DA300FBB8E9 /* MGDescriptionTableViewCell.xib */,
 				8C4BEA661FC6404F00FBB8E9 /* MGCreatedAtTableViewCell.xib */,
+				8C0249231FBE63B400117674 /* MGGalleryFullscreenCollectionViewCell.xib */,
 			);
 			path = Nibs;
 			sourceTree = "<group>";
@@ -259,6 +233,10 @@
 				8C4BEA5B1FC61DA300FBB8E9 /* MGDescriptionTableViewCell.m */,
 				8C4BEA641FC6404F00FBB8E9 /* MGCreatedAtTableViewCell.h */,
 				8C4BEA651FC6404F00FBB8E9 /* MGCreatedAtTableViewCell.m */,
+				8C0249271FBE647900117674 /* MGGridCollectionViewCell.h */,
+				8C0249281FBE647900117674 /* MGGridCollectionViewCell.m */,
+				8C0249211FBE63B400117674 /* MGGalleryFullscreenCollectionViewCell.h */,
+				8C0249221FBE63B400117674 /* MGGalleryFullscreenCollectionViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -315,6 +293,15 @@
 				8CD8FE6B1FC9DE6F006600F7 /* NSArray+MGUtilities.m */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		8CD8FE6F1FC9F707006600F7 /* Transitions */ = {
+			isa = PBXGroup;
+			children = (
+				8CA74B391FC87426004A16A4 /* MGTransitionAnimator.h */,
+				8CA74B3A1FC87426004A16A4 /* MGTransitionAnimator.m */,
+			);
+			path = Transitions;
 			sourceTree = "<group>";
 		};
 		92B99A99D973645100785BBA /* Frameworks */ = {
@@ -462,7 +449,6 @@
 				8C0249241FBE63B400117674 /* MGGalleryFullscreenCollectionViewCell.m in Sources */,
 				8C0249101FBE2EF500117674 /* MGApiClient.m in Sources */,
 				8C4BEA481FC5D99B00FBB8E9 /* MGUser.m in Sources */,
-				8C0248EA1FBE207100117674 /* ViewController.m in Sources */,
 				8CA74B431FC93B99004A16A4 /* NSString+MGUtilities.m in Sources */,
 				8CA74B3B1FC87426004A16A4 /* MGTransitionAnimator.m in Sources */,
 				8C4BEA621FC624D900FBB8E9 /* MGTitleTableViewCell.m in Sources */,
