@@ -7,13 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MGViewControllerDelegate.h"
 #import "MGPhoto.h"
 
-@protocol MGDescriptionViewControllerDelegate <NSObject>
-- (void)viewControllerDidClose:(UIViewController *)viewController;
-@end
-
 @interface MGDescriptionTableViewController : UITableViewController
-@property (weak, nonatomic) id<MGDescriptionViewControllerDelegate> controllerDelegate;
+@property (weak, nonatomic) id<MGViewControllerDelegate> controllerDelegate;
 @property (strong, nonatomic) MGPhoto *photo;
 @end

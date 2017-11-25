@@ -10,5 +10,7 @@
 
 @protocol MGViewControllerDelegate <NSObject>
 - (void)viewControllerDidClose:(UIViewController *)viewController;
+
+@optional
 - (void)viewController:(UIViewController *)viewController didUpdateToIndexPath:(NSIndexPath *)indexPath;
 @end

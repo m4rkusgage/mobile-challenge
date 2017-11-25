@@ -15,8 +15,7 @@
 #import "MGDescriptionTableViewController.h"
 #import "MGTransitionAnimator.h"
 
-
-@interface MGGalleryFullscreenCollectionViewController ()<MGGalleryFullscreenCollectionViewCellDelegate, MGReusableViewDelegate, MGLayoutDelegate, MGDescriptionViewControllerDelegate>
+@interface MGGalleryFullscreenCollectionViewController ()<MGGalleryFullscreenCollectionViewCellDelegate, MGReusableViewDelegate, MGLayoutDelegate, MGViewControllerDelegate>
 @property (assign, nonatomic) BOOL isFirstLoad;
 @property (assign, nonatomic) BOOL showingReusableViews;
 @property (assign, nonatomic) BOOL showingMoreInfo;
@@ -67,10 +66,6 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
     
     if (![self.navigationController.viewControllers containsObject:self]) {
         [self.controllerDelegate viewController:self updateCurrentIndex:self.currentIndexPath numberOfPages:self.pageNumer];
-       /* [self.controllerDelegate viewController:self
-                                      didUpdate:self.photoArray
-                                    currentPage:self.pageNumer
-                                 onCurrentIndex:self.currentIndexPath];*/
     }
 }
 
@@ -341,6 +336,7 @@ static NSString * const reuseFooterIdentifier = @"FooterCell";
     }
 }
 
+#pragma mark - MGViewControllerDelegate
 - (void)viewControllerDidClose:(UIViewController *)viewController {
      [self fullscreenCellWasTapped:nil];
 }

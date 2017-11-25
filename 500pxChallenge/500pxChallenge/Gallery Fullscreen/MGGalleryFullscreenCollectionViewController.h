@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MGApiClient.h"
+#import "MGViewControllerDelegate.h"
 
 @class MGGalleryFullscreenCollectionViewController;
 

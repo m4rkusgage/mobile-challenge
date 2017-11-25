@@ -30,19 +30,6 @@
    
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    
-    if (![self.navigationController.viewControllers containsObject:self]) {
-        [self.controllerDelegate viewControllerDidClose:self];
-    }
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -147,7 +134,9 @@
 
 - (void)reusableView:(UICollectionReusableView *)reusableView buttonPressed:(ReusableViewButton)buttonType {
     if (buttonType == ReusableViewButtonClose) {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self.controllerDelegate viewControllerDidClose:self];
+        }];
     }
 }
 
